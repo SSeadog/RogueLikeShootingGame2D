@@ -19,14 +19,6 @@ public abstract class GunBase : MonoBehaviour
         Init();
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Fire();
-        }
-    }
-
     public abstract void LoadBulletResource();
     public abstract void Fire();
     public abstract void Reload();
@@ -48,5 +40,6 @@ public abstract class GunBase : MonoBehaviour
         _maxAmmo = 600;
         _curAmmo = 120;
         _loadedBullet = 30;
+
     }
 }

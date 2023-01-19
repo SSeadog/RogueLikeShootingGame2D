@@ -1,0 +1,12 @@
+{
+  "weapons": [
+    {
+      "id": 0,
+      "name": "TestGun"
+    },
+    {
+      "id": 1,
+      "name": "ShotGun"
+    }
+  ]
+}

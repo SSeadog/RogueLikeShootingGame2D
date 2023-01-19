@@ -5,42 +5,48 @@
       "name": "Apple",
       "maxHp": 100,
       "power": 10,
-      "speed": 5
+      "speed": 5,
+      "weaponId": 0
     },
     {
       "id": 2,
       "name": "Banana",
       "maxHp": 200,
       "power": 5,
-      "speed": 3
+      "speed": 3,
+      "weaponId": 1
     },
     {
       "id": 3,
       "name": "Chocolate",
       "maxHp": 300,
       "power": 5,
-      "speed": 3
+      "speed": 3,
+      "weaponId": 0
     },
     {
       "id": 4,
       "name": "DarkChocolate",
       "maxHp": 400,
       "power": 5,
-      "speed": 3
+      "speed": 3,
+      "weaponId": 0
     },
     {
       "id": 5,
       "name": "EnergyBar",
       "maxHp": 500,
       "power": 5,
-      "speed": 3
+      "speed": 3,
+      "weaponId": 0
     },
     {
       "id": 6,
       "name": "Food",
       "maxHp": 600,
       "power": 5,
-      "speed": 3
+      "speed": 3,
+      "weaponId": 0
     }
   ]
 }

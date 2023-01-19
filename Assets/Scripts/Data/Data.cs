@@ -23,6 +23,14 @@ namespace Data
         public int maxHp;
         public int power;
         public int speed;
+        public int weaponId;
+    }
+
+    [Serializable]
+    public class Weapon
+    {
+        public int id;
+        public string name;
     }
 
     [Serializable]
@@ -61,21 +69,21 @@ namespace Data
         }
     }
 
-    //[Serializable]
-    //public class GStatData<T> where T : BaseStat
-    //{
-    //    public List<T> stats = new List<T>();
+    [Serializable]
+    public class WeaponData
+    {
+        public List<Weapon> weapons = new List<Weapon>();
 
-    //    public Dictionary<string, T> MakeDict()
-    //    {
-    //        Dictionary<string, T> statDict = new Dictionary<string, T>();
+        public Dictionary<string, Weapon> MakeDict()
+        {
+            Dictionary<string, Weapon> statDict = new Dictionary<string, Weapon>();
 
-    //        for (int i = 0; i < stats.Count; i++)
-    //        {
-    //            statDict[stats[i].name] = stats[i];
-    //        }
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                statDict[weapons[i].name] = weapons[i];
+            }
 
-    //        return statDict;
-    //    }
-    //}
+            return statDict;
+        }
+    }
 }

@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class UI_CharacterSelect : UI_Base
 {
@@ -19,15 +21,18 @@ public class UI_CharacterSelect : UI_Base
         GameObject UI_CharacterItemOriginal = Resources.Load<GameObject>("Prefabs/UI/SubItem/UI_CharacterItem");
         Transform gridPanel = Get<Transform>(GameObjects.GridPanel.ToString());
         
-        List<string> keys = new List<string>(Manager.Data.playerStatDict.Keys);
+        List<string> keys = new List<string>(Managers.Data.playerStatDict.Keys);
         Data.PlayerStat pStat;
 
         for (int i = 0; i < keys.Count; i++)
         {
-            pStat = Manager.Data.playerStatDict[keys[i]];
-            GameObject UI_CharacterItem = Instantiate(UI_CharacterItemOriginal);
-            UI_CharacterItem.transform.SetParent(gridPanel);
-            UI_CharacterItem.GetComponent<UI_CharacterItem>().SetInfo(pStat.name);
+            pStat = Managers.Data.playerStatDict[keys[i]];
+            GameObject itemInstance = Instantiate(UI_CharacterItemOriginal);
+            itemInstance.transform.SetParent(gridPanel);
+            
+            UI_CharacterItem uI_CharacterItem = itemInstance.GetComponent<UI_CharacterItem>();
+            uI_CharacterItem.SetInfo(pStat.name);
+            uI_CharacterItem.SetEvent((data) => { Debug.Log(data.name + " º±≈√"); Managers.Game.PlayerId = data.id; SceneManager.LoadScene("SampleScene"); });
         }
     }
 }

@@ -1,32 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float _speed;
+    PlayerStat _stat;
+
+    GameObject curWeapon;
 
     void Start()
     {
-        Stat playerStat = GetComponent<Stat>();
+        _stat = GetComponent<PlayerStat>();
 
-        _speed = playerStat.Speed;
-
+        GameObject ori = Resources.Load<GameObject>("Prefabs/Weapons/" + _stat.CurWeaponType.ToString());
+        curWeapon = Instantiate(ori, transform);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Debug.Log("Press Q And Call Manager.Instance");
-            Manager mg = Manager.Instance;
-        }
+        if (Input.GetMouseButtonDown(0))
+            curWeapon.GetComponent<GunBase>().Fire();
     }
 
     void FixedUpdate()
     {
         Move();
+        RotateGun();
     }
 
     void Move()
@@ -36,6 +37,13 @@ public class PlayerController : MonoBehaviour
 
         Vector2 moveVec = new Vector2(xAxis, yAxis).normalized;
 
-        transform.Translate(moveVec * Time.deltaTime * _speed);
+        transform.Translate(moveVec * Time.deltaTime * _stat.Speed);
+    }
+
+    void RotateGun()
+    {
+        Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float angle = Mathf.Atan2(mouse.y - curWeapon.transform.position.y, mouse.x - curWeapon.transform.position.x) * Mathf.Rad2Deg;
+        curWeapon.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
     }
 }

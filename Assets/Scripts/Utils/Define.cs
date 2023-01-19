@@ -10,8 +10,19 @@ public class Define
         monster
     }
 
+    public enum PlayerType
+    {
+        Apple = 1,
+        Banana,
+        Chocolate,
+        DarkChocolate,
+        EnergyBar,
+        Food
+    }
+
     public enum WeaponType
     {
-        TestGun
+        TestGun,
+        ShotGun
     }
 }

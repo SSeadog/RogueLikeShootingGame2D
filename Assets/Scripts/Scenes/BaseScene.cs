@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class BaseScene : MonoBehaviour
@@ -12,5 +13,16 @@ public abstract class BaseScene : MonoBehaviour
     void Start()
     {
         Init();
+        Managers.Scene.Init();
+    }
+
+    private void OnDestroy()
+    {
+        Clear();
+    }
+
+    protected virtual void Clear()
+    {
+        Managers.Clear();
     }
 }

@@ -20,6 +20,9 @@ public class TestScene : BaseScene
         enemy.name = enemyOriginal.name;
         camera.name = cameraOriginal.name;
 
+        player.GetComponent<Stat>().Init();
+        enemy.GetComponent<Stat>().Init();
+
         camera.GetComponent<CameraController>().Init(player);
     }
 }
