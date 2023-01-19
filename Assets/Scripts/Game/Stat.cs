@@ -15,8 +15,7 @@ public class Stat : MonoBehaviour
 
     void Start()
     {
-        Dictionary<string, Data.Stat> statDict = Loader.LoadJson<Data.StatData>("Data/StatData").MakeDict();
-        Data.Stat stat = statDict[type.ToString()];
+        Data.Stat stat = Manager.Data.statDict[type.ToString()];
 
         _hp = stat.maxHp;
         _speed = stat.speed;

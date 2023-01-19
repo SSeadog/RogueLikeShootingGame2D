@@ -7,7 +7,9 @@ public class Manager : MonoBehaviour
     public static Manager Instance { get { Init(); return _instance; } }
     private static Manager _instance;
 
-    private float _gameTime = 0f;
+    private DataManager _data = new DataManager();
+
+    public static DataManager Data { get { return Instance._data; } }
 
     private static void Init()
     {
@@ -31,20 +33,9 @@ public class Manager : MonoBehaviour
 
             _instance = mg;
             DontDestroyOnLoad(go);
+
+            // 매니저에 연결된 각종 매니저들 초기화
+            _instance._data.Init();
         }
-    }
-
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-        _gameTime += Time.deltaTime;
-    }
-
-    public float GetGameTime()
-    {
-        return _gameTime;
     }
 }

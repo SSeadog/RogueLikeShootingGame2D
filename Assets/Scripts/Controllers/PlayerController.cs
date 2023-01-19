@@ -12,11 +12,16 @@ public class PlayerController : MonoBehaviour
         Stat playerStat = GetComponent<Stat>();
 
         _speed = playerStat.Speed;
+
     }
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log("Press Q And Call Manager.Instance");
+            Manager mg = Manager.Instance;
+        }
     }
 
     void FixedUpdate()

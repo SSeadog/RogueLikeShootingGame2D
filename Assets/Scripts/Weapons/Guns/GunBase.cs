@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class GunBase : MonoBehaviour
 {
+    protected GameObject _bulletRoot;
     protected GameObject _bulletOrigin;
     protected Transform _firePos;
 
@@ -32,11 +33,17 @@ public abstract class GunBase : MonoBehaviour
 
     public virtual void Init()
     {
+        _bulletRoot = GameObject.Find("BulletControll");
+        if (_bulletRoot == null)
+        {
+            _bulletRoot = new GameObject("BulletControll");
+        }
+
         LoadBulletResource();
 
         _firePos = transform.Find("FirePos");
 
-        _firePower = 5f;
+        _firePower = 1f;
 
         _maxAmmo = 600;
         _curAmmo = 120;

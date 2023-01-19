@@ -18,11 +18,14 @@ public class TestGun : GunBase
 
     public override void Fire()
     {
-        Vector2 fireVec = Vector2.up;
+        // TODO
+        // BulletControll 게임오브젝트를 두고 매니저에 등록해두기?
 
-        Quaternion rotation = transform.rotation;
+        GameObject instanceBullet = Instantiate(_bulletOrigin, _firePos.position, transform.rotation, _bulletRoot.transform);
 
-        GameObject instanceBullet = Instantiate(_bulletOrigin, _firePos.position, rotation);
+        Vector2 mousePos = Input.mousePosition;
+        Vector3 worldMousePoint = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector2 fireVec = (worldMousePoint - _firePos.position).normalized;
 
         instanceBullet.GetComponent<Rigidbody2D>().AddForce(fireVec * _firePower);
     }

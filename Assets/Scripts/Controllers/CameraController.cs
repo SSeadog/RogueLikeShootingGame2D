@@ -12,6 +12,12 @@ public class CameraController : MonoBehaviour
     float screenMidY;
 
     float minVecMag = 50f;
+
+    public void Init(GameObject player)
+    {
+        _player = player;
+    }
+
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
@@ -27,6 +33,9 @@ public class CameraController : MonoBehaviour
 
     void MoveCamera()
     {
+        if (_player == null)
+            return;
+
         Vector3 playerPos = _player.transform.position;
         Vector2 mousePos = Input.mousePosition;
         mousePos.x -= screenMidX;
