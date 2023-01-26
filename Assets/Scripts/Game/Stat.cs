@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static Define;
 
 public class Stat : MonoBehaviour
 {
@@ -39,5 +38,10 @@ public class Stat : MonoBehaviour
 
             curWeaponType = (Define.WeaponType)playerStat.weaponId;
         }
+    }
+
+    public void GetDamaged(float damage)
+    {
+        _hp -= damage;
     }
 }

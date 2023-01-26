@@ -13,7 +13,8 @@ public class Define
         EnergyBar,
         Food,
         monster = 10001,
-        hyena
+        hyena,
+        bomb
     }
 
     public enum WeaponType

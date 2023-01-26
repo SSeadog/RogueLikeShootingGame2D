@@ -9,11 +9,11 @@ public class TestScene : BaseScene
         base.Init();
 
         GameObject playerOriginal = Resources.Load<GameObject>("Prefabs/Characters/TestPlayer");
-        GameObject enemyOriginal = Resources.Load<GameObject>("Prefabs/Characters/TestEnemy");
+        GameObject enemyOriginal = Resources.Load<GameObject>("Prefabs/Characters/TestBombEnemy");
         GameObject cameraOriginal = Resources.Load<GameObject>("Prefabs/Main Camera");
 
         GameObject player = Instantiate(playerOriginal);
-        GameObject enemy = Instantiate(enemyOriginal);
+        GameObject enemy = Instantiate(enemyOriginal, new Vector3(-10f, 0f, 0f), Quaternion.identity);
         GameObject camera = Instantiate(cameraOriginal);
 
         player.name = playerOriginal.name;

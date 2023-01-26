@@ -16,7 +16,7 @@ public class ShotGun : GunBase
     public override void LoadBulletResource()
     {
         // 각자 총에 맞는 총알을 여러개 둔다면. 총알 로드하도록 수정 필요
-        _bulletOrigin = Resources.Load<GameObject>("Prefabs/Weapons/TestBullet");
+        _bulletOrigin = Resources.Load<GameObject>("Prefabs/Weapons/TestPlayerBullet");
     }
 
     public override void Fire()

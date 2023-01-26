@@ -13,6 +13,13 @@
       "maxHp": 50,
       "power": 10,
       "speed": 5
+    },
+    {
+      "id": 10003,
+      "name": "bomb",
+      "maxHp": 50,
+      "power": 10,
+      "speed": 2
     }
   ]
 }
