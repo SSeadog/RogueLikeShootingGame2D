@@ -43,7 +43,18 @@ public class CameraController : MonoBehaviour
 
         Vector3 mousePos3;
         if (mousePos.magnitude > minVecMag)
+        {
             mousePos3 = mousePos.normalized;
+            if (mousePos3.x < -0.9f)
+                mousePos3.x = -0.9f;
+            if (mousePos3.x > 0.9f)
+                mousePos3.x = 0.9f;
+
+            if (mousePos3.y < -0.43f)
+                mousePos3.y = -0.43f;
+            if (mousePos3.y > 0.43f)
+                mousePos3.y = 0.43f;
+        }
         else
             mousePos3 = Vector3.zero;
 

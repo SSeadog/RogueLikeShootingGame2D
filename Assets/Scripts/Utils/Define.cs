@@ -6,18 +6,14 @@ public class Define
 {
     public enum ObjectType
     {
-        player,
-        monster
-    }
-
-    public enum PlayerType
-    {
         Apple = 1,
         Banana,
         Chocolate,
         DarkChocolate,
         EnergyBar,
-        Food
+        Food,
+        monster = 10001,
+        hyena
     }
 
     public enum WeaponType

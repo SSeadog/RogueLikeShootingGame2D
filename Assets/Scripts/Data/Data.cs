@@ -9,6 +9,7 @@ namespace Data
     [Serializable]
     public class Stat
     {
+        public int id;
         public string name;
         public int maxHp;
         public int power;

@@ -149,7 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b6eb657a3f3a24bbc4c6056af73159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 10002
   _hp: 50
   _speed: 3
   _power: 10
+  curWeaponType: 0

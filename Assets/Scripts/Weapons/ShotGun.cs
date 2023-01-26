@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ShotGun : GunBase
 {
-    int _bulletCount = 3;
+    int _bulletCount = 4;
     int _fireTime = 2;
-    float _gap = 5f;
+    float _gap = 10f;
 
     public override void Init()
     {
@@ -30,13 +30,14 @@ public class ShotGun : GunBase
         Vector3 worldMousePoint = Camera.main.ScreenToWorldPoint(mousePos);
         Vector2 dir = (worldMousePoint - _firePos.position).normalized;
 
-        float rotDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - (_gap * (_bulletCount / 2));
+        float initRotDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - _gap * ((float)(_bulletCount - 1) / 2);
 
         for (int j = 0; j < _fireTime; j++)
         {
             for (int i = 0; i < _bulletCount; i++)
             {
-                float tempRotDeg = rotDeg + _gap * i;
+                float tempRotDeg = initRotDeg + _gap * i;
+                
                 float rotRad = tempRotDeg * Mathf.Deg2Rad;
 
                 Vector3 fireVec = new Vector3(Mathf.Cos(rotRad), Mathf.Sin(rotRad), 0).normalized;

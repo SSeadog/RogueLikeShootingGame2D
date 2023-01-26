@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    float _speed = 3f;
+    Stat _stat;
     float _attackRange = 3f;
 
     GameObject _target;
@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         _target = GameObject.FindGameObjectWithTag("Player");
+        _stat = GetComponent<Stat>();
     }
 
     void Update()
@@ -30,6 +31,6 @@ public class EnemyController : MonoBehaviour
         if (moveVec.magnitude < _attackRange)
             return;
 
-        transform.Translate(moveVec.normalized * _speed * Time.deltaTime);
+        transform.Translate(moveVec.normalized * _stat.Speed * Time.deltaTime);
     }    
 }

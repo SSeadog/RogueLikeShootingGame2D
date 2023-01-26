@@ -19,17 +19,18 @@ public class Stat : MonoBehaviour
 
     public virtual void Init()
     {
-        Data.Stat stat = Managers.Data.statDict[type.ToString()];
 
-        if (type.ToString() == "monster")
+        if ((int)type > 10000)
         {
+            Data.Stat stat = Managers.Data.monsterStatDict[type.ToString()];
+
             _hp = stat.maxHp;
             _speed = stat.speed;
             _power = stat.power;
         }
         else
         {
-            Define.PlayerType playerType = (Define.PlayerType)Managers.Game.PlayerId;
+            Define.ObjectType playerType = (Define.ObjectType)Managers.Game.PlayerId;
             Data.PlayerStat playerStat = Managers.Data.playerStatDict[playerType.ToString()];
 
             _hp = playerStat.maxHp;
