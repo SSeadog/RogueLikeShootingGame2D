@@ -2,11 +2,19 @@
   "weapons": [
     {
       "id": 0,
-      "name": "TestGun"
+      "name": "TestGun",
+      "power": 1.1,
+      "maxAmmo": 100,
+      "fullLoadAmmo": 10,
+      "bulletResourcePath": "Prefabs/Weapons/TestPlayerBullet"
     },
     {
       "id": 1,
-      "name": "ShotGun"
+      "name": "ShotGun",
+      "power": 2,
+      "maxAmmo": 50,
+      "fullLoadAmmo": 5,
+      "bulletResourcePath": "Prefabs/Weapons/TestPlayerBullet"
     }
   ]
 }

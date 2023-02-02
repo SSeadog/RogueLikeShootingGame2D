@@ -30,13 +30,13 @@ public class Stat : MonoBehaviour
         else
         {
             Define.ObjectType playerType = (Define.ObjectType)Managers.Game.PlayerId;
-            Data.PlayerStat playerStat = Managers.Data.playerStatDict[playerType.ToString()];
+            Data.Stat stat = Managers.Data.playerStatDict[playerType.ToString()];
 
-            _hp = playerStat.maxHp;
-            _speed = playerStat.speed;
-            _power = playerStat.power;
+            _hp = stat.maxHp;
+            _speed = stat.speed;
+            _power = stat.power;
 
-            curWeaponType = (Define.WeaponType)playerStat.weaponId;
+            curWeaponType = (Define.WeaponType)stat.weaponId;
         }
     }
 

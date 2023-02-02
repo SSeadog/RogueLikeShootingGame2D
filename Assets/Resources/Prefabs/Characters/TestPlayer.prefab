@@ -101,14 +101,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 15
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!61 &230590886
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -147,7 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55bedf62231741c41b5eab7f4602e4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0
 --- !u!114 &6708142536429370330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,3 +163,4 @@ MonoBehaviour:
   _hp: 0
   _speed: 0
   _power: 0
+  curWeaponType: 0

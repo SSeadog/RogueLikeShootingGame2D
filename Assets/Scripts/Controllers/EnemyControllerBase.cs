@@ -12,11 +12,11 @@ public abstract class EnemyControllerBase : MonoBehaviour
 
     protected GameObject _target;
 
-    protected float _attackTimer = 0f;
+    float _attackTimer = 0f;
     protected bool _canAttack = true;
 
-    protected float _getAttackedTimer = 0f;
-    protected bool _canAction = true;
+    float _getAttackedTimer = 0f;
+    bool _canAction = true;
 
     protected GameObject _bulletRoot;
 
@@ -57,31 +57,8 @@ public abstract class EnemyControllerBase : MonoBehaviour
 
     void Update()
     {
-        if (_canAttack == false)
-        {
-            _attackTimer += Time.deltaTime;
-            if (_attackTimer > _attackSpeed)
-            {
-                _canAttack = true;
-                _attackTimer= 0f;
-            }
-        }
+        UpdateTimer();
 
-        if (_canAction == false)
-        {
-            _getAttackedTimer += Time.deltaTime;
-            if (_getAttackedTimer > _getAttackedTime)
-            {
-                _spriteRenderer.color = _baseColor;
-
-                _canAction = true;
-                _getAttackedTimer = 0f;
-            }
-        }
-    }
-
-    void FixedUpdate()
-    {
         if (_canAction == false)
             return;
 
@@ -113,13 +90,39 @@ public abstract class EnemyControllerBase : MonoBehaviour
                         break;
                     }
 
-                    if (_canAttack)
+                    if (_canAttack == true)
                         Attack();
                 }
                 break;
             case State.Die:
                 Debug.Log("Monster Die!!!!");
                 break;
+        }
+    }
+
+    void UpdateTimer()
+    {
+        if (_canAttack == false)
+        {
+            _attackTimer += Time.deltaTime;
+            if (_attackTimer > _attackSpeed)
+            {
+                _canAttack = true;
+                _attackTimer = 0f;
+                Debug.Log("Attack CoolTime Done");
+            }
+        }
+
+        if (_canAction == false)
+        {
+            _getAttackedTimer += Time.deltaTime;
+            if (_getAttackedTimer > _getAttackedTime)
+            {
+                _spriteRenderer.color = _baseColor;
+
+                _canAction = true;
+                _getAttackedTimer = 0f;
+            }
         }
     }
 

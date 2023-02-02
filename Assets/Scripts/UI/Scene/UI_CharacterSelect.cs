@@ -22,7 +22,7 @@ public class UI_CharacterSelect : UI_Base
         Transform gridPanel = Get<Transform>(GameObjects.GridPanel.ToString());
         
         List<string> keys = new List<string>(Managers.Data.playerStatDict.Keys);
-        Data.PlayerStat pStat;
+        Data.Stat pStat;
 
         for (int i = 0; i < keys.Count; i++)
         {

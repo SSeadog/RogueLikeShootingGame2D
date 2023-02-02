@@ -47,6 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f78a5ebce830c84c9e69f6f2334af9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponType: 1
+  _curAmmo: 0
+  _curloadAmmo: 0
 --- !u!1 &5155676684015882567
 GameObject:
   m_ObjectHideFlags: 0

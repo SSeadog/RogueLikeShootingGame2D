@@ -215,6 +215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 997c480edc4896b41b10bee7d6b24a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponType: 2
+  _curAmmo: 0
+  _curloadAmmo: 0
 --- !u!1 &8859069736539590523
 GameObject:
   m_ObjectHideFlags: 0

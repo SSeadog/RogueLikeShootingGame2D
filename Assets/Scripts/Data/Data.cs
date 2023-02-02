@@ -5,19 +5,8 @@ using UnityEngine;
 
 namespace Data
 {
-
     [Serializable]
     public class Stat
-    {
-        public int id;
-        public string name;
-        public int maxHp;
-        public int power;
-        public int speed;
-    }
-
-    [Serializable]
-    public class PlayerStat
     {
         public int id;
         public string name;
@@ -32,6 +21,10 @@ namespace Data
     {
         public int id;
         public string name;
+        public float power;
+        public int maxAmmo;
+        public int fullLoadAmmo;
+        public string bulletResourcePath;
     }
 
     [Serializable]
@@ -46,24 +39,6 @@ namespace Data
             for (int i = 0; i < stats.Count; i++)
             {
                 statDict[stats[i].name] = stats[i];
-            }
-
-            return statDict;
-        }
-    }
-
-    [Serializable]
-    public class PlayerStatData
-    {
-        public List<PlayerStat> playerStats = new List<PlayerStat>();
-
-        public Dictionary<string, PlayerStat> MakeDict()
-        {
-            Dictionary<string, PlayerStat> statDict = new Dictionary<string, PlayerStat>();
-
-            for (int i = 0; i < playerStats.Count; i++)
-            {
-                statDict[playerStats[i].name] = playerStats[i];
             }
 
             return statDict;

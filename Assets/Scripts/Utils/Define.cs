@@ -19,6 +19,7 @@ public class Define
 
     public enum WeaponType
     {
+        None,
         TestGun,
         ShotGun
     }

@@ -1,12 +1,12 @@
 {
-  "playerStats": [
+  "stats": [
     {
       "id": 1,
       "name": "Apple",
       "maxHp": 100,
       "power": 10,
       "speed": 7,
-      "weaponId": 0
+      "weaponId": 1
     },
     {
       "id": 2,
@@ -14,7 +14,7 @@
       "maxHp": 200,
       "power": 5,
       "speed": 3,
-      "weaponId": 1
+      "weaponId": 2
     },
     {
       "id": 3,
@@ -22,7 +22,7 @@
       "maxHp": 300,
       "power": 5,
       "speed": 3,
-      "weaponId": 0
+      "weaponId": 1
     },
     {
       "id": 4,
@@ -30,7 +30,7 @@
       "maxHp": 400,
       "power": 5,
       "speed": 3,
-      "weaponId": 0
+      "weaponId": 1
     },
     {
       "id": 5,
@@ -38,7 +38,7 @@
       "maxHp": 500,
       "power": 5,
       "speed": 3,
-      "weaponId": 0
+      "weaponId": 1
     },
     {
       "id": 6,
@@ -46,7 +46,7 @@
       "maxHp": 600,
       "power": 5,
       "speed": 3,
-      "weaponId": 0
+      "weaponId": 1
     }
   ]
 }

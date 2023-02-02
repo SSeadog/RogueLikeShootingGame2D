@@ -8,20 +8,44 @@ public class PlayerController : MonoBehaviour
 {
     PlayerStat _stat;
 
-    GameObject curWeapon;
+    GunBase curWeapon;
+
+    float reloadingTimer = 0f;
+    bool isReloading = false;
 
     void Start()
     {
         _stat = GetComponent<PlayerStat>();
 
         GameObject ori = Resources.Load<GameObject>("Prefabs/Weapons/" + _stat.CurWeaponType.ToString());
-        curWeapon = Instantiate(ori, transform);
+        GameObject instance = Instantiate(ori, transform);
+        curWeapon = instance.GetComponent<GunBase>();
     }
 
     void Update()
     {
+        if (isReloading)
+        {
+            reloadingTimer += Time.deltaTime;
+
+            //if (reloadingTimer > GunBase.)
+        }
+
         if (Input.GetMouseButtonDown(0))
-            curWeapon.GetComponent<GunBase>().Fire();
+        {
+            if (isReloading)
+                return;
+
+            if (curWeapon.GetCurLoadedAmmo() == 0)
+            {
+                curWeapon.Reload();
+                isReloading = true;
+            }
+            else
+            {
+                curWeapon.Fire();
+            }
+        }
     }
 
     void FixedUpdate()

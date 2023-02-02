@@ -4,15 +4,19 @@ using UnityEngine;
 
 public abstract class GunBase : MonoBehaviour
 {
+    public Define.WeaponType weaponType = Define.WeaponType.None;
+
     protected GameObject _bulletRoot;
     protected GameObject _bulletOrigin;
     protected Transform _firePos;
 
-    protected float _firePower;
-
+    protected float _power;
     protected int _maxAmmo;
-    protected int _curAmmo;
-    protected int _loadedBullet;
+    protected int _fullLoadAmmo;
+    float reloadingTime;
+
+    [SerializeField] protected int _curAmmo;
+    [SerializeField] protected int _curLoadAmmo;
 
     void Start()
     {
@@ -20,26 +24,61 @@ public abstract class GunBase : MonoBehaviour
     }
 
     public abstract void LoadBulletResource();
-    public abstract void Fire();
-    public abstract void Reload();
+    public abstract void GenerateBullets();
+    public void Fire()
+    {
+        if (_curLoadAmmo == 0)
+            return;
+
+        _curLoadAmmo--;
+        GenerateBullets();
+    }
+
+    public int GetCurLoadedAmmo()
+    {
+        return _curLoadAmmo;
+    }
+
+    public float GetReloadingTime()
+    {
+        return 0f;
+    }
+
+    public virtual void Reload()
+    {
+        if (_curLoadAmmo == _fullLoadAmmo)
+            return;
+
+        int maxReloadAmmoCount = _fullLoadAmmo - _curAmmo;
+        int reloadAmmoCount = Mathf.Max(_curAmmo, maxReloadAmmoCount);
+
+        _curAmmo -= reloadAmmoCount;
+        _curLoadAmmo += reloadAmmoCount;
+    }
 
     public virtual void Init()
     {
-        _bulletRoot = GameObject.Find("BulletControll");
+        Data.Weapon weaponInfo = Managers.Data.weaponDict[weaponType.ToString()];
+
+        _power = weaponInfo.power;
+        _maxAmmo = weaponInfo.maxAmmo;
+        _fullLoadAmmo = weaponInfo.fullLoadAmmo;
+        _curAmmo = _maxAmmo;
+        _curLoadAmmo = _fullLoadAmmo;
+
+        _bulletRoot = GetBulletRoot();
+        _firePos = transform.Find("FirePos");
+        LoadBulletResource();
+    }
+
+    GameObject GetBulletRoot()
+    {
+        GameObject _bulletRoot = GameObject.Find("BulletControll");
         if (_bulletRoot == null)
         {
             _bulletRoot = new GameObject("BulletControll");
         }
 
-        LoadBulletResource();
-
-        _firePos = transform.Find("FirePos");
-
-        _firePower = 1f;
-
-        _maxAmmo = 600;
-        _curAmmo = 120;
-        _loadedBullet = 30;
-
+        return _bulletRoot;
     }
 }
