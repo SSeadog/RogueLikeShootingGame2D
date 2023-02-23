@@ -41,7 +41,7 @@ public abstract class GunBase : MonoBehaviour
 
     public float GetReloadingTime()
     {
-        return 0f;
+        return 1f;
     }
 
     public virtual void Reload()
@@ -49,8 +49,8 @@ public abstract class GunBase : MonoBehaviour
         if (_curLoadAmmo == _fullLoadAmmo)
             return;
 
-        int maxReloadAmmoCount = _fullLoadAmmo - _curAmmo;
-        int reloadAmmoCount = Mathf.Max(_curAmmo, maxReloadAmmoCount);
+        int maxReloadAmmoCount = _fullLoadAmmo - _curLoadAmmo;
+        int reloadAmmoCount = Mathf.Min(_curAmmo, maxReloadAmmoCount);
 
         _curAmmo -= reloadAmmoCount;
         _curLoadAmmo += reloadAmmoCount;

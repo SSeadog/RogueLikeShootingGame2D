@@ -12,11 +12,11 @@ public abstract class EnemyControllerBase : MonoBehaviour
 
     protected GameObject _target;
 
-    float _attackTimer = 0f;
     protected bool _canAttack = true;
+    float _attackTimer = 0f;
 
-    float _getAttackedTimer = 0f;
     bool _canAction = true;
+    float _getAttackedTimer = 0f;
 
     protected GameObject _bulletRoot;
 
@@ -37,6 +37,9 @@ public abstract class EnemyControllerBase : MonoBehaviour
     {
         _target = GameObject.FindGameObjectWithTag("Player");
         _stat = GetComponent<Stat>();
+
+        _stat.onGetDamagedAction += OnDamaged;
+        _stat.onDeadAction += OnDead;
 
         _bulletRoot = GameObject.Find("BulletControll");
         if (_bulletRoot == null)
@@ -142,21 +145,19 @@ public abstract class EnemyControllerBase : MonoBehaviour
         if (collision.CompareTag("PlayerBullet"))
         {
             _stat.GetDamaged(10f);
-            if (_stat.Hp <= 0)
-            {
-                Die();
-            }
-            else
-            {
-                _spriteRenderer.color = Color.red;
-                _canAction = false;
-                _getAttackedTimer = 0f;
-            }
         }
     }
 
-    protected virtual void Die()
+    protected virtual void OnDamaged()
+    {
+        _spriteRenderer.color = Color.red;
+        _canAction = false;
+        _getAttackedTimer = 0f;
+    }
+
+    protected virtual void OnDead()
     {
         _currentState = State.Die;
+        Destroy(gameObject, 1f);
     }
 }

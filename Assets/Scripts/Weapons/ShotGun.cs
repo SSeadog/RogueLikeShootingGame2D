@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShotGun : GunBase
 {
-    int _bulletCount = 4;
+    int _bulletCount = 3;
     int _fireTime = 2;
     float _gap = 10f;
 
@@ -52,5 +52,6 @@ public class ShotGun : GunBase
 
     public override void Reload()
     {
+        base.Reload();
     }
 }

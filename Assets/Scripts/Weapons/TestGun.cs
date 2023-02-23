@@ -30,6 +30,6 @@ public class TestGun : GunBase
 
     public override void Reload()
     {
-
+        base.Reload();
     }
 }

@@ -9,20 +9,34 @@ public class TestScene : BaseScene
         base.Init();
 
         GameObject playerOriginal = Resources.Load<GameObject>("Prefabs/Characters/TestPlayer");
-        GameObject enemyOriginal = Resources.Load<GameObject>("Prefabs/Characters/TestBombEnemy");
+        GameObject enemyOriginal1 = Resources.Load<GameObject>("Prefabs/Characters/TestBombEnemy");
+        GameObject enemyOriginal2 = Resources.Load<GameObject>("Prefabs/Characters/TestEnemy");
         GameObject cameraOriginal = Resources.Load<GameObject>("Prefabs/Main Camera");
 
         GameObject player = Instantiate(playerOriginal);
-        GameObject enemy = Instantiate(enemyOriginal, new Vector3(-10f, 0f, 0f), Quaternion.identity);
-        GameObject camera = Instantiate(cameraOriginal);
-
         player.name = playerOriginal.name;
-        enemy.name = enemyOriginal.name;
-        camera.name = cameraOriginal.name;
-
         player.GetComponent<Stat>().Init();
-        enemy.GetComponent<Stat>().Init();
 
+        GameObject camera = Instantiate(cameraOriginal);
+        camera.name = cameraOriginal.name;
         camera.GetComponent<CameraController>().Init(player);
+
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    Vector3 spawnPos = new Vector3(Random.Range(-1f, 1f) * 10f, Random.Range(-1f, 1f) * 10f, 0f);
+
+        //    GameObject enemy = Instantiate(enemyOriginal1, spawnPos, Quaternion.identity);
+        //    enemy.name = enemyOriginal1.name;
+        //    enemy.GetComponent<Stat>().Init();
+        //}
+
+        for (int i = 0; i < 5; i++)
+        {
+            Vector3 spawnPos = new Vector3(Random.Range(-1f, 1f) * 10f, Random.Range(-1f, 1f) * 10f, 0f);
+
+            GameObject enemy = Instantiate(enemyOriginal2, spawnPos, Quaternion.identity);
+            enemy.name = enemyOriginal2.name;
+            enemy.GetComponent<Stat>().Init();
+        }
     }
 }
