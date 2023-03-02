@@ -18,18 +18,18 @@ public class PlayerController : MonoBehaviour
     bool _canAttacked = true;
     float _getAttackedTimer = 0f;
 
-    float _tumbleTime = 0.3f;
+    float _tumbleTime = 0.5f;
     bool _isTumbling = false;
     float _tumbleTimer = 0f;
     Vector3 _tumbleVec = Vector3.zero;
 
+    BoxCollider2D _collider;
     SpriteRenderer _spriteRenderer;
     Color _baseColor;
 
     void Start()
     {
         _stat = GetComponent<PlayerStat>();
-
         _stat.onGetDamagedAction += OnAttacekd;
         _stat.onDeadAction += OnDead;
 
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
         GameObject instance = Instantiate(ori, transform);
         curWeapon = instance.GetComponent<GunBase>();
 
+        _collider = GetComponent<BoxCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _baseColor = _spriteRenderer.color;
     }
@@ -60,10 +61,16 @@ public class PlayerController : MonoBehaviour
             _tumbleTimer += Time.deltaTime;
             if (_tumbleTimer > _tumbleTime)
             {
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Bullet"), false);
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
+
                 _isTumbling = false;
                 _tumbleTimer = 0f;
             }
         }
+
+        if (_isTumbling)
+            return;
 
         Tumble();
         Fire();
@@ -72,6 +79,9 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (_isTumbling)
+            return;
+
         Move();
         RotateGun();
     }
@@ -83,7 +93,15 @@ public class PlayerController : MonoBehaviour
             float xAxis = Input.GetAxisRaw("Horizontal");
             float yAxis = Input.GetAxisRaw("Vertical");
 
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Bullet"), true);
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
+
             _tumbleVec = new Vector2(xAxis, yAxis).normalized;
+
+            Rigidbody2D _r = GetComponent<Rigidbody2D>();
+            _r.AddForce(_tumbleVec * 2000f);
+            _isTumbling = true;
+            Debug.Log("tuble!");
         }
     }
 
@@ -124,6 +142,9 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
+        if (_isTumbling)
+            return;
+
         float xAxis = Input.GetAxisRaw("Horizontal");
         float yAxis = Input.GetAxisRaw("Vertical");
 

@@ -13,16 +13,10 @@ public abstract class BaseScene : MonoBehaviour
     void Start()
     {
         Init();
-        Managers.Scene.Init();
-    }
-
-    private void OnDestroy()
-    {
-        Clear();
     }
 
     protected virtual void Clear()
     {
-        Managers.Clear();
+
     }
 }

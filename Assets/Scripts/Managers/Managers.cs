@@ -47,7 +47,7 @@ public class Managers : MonoBehaviour
 
     public static void Clear()
     {
-        _instance._scene.Clear();
         _instance._game.Clear();
+        _instance._scene.Clear();
     }
 }

@@ -10,8 +10,8 @@ public class DataManager
 
     public void Init()
     {
-        monsterStatDict = Loader.LoadJson<Data.StatData>("Data/MonsterStatData").MakeDict();
-        playerStatDict = Loader.LoadJson<Data.StatData>("Data/PlayerStatData").MakeDict();
-        weaponDict = Loader.LoadJson<Data.WeaponData>("Data/WeaponData").MakeDict();
+        monsterStatDict = Util.LoadJson<Data.StatData>("Data/MonsterStatData").MakeDict();
+        playerStatDict = Util.LoadJson<Data.StatData>("Data/PlayerStatData").MakeDict();
+        weaponDict = Util.LoadJson<Data.WeaponData>("Data/WeaponData").MakeDict();
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Loader
+public static class Util
 {
     public static T LoadJson<T>(string path)
     {

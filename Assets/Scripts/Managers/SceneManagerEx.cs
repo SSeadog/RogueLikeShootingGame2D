@@ -10,6 +10,8 @@ public class SceneManagerEx
 
     public void Init()
     {
+        Managers.Clear();
+
         _scene = GameObject.Find("@Scene");
         if (_scene == null)
         {
