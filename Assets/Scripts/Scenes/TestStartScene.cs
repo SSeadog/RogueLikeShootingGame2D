@@ -33,4 +33,9 @@ public class TestStartScene : BaseScene
 
         return instance;
     }
+
+    public override void Clear()
+    {
+        Debug.Log("TestStartScene Clear()");
+    }
 }

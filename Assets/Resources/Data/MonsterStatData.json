@@ -2,7 +2,7 @@
   "stats": [
     {
       "id": 10001,
-      "name": "monster",
+      "name": "Monster",
       "maxHp": 100,
       "power": 5,
       "speed": 3,
@@ -10,7 +10,7 @@
     },
     {
       "id": 10002,
-      "name": "hyena",
+      "name": "Hyena",
       "maxHp": 50,
       "power": 10,
       "speed": 5,
@@ -18,10 +18,26 @@
     },
     {
       "id": 10003,
-      "name": "bomb",
+      "name": "Bomb",
       "maxHp": 50,
       "power": 10,
       "speed": 2,
+      "weaponId": 0
+    },
+    {
+      "id": 10004,
+      "name": "BossEnemy",
+      "maxHp": 300,
+      "power": 10,
+      "speed": 3,
+      "weaponId": 0
+    },
+    {
+      "id": 10005,
+      "name": "TestEnemy",
+      "maxHp": 100,
+      "power": 5,
+      "speed": 3,
       "weaponId": 0
     }
   ]

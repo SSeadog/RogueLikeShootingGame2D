@@ -24,7 +24,7 @@ public class Stat : MonoBehaviour
     public virtual void Init()
     {
 
-        if ((int)type > (int)Define.ObjectType.monster)
+        if ((int)type > (int)Define.ObjectType.Monster)
         {
             Data.Stat statData = Managers.Data.monsterStatDict[type.ToString()];
 

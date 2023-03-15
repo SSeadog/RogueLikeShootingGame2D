@@ -10,7 +10,7 @@ public abstract class EnemyControllerBase : MonoBehaviour
 
     protected float _getAttackedTime = 0.2f; // °íÁ¤°ª
 
-    protected GameObject _target;
+    [SerializeField] protected GameObject _target;
 
     protected bool _canAttack = true;
     float _attackTimer = 0f;
@@ -37,6 +37,7 @@ public abstract class EnemyControllerBase : MonoBehaviour
     {
         _target = GameObject.FindGameObjectWithTag("Player");
         _stat = GetComponent<Stat>();
+        _stat.Init();
 
         _stat.onGetDamagedAction += OnDamaged;
         _stat.onDeadAction += OnDead;
@@ -60,6 +61,10 @@ public abstract class EnemyControllerBase : MonoBehaviour
 
     void Update()
     {
+        // TestCode
+        if (_target == null)
+            _target = GameObject.FindGameObjectWithTag("Player");
+
         UpdateTimer();
 
         if (_canAction == false)

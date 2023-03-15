@@ -8,6 +8,10 @@ public class TestScene : BaseScene
     {
         base.Init();
 
+        // TestCode
+        if (Managers.Game.PlayerId == 0)
+            Managers.Game.PlayerId = 1;
+
         GameObject playerOriginal = Resources.Load<GameObject>("Prefabs/Characters/TestPlayer");
         GameObject enemyOriginal1 = Resources.Load<GameObject>("Prefabs/Characters/TestBombEnemy");
         GameObject enemyOriginal2 = Resources.Load<GameObject>("Prefabs/Characters/TestEnemy");
@@ -15,7 +19,6 @@ public class TestScene : BaseScene
 
         GameObject player = Instantiate(playerOriginal);
         player.name = playerOriginal.name;
-        player.GetComponent<Stat>().Init();
 
         GameObject camera = Instantiate(cameraOriginal);
         camera.name = cameraOriginal.name;
@@ -30,13 +33,17 @@ public class TestScene : BaseScene
         //    enemy.GetComponent<Stat>().Init();
         //}
 
-        for (int i = 0; i < 5; i++)
-        {
-            Vector3 spawnPos = new Vector3(Random.Range(-1f, 1f) * 10f, Random.Range(-1f, 1f) * 10f, 0f);
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    Vector3 spawnPos = new Vector3(Random.Range(-1f, 1f) * 10f, Random.Range(-1f, 1f) * 10f, 0f);
 
-            GameObject enemy = Instantiate(enemyOriginal2, spawnPos, Quaternion.identity);
-            enemy.name = enemyOriginal2.name;
-            enemy.GetComponent<Stat>().Init();
-        }
+        //    GameObject enemy = Instantiate(enemyOriginal2, spawnPos, Quaternion.identity);
+        //    enemy.name = enemyOriginal2.name;
+        //}
+    }
+
+    public override void Clear()
+    {
+        Debug.Log("TestScene Clear()");
     }
 }

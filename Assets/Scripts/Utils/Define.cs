@@ -12,9 +12,11 @@ public class Define
         DarkChocolate,
         EnergyBar,
         Food,
-        monster = 10001,
-        hyena,
-        bomb
+        Monster = 10001,
+        Hyena,
+        Bomb,
+        BossEnemy,
+        TestEnemy,
     }
 
     public enum WeaponType
@@ -23,4 +25,11 @@ public class Define
         TestGun,
         ShotGun
     }
+
+    public class SpawnInfo
+    {
+        public Define.ObjectType type;
+        public Vector3 spawnPoint;
+    }
+
 }
