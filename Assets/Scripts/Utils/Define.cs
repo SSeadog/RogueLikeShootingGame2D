@@ -26,6 +26,14 @@ public class Define
         ShotGun
     }
 
+    public enum ItemType
+    {
+        None,
+        Food,
+        Ammo,
+        Key
+    }
+
     public class SpawnInfo
     {
         public Define.ObjectType type;

@@ -22,7 +22,7 @@ public class MainScene : BaseScene
         camera.name = cameraOriginal.name;
         camera.GetComponent<CameraController>().Init(player);
 
-        // Room Setting
+        // Room Setting. 파일 로드로 변경 예정
         Room roomA = new Room(0);
         Managers.Game.rooms.Add(roomA);
 

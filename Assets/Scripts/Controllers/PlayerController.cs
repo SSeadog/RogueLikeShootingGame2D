@@ -209,7 +209,20 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float angle = Mathf.Atan2(mouse.y - _curWeapon.transform.position.y, mouse.x - _curWeapon.transform.position.x) * Mathf.Rad2Deg;
-        _curWeapon.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+        // z가 90보다 크고 270보다 작을 때만 플립
+        angle = angle < 0 ? angle + 360 : angle;
+        Debug.Log(angle);
+        if (angle > 90 && angle < 270)
+        {
+            SpriteRenderer gunRenderer = _curWeapon.transform.GetComponentInChildren<SpriteRenderer>();
+            gunRenderer.flipY = true;
+        }
+        else
+        {
+            SpriteRenderer gunRenderer = _curWeapon.transform.GetComponentInChildren<SpriteRenderer>();
+            gunRenderer.flipY = false;
+        }
+        _curWeapon.transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

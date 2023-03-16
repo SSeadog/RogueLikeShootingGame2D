@@ -103,7 +103,7 @@ public abstract class EnemyControllerBase : MonoBehaviour
                 }
                 break;
             case State.Die:
-                Debug.Log("Monster Die!!!!");
+                //Debug.Log("Monster Die!!!!");
                 break;
         }
     }
