@@ -1,46 +1,32 @@
+using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public abstract class EnemyControllerBase : MonoBehaviour
 {
-    protected Stat _stat;
-    protected float _attackRange = 5f; // stat으로 밀어 넣어야하는 데이터
-    protected float _attackSpeed = 1f; // stat으로 밀어 넣어야하는 데이터
+    public Stat stat;
+    public float attackRange = 5f; // stat으로 밀어 넣어야하는 데이터
+    public float attackSpeed = 1f; // stat으로 밀어 넣어야하는 데이터
+    public float getAttackedTime = 0.2f; // 고정값
+    public GameObject target;
 
-    protected float _getAttackedTime = 0.2f; // 고정값
+    public SpriteRenderer _spriteRenderer;
+    public Color _baseColor;
 
-    [SerializeField] protected GameObject _target;
-
-    protected bool _canAttack = true;
-    float _attackTimer = 0f;
-
-    bool _canAction = true;
-    float _getAttackedTimer = 0f;
-
+    protected EnemyState _state;
     protected GameObject _bulletRoot;
-
-    SpriteRenderer _spriteRenderer;
-    Color _baseColor;
-
-    protected enum State
-    {
-        Idle,
-        Walk,
-        Attack,
-        Die
-    }
-
-    protected State _currentState;
 
     public virtual void Init()
     {
-        _target = GameObject.FindGameObjectWithTag("Player");
-        _stat = GetComponent<Stat>();
-        _stat.Init();
+        target = GameObject.FindGameObjectWithTag("Player");
+        stat = GetComponent<Stat>();
+        stat.Init();
 
-        _stat.onGetDamagedAction += OnDamaged;
-        _stat.onDeadAction += OnDead;
+        stat.onGetDamagedAction += OnDamaged;
+        stat.onDeadAction += OnDead;
 
         _bulletRoot = GameObject.Find("BulletControll");
         if (_bulletRoot == null)
@@ -51,7 +37,7 @@ public abstract class EnemyControllerBase : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _baseColor = _spriteRenderer.color;
 
-        _currentState = State.Idle;
+        SetState(new MoveState(this));
     }
 
     void Start()
@@ -59,110 +45,183 @@ public abstract class EnemyControllerBase : MonoBehaviour
         Init();
     }
 
+    public void SetState(EnemyState state)
+    {
+        if (_state != null)
+            _state.OnEnd();
+
+        _state = state;
+        _state.OnStart();
+    }
+
     void Update()
     {
         // TestCode
-        if (_target == null)
-            _target = GameObject.FindGameObjectWithTag("Player");
+        if (target == null)
+            target = GameObject.FindGameObjectWithTag("Player");
 
-        UpdateTimer();
+        _state.Action();
+    }
 
-        if (_canAction == false)
-            return;
+    public abstract void Attack();
 
-        switch (_currentState)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerBullet"))
         {
-            case State.Idle:
-                {
-                    _currentState = State.Walk;
-                }
-                break;
-            case State.Walk:
-                {
-                    float distance = (_target.transform.position - transform.position).magnitude;
-                    if (distance < _attackRange)
-                    {
-                        _currentState = State.Attack;
-                        break;
-                    }
-
-                    Move();
-                }
-                break;
-            case State.Attack:
-                {
-                    float distance = (_target.transform.position - transform.position).magnitude;
-                    if (distance > _attackRange)
-                    {
-                        _currentState = State.Walk;
-                        break;
-                    }
-
-                    if (_canAttack == true)
-                        Attack();
-                }
-                break;
-            case State.Die:
-                //Debug.Log("Monster Die!!!!");
-                break;
+            stat.GetDamaged(10f);
         }
     }
 
-    void UpdateTimer()
+    protected virtual void OnDamaged()
     {
+        AttackedState state = new AttackedState(this);
+        state.SetBeforeState(_state);
+        SetState(state);
+        
+    }
+
+    protected virtual void OnDead()
+    {
+        SetState(new DieState(this));
+        Destroy(gameObject, 1f);
+    }
+}
+
+public class EnemyState
+{
+    public EnemyControllerBase enemyController;
+    public EnemyState(EnemyControllerBase enemyController)
+    {
+        this.enemyController = enemyController;
+    }
+
+    public virtual void OnStart() { }
+
+    public virtual void Action() { }
+
+    public virtual void OnEnd() { }
+}
+
+public class SpawnState : EnemyState
+{
+    float _spawnTime = 1f;
+    float _spawnTimer = 0f;
+
+    public SpawnState(EnemyControllerBase enemyController) : base(enemyController)
+    {
+    }
+
+    public override void Action()
+    {
+        _spawnTimer += Time.deltaTime;
+        if (_spawnTimer >= _spawnTime)
+            enemyController.SetState(new MoveState(enemyController));
+    }
+}
+
+public class MoveState : EnemyState
+{
+    public MoveState(EnemyControllerBase enemyController) : base(enemyController)
+    {
+    }
+
+
+    public override void Action()
+    {
+        float distance = (enemyController.target.transform.position - enemyController.transform.position).magnitude;
+        if (distance < enemyController.attackRange)
+        {
+            enemyController.SetState(new AttackState(enemyController));
+        }
+
+        Vector2 moveVec = enemyController.target.transform.position - enemyController.transform.position;
+        enemyController.transform.Translate(moveVec.normalized * enemyController.stat.Speed * Time.deltaTime);
+    }
+}
+
+public class AttackState : EnemyState
+{
+    GameObject _target;
+    protected bool _canAttack = true;
+    float _attackTimer;
+
+    public AttackState(EnemyControllerBase enemyController) : base(enemyController)
+    {
+    }
+
+    public void SetTarget(GameObject target)
+    {
+        _target = target;
+    }
+
+    public override void Action()
+    {
+        float distance = (enemyController.target.transform.position - enemyController.transform.position).magnitude;
+        if (distance > enemyController.attackRange)
+        {
+            enemyController.SetState(new MoveState(enemyController));
+        }
+
+        if (_canAttack == true)
+        {
+            enemyController.Attack();
+            _canAttack = false;
+        }
+
         if (_canAttack == false)
         {
             _attackTimer += Time.deltaTime;
-            if (_attackTimer > _attackSpeed)
+            if (_attackTimer > enemyController.attackSpeed)
             {
                 _canAttack = true;
                 _attackTimer = 0f;
                 Debug.Log("Attack CoolTime Done");
             }
         }
+    }
+}
 
-        if (_canAction == false)
-        {
-            _getAttackedTimer += Time.deltaTime;
-            if (_getAttackedTimer > _getAttackedTime)
-            {
-                _spriteRenderer.color = _baseColor;
-
-                _canAction = true;
-                _getAttackedTimer = 0f;
-            }
-        }
+public class AttackedState : EnemyState
+{
+    EnemyState _beforeState;
+    float _getAttackedTimer = 0f;
+    public AttackedState(EnemyControllerBase enemyController) : base(enemyController)
+    {
     }
 
-    void Move()
+    public void SetBeforeState(EnemyState state)
     {
-        Vector2 moveVec = _target.transform.position - transform.position;
-        transform.Translate(moveVec.normalized * _stat.Speed * Time.deltaTime);
+        if (state is not AttackedState)
+            _beforeState = state;
     }
 
-    protected virtual void Attack()
+    public override void OnStart()
     {
-        _canAttack = false;
+        enemyController._spriteRenderer.color = Color.red;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public override void Action()
     {
-        if (collision.CompareTag("PlayerBullet"))
-        {
-            _stat.GetDamaged(10f);
-        }
+        _getAttackedTimer += Time.deltaTime;
+        if (_getAttackedTimer > enemyController.getAttackedTime)
+            enemyController.SetState(_beforeState);
     }
 
-    protected virtual void OnDamaged()
+    public override void OnEnd()
     {
-        _spriteRenderer.color = Color.red;
-        _canAction = false;
-        _getAttackedTimer = 0f;
+        enemyController._spriteRenderer.color = enemyController._baseColor;
+    }
+}
+
+public class DieState : EnemyState
+{
+    public DieState(EnemyControllerBase enemyController) : base(enemyController)
+    {
     }
 
-    protected virtual void OnDead()
+    public override void Action()
     {
-        _currentState = State.Die;
-        Destroy(gameObject, 1f);
+
     }
 }

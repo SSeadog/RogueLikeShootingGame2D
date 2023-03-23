@@ -19,14 +19,12 @@ public class TestBombEnemyController : EnemyControllerBase
     {
         base.Init();
 
-        _attackSpeed = 3f;
+        attackSpeed = 3f;
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    protected override void Attack()
+    public override void Attack()
     {
-        base.Attack();
-
         StartCoroutine(CoAttack());
     }
 
@@ -35,7 +33,7 @@ public class TestBombEnemyController : EnemyControllerBase
         // 도약 준비
         yield return new WaitForSeconds(0.2f);
 
-        Vector3 dir = (_target.transform.position - transform.position).normalized;
+        Vector3 dir = (target.transform.position - transform.position).normalized;
         // 도약
         _rb.AddForce(dir * _jumpPower);
         yield return new WaitForSeconds(0.8f);

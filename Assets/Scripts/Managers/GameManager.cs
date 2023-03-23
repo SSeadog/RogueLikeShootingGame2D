@@ -68,6 +68,14 @@ public class MainState : GameState
     }
 }
 
+public class MainEndState : GameState
+{
+    public override void OnStart()
+    {
+        
+    }
+}
+
 public class RoomController
 {
     List<Room> _rooms = new List<Room>();
