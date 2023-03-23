@@ -13,10 +13,16 @@ public abstract class GunBase : MonoBehaviour
     protected float _power;
     protected int _maxAmmo;
     protected int _fullLoadAmmo;
-    float reloadingTime;
 
     [SerializeField] protected int _curAmmo;
     [SerializeField] protected int _curLoadAmmo;
+
+    Vector3 _initFirePos;
+
+    float reloadingTime;
+
+    bool _isFlipped;
+    SpriteRenderer _gunSprite;
 
     void Start()
     {
@@ -25,6 +31,7 @@ public abstract class GunBase : MonoBehaviour
 
     public abstract void LoadBulletResource();
     public abstract void GenerateBullets();
+
     public void Fire()
     {
         if (_curLoadAmmo == 0)
@@ -42,6 +49,23 @@ public abstract class GunBase : MonoBehaviour
     public float GetReloadingTime()
     {
         return 1f;
+    }
+
+    public void Flip(bool isFlip)
+    {
+        if (_gunSprite == null)
+            return;
+
+        if (_isFlipped == isFlip)
+            return;
+
+        _isFlipped = isFlip;
+        _gunSprite.flipY = _isFlipped;
+
+        if (_isFlipped)
+            _firePos.localPosition = _initFirePos + Vector3.down * 0.35f;
+        else
+            _firePos.localPosition = _initFirePos;
     }
 
     public virtual void Reload()
@@ -68,6 +92,10 @@ public abstract class GunBase : MonoBehaviour
 
         _bulletRoot = GetBulletRoot();
         _firePos = transform.Find("FirePos");
+        _initFirePos = _firePos.localPosition;
+
+        _gunSprite = GetComponentInChildren<SpriteRenderer>();
+
         LoadBulletResource();
     }
 

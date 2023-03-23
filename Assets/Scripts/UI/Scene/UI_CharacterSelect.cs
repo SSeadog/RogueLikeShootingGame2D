@@ -32,7 +32,7 @@ public class UI_CharacterSelect : UI_Base
             
             UI_CharacterItem uI_CharacterItem = itemInstance.GetComponent<UI_CharacterItem>();
             uI_CharacterItem.SetInfo(pStat.name);
-            uI_CharacterItem.SetEvent((data) => { Debug.Log(data.name + " 선택"); Managers.Game.PlayerId = data.id; Managers.Scene.LoadScene("SampleScene"); });
+            uI_CharacterItem.SetEvent((data) => { Debug.Log(data.name + " 선택"); Managers.Game.PlayerId = data.id; Managers.Scene.LoadScene("MainScene"); });
         }
     }
 }

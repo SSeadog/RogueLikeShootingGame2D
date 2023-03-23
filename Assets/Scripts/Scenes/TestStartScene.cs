@@ -6,6 +6,8 @@ public class TestStartScene : BaseScene
 {
     protected override void Init()
     {
+        Managers.Game.SetState(new CharacterSelectState());
+
         // Load UI
         LoadUI("Prefabs/UI/Scene/UI_CharacterSelect");
     }

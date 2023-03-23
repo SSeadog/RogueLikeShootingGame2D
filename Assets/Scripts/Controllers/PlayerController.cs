@@ -211,17 +211,12 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(mouse.y - _curWeapon.transform.position.y, mouse.x - _curWeapon.transform.position.x) * Mathf.Rad2Deg;
         // z가 90보다 크고 270보다 작을 때만 플립
         angle = angle < 0 ? angle + 360 : angle;
-        Debug.Log(angle);
+
         if (angle > 90 && angle < 270)
-        {
-            SpriteRenderer gunRenderer = _curWeapon.transform.GetComponentInChildren<SpriteRenderer>();
-            gunRenderer.flipY = true;
-        }
+            _curWeapon.Flip(true);
         else
-        {
-            SpriteRenderer gunRenderer = _curWeapon.transform.GetComponentInChildren<SpriteRenderer>();
-            gunRenderer.flipY = false;
-        }
+            _curWeapon.Flip(false);
+
         _curWeapon.transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 

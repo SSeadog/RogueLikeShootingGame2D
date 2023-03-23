@@ -26,13 +26,13 @@ public class ResourceManager
         }
     }
 
-    public GameObject Instantiate(string path)
+    public GameObject Instantiate(string path, Transform parent = null)
     {
         Load(path);
         if (_originals.ContainsKey(path) == false)
             return null;
 
-        return GameObject.Instantiate(_originals[path]);
+        return GameObject.Instantiate(_originals[path], parent);
     }
 
     public void Clear()
