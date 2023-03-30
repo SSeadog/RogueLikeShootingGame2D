@@ -47,11 +47,9 @@ public abstract class EnemyControllerBase : MonoBehaviour
 
     public void SetState(EnemyState state)
     {
-        if (_state != null)
-            _state.OnEnd();
-
+        _state?.OnEnd();
         _state = state;
-        _state.OnStart();
+        _state?.OnStart();
     }
 
     void Update()
@@ -60,7 +58,7 @@ public abstract class EnemyControllerBase : MonoBehaviour
         if (target == null)
             target = GameObject.FindGameObjectWithTag("Player");
 
-        _state.Action();
+        _state?.Action();
     }
 
     public abstract void Attack();
@@ -84,7 +82,6 @@ public abstract class EnemyControllerBase : MonoBehaviour
     protected virtual void OnDead()
     {
         SetState(new DieState(this));
-        Destroy(gameObject, 1f);
     }
 }
 
@@ -216,12 +213,22 @@ public class AttackedState : EnemyState
 
 public class DieState : EnemyState
 {
+    float _timer = 0f;
+    float _dieTime = 1f;
+
     public DieState(EnemyControllerBase enemyController) : base(enemyController)
     {
     }
 
     public override void Action()
     {
-
+        _timer += Time.deltaTime;
+        if (_timer >= _dieTime)
+        {
+            enemyController.SetState(null);
+            GameObject coin = Managers.Resource.Instantiate("Prefabs/Items/Coin");
+            coin.transform.position = enemyController.transform.position;
+            GameObject.Destroy(enemyController.gameObject);
+        }
     }
 }

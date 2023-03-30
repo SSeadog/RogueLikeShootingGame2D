@@ -11,7 +11,7 @@ public class ResourceManager
 
     }
 
-    public void Load(string path)
+    public GameObject Load(string path)
     {
         if (_originals.ContainsKey(path) == false)
         {
@@ -19,11 +19,13 @@ public class ResourceManager
             if (original == null)
             {
                 Debug.Log($"리소스 로드 실패! {path}");
-                return;
+                return null;
             }
 
             _originals[path] = original;
         }
+
+        return _originals[path];
     }
 
     public GameObject Instantiate(string path, Transform parent = null)

@@ -5,28 +5,54 @@ using UnityEngine;
 public class BossEnemyController : EnemyControllerBase
 {
     float _firePower;
-    GameObject _bullet;
 
     public override void Init()
     {
         base.Init();
 
         _firePower = 0.1f;
-        _bullet = Resources.Load<GameObject>("Prefabs/Weapons/TestEnemyBullet");
     }
 
     public override void Attack()
     {
+        StartCoroutine(TornadeFire());
+    }
+
+    void BasicFire()
+    {
         Vector3 fireVec = (target.transform.position - transform.position).normalized;
         float rotDeg = Mathf.Atan2(fireVec.y, fireVec.x) * Mathf.Rad2Deg;
 
-        GameObject instance = Instantiate(_bullet, transform.position + fireVec, Quaternion.AngleAxis(rotDeg - 90, Vector3.forward), _bulletRoot.transform);
+        GameObject instance = Managers.Resource.Instantiate("Prefabs/Weapons/TestEnemyBullet", _bulletRoot.transform);
+        instance.transform.position = transform.position + fireVec;
+        instance.transform.rotation = Quaternion.AngleAxis(rotDeg - 90, Vector3.forward);
         instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(Mathf.Cos(rotDeg * Mathf.Deg2Rad), Mathf.Sin(rotDeg * Mathf.Deg2Rad)) * _firePower);
+    }
+
+    IEnumerator TornadeFire()
+    {
+        Vector3 fireVec = (target.transform.position - transform.position).normalized;
+        float initRotDeg = Mathf.Atan2(fireVec.y, fireVec.x) * Mathf.Rad2Deg;
+
+        int bulletCount = 40;
+        int curBulletCount = 0;
+
+        while (curBulletCount < bulletCount)
+        {
+            float rotDeg = initRotDeg + curBulletCount * 5f;
+            GameObject instance = Managers.Resource.Instantiate("Prefabs/Weapons/TestEnemyBullet", _bulletRoot.transform);
+            instance.transform.position = transform.position + fireVec;
+            instance.transform.rotation = Quaternion.AngleAxis(rotDeg - 90, Vector3.forward);
+            instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(Mathf.Cos(rotDeg * Mathf.Deg2Rad), Mathf.Sin(rotDeg * Mathf.Deg2Rad)) * _firePower);
+            curBulletCount++;
+
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     protected override void OnDead()
     {
         base.OnDead();
-        Managers.Scene.LoadScene("TestStartScene");
+        Managers.Game.SetState(new MainEndState());
     }
 }

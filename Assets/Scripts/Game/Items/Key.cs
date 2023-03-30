@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Key : MonoBehaviour
+public class Key : ItemBase
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public override void Effect()
     {
-        if (collision.CompareTag("Player"))
-        {
-            // ¿­¼è È¹µæ
-        }
+        Managers.Game.key++;
     }
 }

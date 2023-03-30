@@ -27,6 +27,10 @@ public class MainScene : BaseScene
         // Room Setting. 파일 로드로 변경 예정
         GameState gameState = Managers.Game.GetState();
 
+        Managers.Game.gold = 0;
+        Managers.Game.key = 0;
+        Managers.Game.grenade = 2;
+
         if (gameState is MainState)
         {
             MainState mainState = (MainState)gameState;

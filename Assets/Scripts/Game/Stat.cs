@@ -9,13 +9,11 @@ public class Stat : MonoBehaviour
 
     [SerializeField] private float _hp;
     [SerializeField] private float _speed;
-    [SerializeField] private float _power;
 
     [SerializeField] Define.WeaponType curWeaponType;
 
     public float Hp { get { return _hp; } }
     public float Speed { get { return _speed; } }
-    public float Power { get { return _power;} }
     public Define.WeaponType CurWeaponType { get { return curWeaponType; } }
 
     public UnityAction onGetDamagedAction;
@@ -30,7 +28,6 @@ public class Stat : MonoBehaviour
 
             _hp = statData.maxHp;
             _speed = statData.speed;
-            _power = statData.power;
         }
         else
         {
@@ -39,9 +36,11 @@ public class Stat : MonoBehaviour
 
             _hp = statData.maxHp;
             _speed = statData.speed;
-            _power = statData.power;
 
             curWeaponType = (Define.WeaponType)statData.weaponId;
+            GameObject weapon = Managers.Resource.Instantiate("Prefabs/Weapons/" + CurWeaponType.ToString(), transform);
+            Managers.Game.playerWeaponList.Add(weapon.GetComponent<WeaponBase>());
+            weapon.SetActive(false);
         }
     }
 

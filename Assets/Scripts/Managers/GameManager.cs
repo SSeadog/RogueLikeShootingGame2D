@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class GameManager
 {
+    // 특정 state에서만 동작하는 건 state 안으로 밀어넣기
+    // 이때 GameState를 받지말고 자식으로 넘겨받을 순 없나? 쓰면서 변환하기 너무 번거로운데
+    // RoomController같은 경우 어떻게 관리할지 다시 생각해보기
     private GameState currentState;
+
     private int _playerId;
-    private int _gold;
+    public List<WeaponBase> playerWeaponList = new List<WeaponBase>();
+    public int gold;
+    public int key;
+    public int grenade;
 
     public int PlayerId { get { return _playerId; } set { _playerId = value; } }
-    public int Gold { get { return _gold; } set { _gold = value; } }
 
     public GameState GetState()
     {
         return currentState;
-    }
-
-    public void Init()
-    {
-        currentState = new CharacterSelectState();
     }
 
     public void SetState(GameState state)
@@ -33,7 +34,6 @@ public class GameManager
 
     public void Clear()
     {
-        //playerId = 0;
         SetState(null);
     }
 }
@@ -42,7 +42,7 @@ public class GameState
 {
     public virtual void OnStart()
     {
-
+        
     }
 
     public virtual void OnEnd()
@@ -65,14 +65,16 @@ public class MainState : GameState
         base.OnEnd();
 
         roomController.Clear();
-    }
-}
+    }}
 
 public class MainEndState : GameState
 {
     public override void OnStart()
     {
-        
+        // 몬스터 사망 등 1초 정도 기다렸다가 UI 뛰우는 효과 줄지 고민
+        Time.timeScale = 0f;
+        GameEndingPanel gameEndingPanel = Managers.Ui.GetUI<GameEndingPanel>();
+        gameEndingPanel.Show();
     }
 }
 

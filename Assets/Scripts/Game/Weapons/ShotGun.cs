@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotGun : GunBase
+public class ShotGun : WeaponBase
 {
     int _bulletCount = 3;
     int _fireTime = 2;

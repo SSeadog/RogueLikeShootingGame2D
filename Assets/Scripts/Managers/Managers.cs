@@ -11,11 +11,13 @@ public class Managers : MonoBehaviour
     GameManager _game = new GameManager();
     ResourceManager _resource = new ResourceManager();
     SceneManagerEx _scene = new SceneManagerEx();
+    UIManager _ui = new UIManager();
 
     public static DataManager Data { get { return Instance._data; } }
     public static GameManager Game { get { return Instance._game; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
+    public static UIManager Ui { get { return Instance._ui; } }
 
     static void Init()
     {
@@ -42,7 +44,6 @@ public class Managers : MonoBehaviour
 
             // 매니저에 연결된 각종 매니저들 초기화
             _instance._data.Init();
-            _instance._game.Init();
         }
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GunBase : MonoBehaviour
+public abstract class WeaponBase : MonoBehaviour
 {
     public Define.WeaponType weaponType = Define.WeaponType.None;
 
@@ -24,6 +24,13 @@ public abstract class GunBase : MonoBehaviour
     bool _isFlipped;
     SpriteRenderer _gunSprite;
 
+
+
+    public int CurLoadedAmmo { get { return _curLoadAmmo; } }
+    public int MaxAmmo { get { return _maxAmmo; } }
+    public int CurAmmo { get { return _curAmmo; } }
+
+
     void Start()
     {
         Init();
@@ -39,11 +46,6 @@ public abstract class GunBase : MonoBehaviour
 
         _curLoadAmmo--;
         GenerateBullets();
-    }
-
-    public int GetCurLoadedAmmo()
-    {
-        return _curLoadAmmo;
     }
 
     public float GetReloadingTime()
@@ -87,7 +89,7 @@ public abstract class GunBase : MonoBehaviour
         _power = weaponInfo.power;
         _maxAmmo = weaponInfo.maxAmmo;
         _fullLoadAmmo = weaponInfo.fullLoadAmmo;
-        _curAmmo = _maxAmmo;
+        _curAmmo = _maxAmmo - _fullLoadAmmo;
         _curLoadAmmo = _fullLoadAmmo;
 
         _bulletRoot = GetBulletRoot();

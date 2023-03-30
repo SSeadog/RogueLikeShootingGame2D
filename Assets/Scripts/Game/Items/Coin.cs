@@ -1,28 +1,17 @@
+using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class Coin : ItemBase
 {
     int value = 1;
-    float _followSpeed = 4f;
 
-    public void GetCoin(Transform target)
+    public override void Effect()
     {
-        StartCoroutine(CoGetCoin(target));
-    }
-
-    IEnumerator CoGetCoin(Transform target)
-    {
-        while (Vector3.Distance(target.position, transform.position) > 0.5f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, target.position, Time.deltaTime * _followSpeed);
-            yield return null;
-        }
-
-        Managers.Game.Gold += value;
+        Managers.Game.gold += value;
         Destroy(gameObject);
 
-        Debug.Log(Managers.Game.Gold);
+        Debug.Log(Managers.Game.gold);
     }
 }

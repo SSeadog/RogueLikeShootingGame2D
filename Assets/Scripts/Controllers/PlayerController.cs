@@ -1,17 +1,11 @@
-using System.Buffers;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlayerController : MonoBehaviour
 {
     PlayerStat _stat;
 
-    GunBase _curWeapon;
+    WeaponBase _curWeapon;
 
     GameObject _explodeEffect;
 
@@ -48,11 +42,10 @@ public class PlayerController : MonoBehaviour
         _stat.onGetDamagedAction += OnAttacekd;
         _stat.onDeadAction += OnDead;
 
-        _explodeEffect = Resources.Load<GameObject>("Prefabs/Weapons/Grenade");
+        _explodeEffect = Managers.Resource.Load("Prefabs/Weapons/Grenade");
 
-        GameObject ori = Resources.Load<GameObject>("Prefabs/Weapons/" + _stat.CurWeaponType.ToString());
-        GameObject instance = Instantiate(ori, transform);
-        _curWeapon = instance.GetComponent<GunBase>();
+        _curWeapon = Managers.Game.playerWeaponList[0];
+        _curWeapon.gameObject.SetActive(true);
 
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _baseColor = _spriteRenderer.color;
@@ -166,7 +159,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (_curWeapon.GetCurLoadedAmmo() == 0)
+            if (_curWeapon.CurLoadedAmmo == 0)
             {
                 Debug.Log("Reload!!!");
                 _isReloading = true;
@@ -227,12 +220,13 @@ public class PlayerController : MonoBehaviour
 
         if (collision.CompareTag("EnemyBullet"))
         {
-            _stat.GetDamaged(10f);
+            // 플레이어가 받는 데미지는 고정값
+            _stat.GetDamaged(1);
         }
 
-        if (collision.gameObject.GetComponent<Coin>() != null)
+        if (collision.gameObject.GetComponent<ItemBase>() != null)
         {
-            collision.gameObject.GetComponent<Coin>().GetCoin(transform);
+            collision.gameObject.GetComponent<ItemBase>().GetItem(transform);
         }
 
         if (collision.gameObject.tag == "UnderGround")

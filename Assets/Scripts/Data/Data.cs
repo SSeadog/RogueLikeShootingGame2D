@@ -11,7 +11,6 @@ namespace Data
         public int id;
         public string name;
         public int maxHp;
-        public int power;
         public int speed;
         public int weaponId;
     }

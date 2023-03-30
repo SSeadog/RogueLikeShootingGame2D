@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_Base : MonoBehaviour
+public class UIBase : MonoBehaviour
 {
     Dictionary<Type, Dictionary<string, UnityEngine.Object>> objects = new Dictionary<Type, Dictionary<string, UnityEngine.Object>>();
 
@@ -14,7 +14,7 @@ public class UI_Base : MonoBehaviour
 
     protected virtual void Init()
     {
-        
+        Managers.Ui.AddUI(this);
     }
 
     protected void Bind(Type enumType)

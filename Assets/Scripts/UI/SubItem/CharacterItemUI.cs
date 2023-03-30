@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class UI_CharacterItem : UI_Base
+public class CharacterItemUI : UIBase
 {
     enum GameObjects
     {
