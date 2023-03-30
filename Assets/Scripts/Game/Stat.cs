@@ -7,11 +7,13 @@ public class Stat : MonoBehaviour
 {
     [SerializeField] Define.ObjectType type;
 
+    private float _maxHp;
     [SerializeField] private float _hp;
     [SerializeField] private float _speed;
 
     [SerializeField] Define.WeaponType curWeaponType;
 
+    public float MaxHp { get { return _maxHp; } }
     public float Hp { get { return _hp; } }
     public float Speed { get { return _speed; } }
     public Define.WeaponType CurWeaponType { get { return curWeaponType; } }
@@ -26,7 +28,8 @@ public class Stat : MonoBehaviour
         {
             Data.Stat statData = Managers.Data.monsterStatDict[type.ToString()];
 
-            _hp = statData.maxHp;
+            _maxHp = statData.maxHp;
+            _hp = _maxHp;
             _speed = statData.speed;
         }
         else
@@ -40,7 +43,6 @@ public class Stat : MonoBehaviour
             curWeaponType = (Define.WeaponType)statData.weaponId;
             GameObject weapon = Managers.Resource.Instantiate("Prefabs/Weapons/" + CurWeaponType.ToString(), transform);
             Managers.Game.playerWeaponList.Add(weapon.GetComponent<WeaponBase>());
-            weapon.SetActive(false);
         }
     }
 

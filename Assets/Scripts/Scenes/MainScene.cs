@@ -24,13 +24,18 @@ public class MainScene : BaseScene
         camera.name = cameraOriginal.name;
         camera.GetComponent<CameraController>().Init(player);
 
-        // Room Setting. 파일 로드로 변경 예정
-        GameState gameState = Managers.Game.GetState();
-
         Managers.Game.gold = 0;
         Managers.Game.key = 0;
         Managers.Game.grenade = 2;
 
+        MakeRooms();
+        LoadUI();
+    }
+
+    void MakeRooms()
+    {
+        // Room Setting. 파일 로드로 변경 예정
+        GameState gameState = Managers.Game.GetState();
         if (gameState is MainState)
         {
             MainState mainState = (MainState)gameState;
@@ -56,7 +61,20 @@ public class MainScene : BaseScene
                 roomBoss.AddSpawnInfo(spawnInfo);
             }
         }
-        
+    }
+
+    void LoadUI()
+    {
+        GameObject uIRoot = GameObject.Find("UIRoot");
+        if (uIRoot == null)
+        {
+            uIRoot = new GameObject("UIRoot");
+        }
+
+        Managers.Resource.LoadUI("Prefabs/UI/Scene/PlayerInfoPanel", uIRoot.transform);
+        Managers.Resource.LoadUI("Prefabs/UI/Scene/WeaponInfoPanel", uIRoot.transform);
+        Managers.Resource.LoadUI("Prefabs/UI/Scene/GameEndingPanel", uIRoot.transform);
+        Managers.Resource.LoadUI("Prefabs/UI/Scene/BossInfoPanel", uIRoot.transform);
     }
 
     public override void Clear()

@@ -45,10 +45,11 @@ public class PlayerController : MonoBehaviour
         _explodeEffect = Managers.Resource.Load("Prefabs/Weapons/Grenade");
 
         _curWeapon = Managers.Game.playerWeaponList[0];
-        _curWeapon.gameObject.SetActive(true);
 
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _baseColor = _spriteRenderer.color;
+
+        Managers.Ui.GetUI<HpBarUI>().SetHpBar((int)_stat.Hp);
     }
 
     void Update()
@@ -200,6 +201,9 @@ public class PlayerController : MonoBehaviour
 
     void RotateGun()
     {
+        if (_curWeapon == null)
+            return;
+
         Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float angle = Mathf.Atan2(mouse.y - _curWeapon.transform.position.y, mouse.x - _curWeapon.transform.position.x) * Mathf.Rad2Deg;
         // z가 90보다 크고 270보다 작을 때만 플립
@@ -286,6 +290,7 @@ public class PlayerController : MonoBehaviour
         _spriteRenderer.color = Color.red;
         _canAttacked = false;
         _getAttackedTimer = 0f;
+        Managers.Ui.GetUI<HpBarUI>().SetHpBar((int)_stat.Hp);
     }
 
     void OnDead()

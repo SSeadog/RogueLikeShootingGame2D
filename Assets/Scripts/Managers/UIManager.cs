@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UIManager
 {
+    public GameObject uiRoot = null;
     private List<UIBase> uiList = new List<UIBase>();
 
     public void AddUI(UIBase ui)
@@ -26,5 +27,10 @@ public class UIManager
 
         Debug.Log($"UI를 찾을 수 없습니다!");
         return null;
+    }
+
+    public void Clear()
+    {
+        uiList.Clear();
     }
 }

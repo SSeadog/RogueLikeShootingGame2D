@@ -24,17 +24,20 @@ public class GameManager
 
     public void SetState(GameState state)
     {
-        if (state != null)
-            state.OnEnd();
+        if (currentState != null)
+            currentState.OnEnd();
         currentState = state;
 
-        if (state != null)
-            state.OnStart();
+        if (currentState != null)
+            currentState.OnStart();
     }
 
     public void Clear()
     {
-        SetState(null);
+        playerWeaponList.Clear();
+        gold = 0;
+        key = 0;
+        grenade = 0;
     }
 }
 
@@ -62,8 +65,6 @@ public class MainState : GameState
 
     public override void OnEnd()
     {
-        base.OnEnd();
-
         roomController.Clear();
     }}
 
@@ -75,6 +76,11 @@ public class MainEndState : GameState
         Time.timeScale = 0f;
         GameEndingPanel gameEndingPanel = Managers.Ui.GetUI<GameEndingPanel>();
         gameEndingPanel.Show();
+    }
+
+    public override void OnEnd()
+    {
+        Time.timeScale = 1f;
     }
 }
 

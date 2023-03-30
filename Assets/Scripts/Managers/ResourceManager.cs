@@ -37,6 +37,23 @@ public class ResourceManager
         return GameObject.Instantiate(_originals[path], parent);
     }
 
+    public GameObject LoadUI(string path, Transform parent = null)
+    {
+        GameObject instance = Instantiate(path, parent);
+
+        UIBase uIBase = instance.GetComponent<UIBase>();
+        if (uIBase != null)
+        {
+            Managers.Ui.AddUI(uIBase);
+        }
+        else
+        {
+            Debug.Log($"{path}의 uI에 UIBase가 없습니다!");
+        }
+
+        return instance;
+    }
+
     public void Clear()
     {
 

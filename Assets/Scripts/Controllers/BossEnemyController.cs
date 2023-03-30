@@ -50,6 +50,15 @@ public class BossEnemyController : EnemyControllerBase
         }
     }
 
+    protected override void OnDamaged()
+    {
+        base.OnDamaged();
+
+        BossInfoPanel bossInfoUi = Managers.Ui.GetUI<BossInfoPanel>();
+        bossInfoUi.SetBossName(stat.name);
+        bossInfoUi.SetBossHpBar(stat.Hp / stat.MaxHp);
+    }
+
     protected override void OnDead()
     {
         base.OnDead();

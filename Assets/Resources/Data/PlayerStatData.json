@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Apple",
-      "maxHp": 100,
+      "maxHp": 6,
       "power": 10,
       "speed": 7,
       "weaponId": 1
@@ -11,7 +11,7 @@
     {
       "id": 2,
       "name": "Banana",
-      "maxHp": 200,
+      "maxHp": 8,
       "power": 5,
       "speed": 3,
       "weaponId": 2
@@ -19,7 +19,7 @@
     {
       "id": 3,
       "name": "Chocolate",
-      "maxHp": 300,
+      "maxHp": 10,
       "power": 5,
       "speed": 3,
       "weaponId": 1
@@ -27,7 +27,7 @@
     {
       "id": 4,
       "name": "DarkChocolate",
-      "maxHp": 400,
+      "maxHp": 8,
       "power": 5,
       "speed": 3,
       "weaponId": 1
@@ -35,7 +35,7 @@
     {
       "id": 5,
       "name": "EnergyBar",
-      "maxHp": 500,
+      "maxHp": 10,
       "power": 5,
       "speed": 3,
       "weaponId": 1
@@ -43,7 +43,7 @@
     {
       "id": 6,
       "name": "Food",
-      "maxHp": 600,
+      "maxHp": 10,
       "power": 5,
       "speed": 3,
       "weaponId": 1

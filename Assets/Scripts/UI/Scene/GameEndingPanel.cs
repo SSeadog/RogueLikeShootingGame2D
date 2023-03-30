@@ -13,4 +13,9 @@ public class GameEndingPanel : UIBase
     {
         gameObject.SetActive(true);
     }
+
+    public void OnToLobbyButtonClicked()
+    {
+        Managers.Scene.LoadScene("TestStartScene");
+    }
 }

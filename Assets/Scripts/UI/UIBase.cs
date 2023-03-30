@@ -14,7 +14,6 @@ public class UIBase : MonoBehaviour
 
     protected virtual void Init()
     {
-        Managers.Ui.AddUI(this);
     }
 
     protected void Bind(Type enumType)
