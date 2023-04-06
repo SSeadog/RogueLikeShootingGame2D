@@ -10,9 +10,20 @@ namespace Data
     {
         public int id;
         public string name;
+        public int power;
         public int maxHp;
         public int speed;
         public int weaponId;
+    }
+
+    public class MonsterStat
+    {
+        public int id;
+        public string name;
+        public int maxHp;
+        public int speed;
+        public float attackRange;
+        public float attackSpeed;
     }
 
     [Serializable]

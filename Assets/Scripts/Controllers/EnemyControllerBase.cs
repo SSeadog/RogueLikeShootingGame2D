@@ -1,15 +1,23 @@
+using System;
 using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.RuleTile.TilingRuleOutput;
+
+public enum EStateType
+{
+    SpawnState = -1,
+    IdleState,
+    MoveState,
+    AttackState,
+    AttackedState,
+    DieState,
+    Max
+}
 
 public abstract class EnemyControllerBase : MonoBehaviour
 {
-    public Stat stat;
-    public float attackRange = 5f; // stat으로 밀어 넣어야하는 데이터
-    public float attackSpeed = 1f; // stat으로 밀어 넣어야하는 데이터
+    public EnemyStat stat;
     public float getAttackedTime = 0.2f; // 고정값
     public GameObject target;
 
@@ -19,10 +27,13 @@ public abstract class EnemyControllerBase : MonoBehaviour
     protected EnemyState _state;
     protected GameObject _bulletRoot;
 
+    EStateType _curStateType;
+    Dictionary<EStateType, EnemyState> _states = new Dictionary<EStateType, EnemyState>();
+
     public virtual void Init()
     {
         target = GameObject.FindGameObjectWithTag("Player");
-        stat = GetComponent<Stat>();
+        stat = GetComponent<EnemyStat>();
         stat.Init();
 
         stat.onGetDamagedAction += OnDamaged;
@@ -37,7 +48,13 @@ public abstract class EnemyControllerBase : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _baseColor = _spriteRenderer.color;
 
-        SetState(new MoveState());
+        for (int i = (int)EStateType.SpawnState; i < (int)EStateType.Max; i++)
+        {
+            Type type = Type.GetType(((EStateType)i).ToString());
+            _states[(EStateType)i] = (EnemyState) Activator.CreateInstance(type);
+        }
+
+        SetState(EStateType.SpawnState);
     }
 
     void Start()
@@ -45,10 +62,13 @@ public abstract class EnemyControllerBase : MonoBehaviour
         Init();
     }
 
-    public void SetState(EnemyState state)
+    public void SetState(EStateType stateType)
     {
         _state?.OnEnd();
-        _state = state;
+        if (_state is not AttackState)
+            _state?.Clear();
+        _curStateType = stateType;
+        _state = _states[stateType];
         _state?.OnStart(this);
     }
 
@@ -73,15 +93,13 @@ public abstract class EnemyControllerBase : MonoBehaviour
 
     protected virtual void OnDamaged()
     {
-        AttackedState state = new AttackedState();
-        state.SetBeforeState(_state);
-        SetState(state);
-        
+        (_states[EStateType.AttackedState] as AttackedState).SetBeforeState(_curStateType);
+        SetState(EStateType.AttackedState);
     }
 
     protected virtual void OnDead()
     {
-        SetState(new DieState());
+        SetState(EStateType.DieState);
     }
 }
 
@@ -94,6 +112,8 @@ public class EnemyState
     public virtual void Action() { }
 
     public virtual void OnEnd() { }
+
+    public virtual void Clear() { }
 }
 
 public class SpawnState : EnemyState
@@ -105,7 +125,20 @@ public class SpawnState : EnemyState
     {
         _spawnTimer += Time.deltaTime;
         if (_spawnTimer >= _spawnTime)
-            _enemyController.SetState(new MoveState());
+            _enemyController.SetState(EStateType.MoveState);
+    }
+
+    public override void Clear()
+    {
+        _spawnTimer = 0f;
+    }
+}
+
+public class IdleState : EnemyState
+{
+    public override void Action()
+    {
+        _enemyController.SetState(EStateType.MoveState);
     }
 }
 
@@ -114,9 +147,9 @@ public class MoveState : EnemyState
     public override void Action()
     {
         float distance = (_enemyController.target.transform.position - _enemyController.transform.position).magnitude;
-        if (distance < _enemyController.attackRange)
+        if (distance < _enemyController.stat.AttackRange)
         {
-            _enemyController.SetState(new AttackState());
+            _enemyController.SetState(EStateType.AttackState);
         }
 
         Vector2 moveVec = _enemyController.target.transform.position - _enemyController.transform.position;
@@ -129,7 +162,6 @@ public class AttackState : EnemyState
     GameObject _target;
     protected bool _canAttack = true;
     float _attackCoolTime;
-    float _attackTimer;
 
     public override void OnStart(EnemyControllerBase enemyController)
     {
@@ -143,44 +175,46 @@ public class AttackState : EnemyState
 
     public override void Action()
     {
-        float distance = (_enemyController.target.transform.position - _enemyController.transform.position).magnitude;
-        if (distance > _enemyController.attackRange)
-        {
-            _enemyController.SetState(new MoveState());
-        }
-
-        if (_canAttack == true)
-        {
-            // attack별 쿨타임을 받고 지금 쿨타임과 다르다면 쿨타임 세팅을 바꾸고 해당 시간만큼 기다리게 만들기
-            float coolTime = _enemyController.Attack();
-            _attackCoolTime = coolTime;
-            _canAttack = false;
-        }
-
         if (_canAttack == false)
+            return;
+
+        float distance = (_enemyController.target.transform.position - _enemyController.transform.position).magnitude;
+        if (distance > _enemyController.stat.AttackRange)
         {
-            _attackTimer += Time.deltaTime;
-            if (_attackTimer > _attackCoolTime)
-            {
-                _canAttack = true;
-                _attackTimer = 0f;
-            }
+            _enemyController.SetState(EStateType.MoveState);
+            return;
         }
+
+        // attack별 쿨타임을 받고 지금 쿨타임과 다르다면 쿨타임 세팅을 바꾸고 해당 시간만큼 기다리게 만들기
+        float coolTime = _enemyController.Attack();
+        _attackCoolTime = coolTime;
+        _canAttack = false;
+        _enemyController.StartCoroutine(CoCoolDown(coolTime));
+    }
+
+    public IEnumerator CoCoolDown(float coolTime)
+    {
+        yield return new WaitForSeconds(coolTime);
+        _canAttack = true;
+    }
+
+    public override void Clear()
+    {
+        _target = null;
+        _canAttack = true;
+        _attackCoolTime = 0f;
     }
 }
 
-// 다른 상태로 전환될 때 공격 쿨타임이 초기화가 됨
-// 어택 상태에서 쿨 관리를 해서 그런 것인데
-// 다른 방법으로 해야할 듯? 코루틴으로 몬스터컨트롤러한테 맡긴다던가 그런식으로
 public class AttackedState : EnemyState
 {
-    EnemyState _beforeState;
+    EStateType _beforeStateType = EStateType.IdleState;
     float _getAttackedTimer = 0f;
 
-    public void SetBeforeState(EnemyState state)
+    public void SetBeforeState(EStateType type)
     {
-        if (state is not AttackedState)
-            _beforeState = state;
+        if (type is not EStateType.AttackedState)
+            _beforeStateType = type;
     }
 
     public override void OnStart(EnemyControllerBase enemyController)
@@ -194,12 +228,18 @@ public class AttackedState : EnemyState
     {
         _getAttackedTimer += Time.deltaTime;
         if (_getAttackedTimer > _enemyController.getAttackedTime)
-            _enemyController.SetState(_beforeState);
+            _enemyController.SetState(_beforeStateType);
     }
 
     public override void OnEnd()
     {
         _enemyController._spriteRenderer.color = _enemyController._baseColor;
+    }
+
+    public override void Clear()
+    {
+        _beforeStateType = EStateType.IdleState;
+        _getAttackedTimer = 0f;
     }
 }
 
@@ -213,10 +253,15 @@ public class DieState : EnemyState
         _timer += Time.deltaTime;
         if (_timer >= _dieTime)
         {
-            _enemyController.SetState(null);
             GameObject coin = Managers.Resource.Instantiate("Prefabs/Items/Coin");
             coin.transform.position = _enemyController.transform.position;
             GameObject.Destroy(_enemyController.gameObject);
         }
+    }
+
+    public override void Clear()
+    {
+        _timer = 0f;
+        _dieTime = 1f;
     }
 }

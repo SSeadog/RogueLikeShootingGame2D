@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4873836397897395802}
   - component: {fileID: 915597312}
   - component: {fileID: 915597313}
-  - component: {fileID: 915597309}
   - component: {fileID: 9162635031014667253}
+  - component: {fileID: -525486143563576870}
   m_Layer: 6
   m_Name: TestEnemy
   m_TagString: Enemy
@@ -125,23 +125,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &915597309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4873836397897395797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22b6eb657a3f3a24bbc4c6056af73159, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 10002
-  _hp: 50
-  _speed: 3
-  _power: 10
-  curWeaponType: 0
 --- !u!114 &9162635031014667253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,4 +137,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8618b2153decc7744b5ef3932cd30056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
+  stat: {fileID: 0}
+  getAttackedTime: 0.2
+  target: {fileID: 0}
+  _spriteRenderer: {fileID: 0}
+  _baseColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &-525486143563576870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873836397897395797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bd31a03eaf52d40a4cce93aec5a16c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 10005

@@ -18,15 +18,13 @@ public class TestBombEnemyController : EnemyControllerBase
     public override void Init()
     {
         base.Init();
-
-        attackSpeed = 3f;
         _rb = GetComponent<Rigidbody2D>();
     }
 
     public override float Attack()
     {
         StartCoroutine(CoAttack());
-        return attackSpeed;
+        return stat.AttackSpeed;
     }
 
     IEnumerator CoAttack()

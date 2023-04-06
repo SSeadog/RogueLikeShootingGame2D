@@ -1,20 +1,18 @@
 {
-  "weapons": [
-    {
-      "id": 0,
-      "name": "TestGun",
-      "power": 1.1,
-      "maxAmmo": 100,
-      "fullLoadAmmo": 10,
-      "bulletResourcePath": "Prefabs/Weapons/TestPlayerBullet"
-    },
-    {
-      "id": 1,
-      "name": "ShotGun",
-      "power": 2,
-      "maxAmmo": 50,
-      "fullLoadAmmo": 5,
-      "bulletResourcePath": "Prefabs/Weapons/TestPlayerBullet"
-    }
-  ]
+  "TestGun": {
+    "id": 0,
+    "name": "TestGun",
+    "power": 1.1,
+    "maxAmmo": 100,
+    "fullLoadAmmo": 10,
+    "bulletResourcePath": "Prefabs/Weapons/TestPlayerBullet"
+  },
+  "ShotGun": {
+    "id": 1,
+    "name": "ShotGun",
+    "power": 2,
+    "maxAmmo": 50,
+    "fullLoadAmmo": 5,
+    "bulletResourcePath": "Prefabs/Weapons/TestPlayerBullet"
+  }
 }

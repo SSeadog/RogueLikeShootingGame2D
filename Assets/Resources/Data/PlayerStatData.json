@@ -1,52 +1,50 @@
 {
-  "stats": [
-    {
-      "id": 1,
-      "name": "Apple",
-      "maxHp": 6,
-      "power": 10,
-      "speed": 7,
-      "weaponId": 1
-    },
-    {
-      "id": 2,
-      "name": "Banana",
-      "maxHp": 8,
-      "power": 5,
-      "speed": 3,
-      "weaponId": 2
-    },
-    {
-      "id": 3,
-      "name": "Chocolate",
-      "maxHp": 10,
-      "power": 5,
-      "speed": 3,
-      "weaponId": 1
-    },
-    {
-      "id": 4,
-      "name": "DarkChocolate",
-      "maxHp": 8,
-      "power": 5,
-      "speed": 3,
-      "weaponId": 1
-    },
-    {
-      "id": 5,
-      "name": "EnergyBar",
-      "maxHp": 10,
-      "power": 5,
-      "speed": 3,
-      "weaponId": 1
-    },
-    {
-      "id": 6,
-      "name": "Food",
-      "maxHp": 10,
-      "power": 5,
-      "speed": 3,
-      "weaponId": 1
-    }
-  ]
+  "Apple": {
+    "id": 1,
+    "name": "Apple",
+    "maxHp": 6,
+    "power": 10,
+    "speed": 7,
+    "weaponId": 1
+  },
+  "Banana": {
+    "id": 2,
+    "name": "Banana",
+    "maxHp": 8,
+    "power": 5,
+    "speed": 3,
+    "weaponId": 2
+  },
+  "Chocolate": {
+    "id": 3,
+    "name": "Chocolate",
+    "maxHp": 10,
+    "power": 5,
+    "speed": 3,
+    "weaponId": 1
+  },
+  "DarkChocolate": {
+    "id": 4,
+    "name": "DarkChocolate",
+    "maxHp": 8,
+    "power": 5,
+    "speed": 3,
+    "weaponId": 1
+  },
+  "EnergyBar": {
+    "id": 5,
+    "name": "EnergyBar",
+    "maxHp": 10,
+    "power": 5,
+    "speed": 3,
+    "weaponId": 1
+  },
+  "Food": {
+    "id": 6,
+    "name": "Food",
+    "maxHp": 10,
+    "power": 5,
+    "speed": 3,
+    "weaponId": 1
+  }
 }

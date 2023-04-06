@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8082035769848264187}
   - component: {fileID: 8082035769848264180}
   - component: {fileID: 8082035769848264181}
-  - component: {fileID: 8082035769848264183}
   - component: {fileID: 8082035769848264182}
+  - component: {fileID: -9002279984266921366}
   m_Layer: 6
   m_Name: TestBombEnemy
   m_TagString: Enemy
@@ -140,23 +140,6 @@ PolygonCollider2D:
       - {x: 0.25, y: -0.43359375}
       - {x: 0.5, y: 0}
       - {x: 0.25, y: 0.43359375}
---- !u!114 &8082035769848264183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8082035769848264184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22b6eb657a3f3a24bbc4c6056af73159, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 10003
-  _hp: 0
-  _speed: 0
-  _power: 0
-  curWeaponType: 0
 --- !u!114 &8082035769848264182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,3 +152,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8960be5e0217c4288020b7f822bbf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stat: {fileID: 0}
+  getAttackedTime: 0.2
+  target: {fileID: 0}
+  _spriteRenderer: {fileID: 0}
+  _baseColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &-9002279984266921366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8082035769848264184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bd31a03eaf52d40a4cce93aec5a16c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 10003

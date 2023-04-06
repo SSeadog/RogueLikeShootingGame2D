@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8472889775795423742}
   - component: {fileID: 8472889775795423743}
-  - component: {fileID: 8472889775795423712}
   - component: {fileID: 8472889775795423713}
   - component: {fileID: 8472889775795423714}
   - component: {fileID: 8472889775795423715}
+  - component: {fileID: 5375014092888927191}
   m_Layer: 6
   m_Name: BossEnemy
   m_TagString: Enemy
@@ -88,23 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8472889775795423712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8472889775795423740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22b6eb657a3f3a24bbc4c6056af73159, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 10004
-  _hp: 0
-  _speed: 0
-  _power: 0
-  curWeaponType: 0
 --- !u!114 &8472889775795423713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,7 +100,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f6060ec06b78f94baa31c17aa5ff611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
+  stat: {fileID: 0}
+  getAttackedTime: 0.2
+  target: {fileID: 0}
+  _spriteRenderer: {fileID: 0}
+  _baseColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!70 &8472889775795423714
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -155,3 +142,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &5375014092888927191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8472889775795423740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bd31a03eaf52d40a4cce93aec5a16c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 10004

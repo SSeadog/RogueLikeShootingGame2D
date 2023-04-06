@@ -11,6 +11,7 @@ public class BossEnemyController : EnemyControllerBase
         None = 0,
         Basic,
         Tornado,
+        Arc,
         Max
     }
 
@@ -29,12 +30,15 @@ public class BossEnemyController : EnemyControllerBase
         {
             case EAttackType.Basic:
                 BasicFire();
-                return attackSpeed;
+                return stat.AttackSpeed;
             case EAttackType.Tornado:
                 StartCoroutine(TornadoFire());
-                return attackSpeed * 3f;
+                return stat.AttackSpeed * 3f;
+            case EAttackType.Arc:
+                StartCoroutine(ArcFire());
+                return stat.AttackSpeed * 2f;
             default:
-                return attackSpeed;
+                return stat.AttackSpeed;
         }
     }
 
@@ -54,7 +58,7 @@ public class BossEnemyController : EnemyControllerBase
         Vector3 initFireVec = (target.transform.position - transform.position).normalized;
         float initRotDeg = Mathf.Atan2(initFireVec.y, initFireVec.x) * Mathf.Rad2Deg;
 
-        int bulletCount = 40;
+        int bulletCount = 60;
         int curBulletCount = 0;
 
         while (curBulletCount < bulletCount)
@@ -67,7 +71,32 @@ public class BossEnemyController : EnemyControllerBase
             instance.GetComponent<Rigidbody2D>().AddForce(fireVec * _firePower);
             curBulletCount++;
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.02f);
+        }
+    }
+
+    IEnumerator ArcFire()
+    {
+        Vector3 initFireVec = (target.transform.position - transform.position).normalized;
+        float initRotDeg = Mathf.Atan2(initFireVec.y, initFireVec.x) * Mathf.Rad2Deg;
+
+        int bulletCount = 96;
+        int curBulletCount = 0;
+
+        while (curBulletCount < bulletCount)
+        {
+            int fireOneTimeCount = 16;
+            for (int i = 0; i < fireOneTimeCount; i++)
+            {
+                float rotDeg = initRotDeg + (i - fireOneTimeCount / 2 - 1) * 10f;
+                Vector2 fireVec = new Vector2(Mathf.Cos(rotDeg * Mathf.Deg2Rad), Mathf.Sin(rotDeg * Mathf.Deg2Rad));
+                GameObject instance = Managers.Resource.Instantiate("Prefabs/Weapons/TestEnemyBullet", _bulletRoot.transform);
+                instance.transform.position = transform.position + new Vector3(fireVec.x, fireVec.y, 0f) * 2f;
+                instance.transform.rotation = Quaternion.AngleAxis(rotDeg - 90, Vector3.forward);
+                instance.GetComponent<Rigidbody2D>().AddForce(fireVec * _firePower);
+                curBulletCount++;
+            }
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
