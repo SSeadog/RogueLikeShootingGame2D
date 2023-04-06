@@ -26,12 +26,13 @@ public abstract class WeaponBase : MonoBehaviour
 
 
 
-    public int CurLoadedAmmo { get { return _curLoadAmmo; } }
+    public int FullLoadAmmo { get { return _fullLoadAmmo; } }
+    public int CurLoadAmmo { get { return _curLoadAmmo; } }
     public int MaxAmmo { get { return _maxAmmo; } }
     public int CurAmmo { get { return _curAmmo; } }
 
 
-    void Start()
+    void Awake()
     {
         Init();
     }
@@ -46,6 +47,7 @@ public abstract class WeaponBase : MonoBehaviour
 
         _curLoadAmmo--;
         GenerateBullets();
+        Managers.Ui.GetUI<LoadedAmmoUI>().RemoveBullet();
     }
 
     public float GetReloadingTime()
@@ -80,6 +82,7 @@ public abstract class WeaponBase : MonoBehaviour
 
         _curAmmo -= reloadAmmoCount;
         _curLoadAmmo += reloadAmmoCount;
+        Managers.Ui.GetUI<LoadedAmmoUI>().FillBullet(reloadAmmoCount);
     }
 
     public virtual void Init()

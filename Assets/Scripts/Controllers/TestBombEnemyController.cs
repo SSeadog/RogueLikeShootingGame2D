@@ -23,9 +23,10 @@ public class TestBombEnemyController : EnemyControllerBase
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    public override void Attack()
+    public override float Attack()
     {
         StartCoroutine(CoAttack());
+        return attackSpeed;
     }
 
     IEnumerator CoAttack()

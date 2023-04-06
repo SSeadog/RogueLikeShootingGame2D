@@ -37,7 +37,7 @@ public abstract class EnemyControllerBase : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _baseColor = _spriteRenderer.color;
 
-        SetState(new MoveState(this));
+        SetState(new MoveState());
     }
 
     void Start()
@@ -49,7 +49,7 @@ public abstract class EnemyControllerBase : MonoBehaviour
     {
         _state?.OnEnd();
         _state = state;
-        _state?.OnStart();
+        _state?.OnStart(this);
     }
 
     void Update()
@@ -61,7 +61,7 @@ public abstract class EnemyControllerBase : MonoBehaviour
         _state?.Action();
     }
 
-    public abstract void Attack();
+    public abstract float Attack();
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -73,7 +73,7 @@ public abstract class EnemyControllerBase : MonoBehaviour
 
     protected virtual void OnDamaged()
     {
-        AttackedState state = new AttackedState(this);
+        AttackedState state = new AttackedState();
         state.SetBeforeState(_state);
         SetState(state);
         
@@ -81,19 +81,15 @@ public abstract class EnemyControllerBase : MonoBehaviour
 
     protected virtual void OnDead()
     {
-        SetState(new DieState(this));
+        SetState(new DieState());
     }
 }
 
 public class EnemyState
 {
-    public EnemyControllerBase enemyController;
-    public EnemyState(EnemyControllerBase enemyController)
-    {
-        this.enemyController = enemyController;
-    }
+    protected EnemyControllerBase _enemyController;
 
-    public virtual void OnStart() { }
+    public virtual void OnStart(EnemyControllerBase enemyController) { _enemyController = enemyController; }
 
     public virtual void Action() { }
 
@@ -105,35 +101,26 @@ public class SpawnState : EnemyState
     float _spawnTime = 1f;
     float _spawnTimer = 0f;
 
-    public SpawnState(EnemyControllerBase enemyController) : base(enemyController)
-    {
-    }
-
     public override void Action()
     {
         _spawnTimer += Time.deltaTime;
         if (_spawnTimer >= _spawnTime)
-            enemyController.SetState(new MoveState(enemyController));
+            _enemyController.SetState(new MoveState());
     }
 }
 
 public class MoveState : EnemyState
 {
-    public MoveState(EnemyControllerBase enemyController) : base(enemyController)
-    {
-    }
-
-
     public override void Action()
     {
-        float distance = (enemyController.target.transform.position - enemyController.transform.position).magnitude;
-        if (distance < enemyController.attackRange)
+        float distance = (_enemyController.target.transform.position - _enemyController.transform.position).magnitude;
+        if (distance < _enemyController.attackRange)
         {
-            enemyController.SetState(new AttackState(enemyController));
+            _enemyController.SetState(new AttackState());
         }
 
-        Vector2 moveVec = enemyController.target.transform.position - enemyController.transform.position;
-        enemyController.transform.Translate(moveVec.normalized * enemyController.stat.Speed * Time.deltaTime);
+        Vector2 moveVec = _enemyController.target.transform.position - _enemyController.transform.position;
+        _enemyController.transform.Translate(moveVec.normalized * _enemyController.stat.Speed * Time.deltaTime);
     }
 }
 
@@ -141,10 +128,12 @@ public class AttackState : EnemyState
 {
     GameObject _target;
     protected bool _canAttack = true;
+    float _attackCoolTime;
     float _attackTimer;
 
-    public AttackState(EnemyControllerBase enemyController) : base(enemyController)
+    public override void OnStart(EnemyControllerBase enemyController)
     {
+        base.OnStart(enemyController);
     }
 
     public void SetTarget(GameObject target)
@@ -154,38 +143,39 @@ public class AttackState : EnemyState
 
     public override void Action()
     {
-        float distance = (enemyController.target.transform.position - enemyController.transform.position).magnitude;
-        if (distance > enemyController.attackRange)
+        float distance = (_enemyController.target.transform.position - _enemyController.transform.position).magnitude;
+        if (distance > _enemyController.attackRange)
         {
-            enemyController.SetState(new MoveState(enemyController));
+            _enemyController.SetState(new MoveState());
         }
 
         if (_canAttack == true)
         {
-            enemyController.Attack();
+            // attack별 쿨타임을 받고 지금 쿨타임과 다르다면 쿨타임 세팅을 바꾸고 해당 시간만큼 기다리게 만들기
+            float coolTime = _enemyController.Attack();
+            _attackCoolTime = coolTime;
             _canAttack = false;
         }
 
         if (_canAttack == false)
         {
             _attackTimer += Time.deltaTime;
-            if (_attackTimer > enemyController.attackSpeed)
+            if (_attackTimer > _attackCoolTime)
             {
                 _canAttack = true;
                 _attackTimer = 0f;
-                Debug.Log("Attack CoolTime Done");
             }
         }
     }
 }
 
+// 다른 상태로 전환될 때 공격 쿨타임이 초기화가 됨
+// 어택 상태에서 쿨 관리를 해서 그런 것인데
+// 다른 방법으로 해야할 듯? 코루틴으로 몬스터컨트롤러한테 맡긴다던가 그런식으로
 public class AttackedState : EnemyState
 {
     EnemyState _beforeState;
     float _getAttackedTimer = 0f;
-    public AttackedState(EnemyControllerBase enemyController) : base(enemyController)
-    {
-    }
 
     public void SetBeforeState(EnemyState state)
     {
@@ -193,21 +183,23 @@ public class AttackedState : EnemyState
             _beforeState = state;
     }
 
-    public override void OnStart()
+    public override void OnStart(EnemyControllerBase enemyController)
     {
-        enemyController._spriteRenderer.color = Color.red;
+        base.OnStart(enemyController);
+
+        _enemyController._spriteRenderer.color = Color.red;
     }
 
     public override void Action()
     {
         _getAttackedTimer += Time.deltaTime;
-        if (_getAttackedTimer > enemyController.getAttackedTime)
-            enemyController.SetState(_beforeState);
+        if (_getAttackedTimer > _enemyController.getAttackedTime)
+            _enemyController.SetState(_beforeState);
     }
 
     public override void OnEnd()
     {
-        enemyController._spriteRenderer.color = enemyController._baseColor;
+        _enemyController._spriteRenderer.color = _enemyController._baseColor;
     }
 }
 
@@ -216,19 +208,15 @@ public class DieState : EnemyState
     float _timer = 0f;
     float _dieTime = 1f;
 
-    public DieState(EnemyControllerBase enemyController) : base(enemyController)
-    {
-    }
-
     public override void Action()
     {
         _timer += Time.deltaTime;
         if (_timer >= _dieTime)
         {
-            enemyController.SetState(null);
+            _enemyController.SetState(null);
             GameObject coin = Managers.Resource.Instantiate("Prefabs/Items/Coin");
-            coin.transform.position = enemyController.transform.position;
-            GameObject.Destroy(enemyController.gameObject);
+            coin.transform.position = _enemyController.transform.position;
+            GameObject.Destroy(_enemyController.gameObject);
         }
     }
 }

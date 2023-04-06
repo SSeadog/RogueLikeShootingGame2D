@@ -160,10 +160,9 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (_curWeapon.CurLoadedAmmo == 0)
+            if (_curWeapon.CurLoadAmmo == 0)
             {
-                Debug.Log("Reload!!!");
-                _isReloading = true;
+                Reload(true);
             }
             else
             {
@@ -172,9 +171,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Reload()
+    void Reload(bool must = false)
     {
-        
+        if (must || Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("Reload!!!");
+            _isReloading = true;
+            transform.GetComponentInChildren<ReloadGaugeUI>().FillGauge(_curWeapon.GetReloadingTime());
+        }
     }
 
     void ExplodeGrenade()
@@ -225,7 +229,7 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("EnemyBullet"))
         {
             // 플레이어가 받는 데미지는 고정값
-            _stat.GetDamaged(1);
+            //_stat.GetDamaged(1);
         }
 
         if (collision.gameObject.GetComponent<ItemBase>() != null)
