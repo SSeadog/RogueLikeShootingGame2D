@@ -7,7 +7,7 @@ public abstract class BaseScene : MonoBehaviour
 {
     protected virtual void Init()
     {
-
+        Managers.Scene.currentScene = this;
     }
 
     void Start()

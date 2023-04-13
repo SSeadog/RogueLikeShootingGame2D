@@ -35,32 +35,47 @@ public class MainScene : BaseScene
     void MakeRooms()
     {
         // Room Setting. 파일 로드로 변경 예정
-        GameState gameState = Managers.Game.GetState();
-        if (gameState is MainState)
-        {
-            MainState mainState = (MainState)gameState;
+        //{
+        //    Room ARoom = new Room("ARoom");
+        //    Managers.Game.roomController.Add(ARoom);
+        //}
 
-            Room roomA = new Room(0);
-            mainState.roomController.Add(roomA);
+        //{
+        //    Room BRoom = new Room("BRoom");
+        //    Managers.Game.roomController.Add(BRoom);
+        //    Define.SpawnInfo spawnInfo = new Define.SpawnInfo();
+        //    spawnInfo.type = Define.ObjectType.TestEnemy;
+        //    spawnInfo.spawnPoint = new Vector3(53f, 1f, 0f);
+        //    BRoom.AddSpawnInfo(spawnInfo);
+        //}
 
-            Room roomB = new Room(1);
-            mainState.roomController.Add(roomB);
-            {
-                Define.SpawnInfo spawnInfo = new Define.SpawnInfo();
-                spawnInfo.type = Define.ObjectType.TestEnemy;
-                spawnInfo.spawnPoint = new Vector3(53f, 1f, 0f);
-                roomB.AddSpawnInfo(spawnInfo);
-            }
+        //{
+        //    Room CRoom = new Room("CRoom");
+        //    Managers.Game.roomController.Add(CRoom);
+        //    Define.SpawnInfo spawnInfo = new Define.SpawnInfo();
+        //    spawnInfo.type = Define.ObjectType.DoorHorizontal;
+        //    spawnInfo.spawnPoint = new Vector3(3f, 26f, 0f);
+        //    CRoom.AddSpawnInfo(spawnInfo);
 
-            Room roomBoss = new Room(4);
-            mainState.roomController.Add(roomBoss);
-            {
-                Define.SpawnInfo spawnInfo = new Define.SpawnInfo();
-                spawnInfo.type = Define.ObjectType.BossEnemy;
-                spawnInfo.spawnPoint = new Vector3(8f, 75f, 0f);
-                roomBoss.AddSpawnInfo(spawnInfo);
-            }
-        }
+        //    Define.SpawnInfo spawnInfo1 = new Define.SpawnInfo();
+        //    spawnInfo1.type = Define.ObjectType.DoorHorizontal;
+        //    spawnInfo1.spawnPoint = new Vector3(12f, 46f, 0f);
+        //    CRoom.AddSpawnInfo(spawnInfo1);
+
+        //    Define.SpawnInfo spawnInfo2 = new Define.SpawnInfo();
+        //    spawnInfo2.type = Define.ObjectType.DoorVertical;
+        //    spawnInfo2.spawnPoint = new Vector3(18f, 35.5f, 0f);
+        //    CRoom.AddSpawnInfo(spawnInfo2);
+        //}
+
+        //{
+        //    Room BossRoom = new Room("BossRoom");
+        //    Managers.Game.roomController.Add(BossRoom);
+        //    Define.SpawnInfo spawnInfo = new Define.SpawnInfo();
+        //    spawnInfo.type = Define.ObjectType.BossEnemy;
+        //    spawnInfo.spawnPoint = new Vector3(8f, 75f, 0f);
+        //    BossRoom.AddSpawnInfo(spawnInfo);
+        //}
     }
 
     void LoadUI()

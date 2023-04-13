@@ -6,17 +6,27 @@ public class Define
 {
     public enum ObjectType
     {
-        Apple = 1,
+        Character = 0,
+        Apple,
         Banana,
         Chocolate,
         DarkChocolate,
         EnergyBar,
         Food,
-        Monster = 10001,
+        Monster = 10000,
         Hyena,
         Bomb,
         BossEnemy,
         TestEnemy,
+        Object = 20000,
+        Room,
+        Store,
+        DoorHorizontal,
+        DoorVertical,
+        RoomTrigger,
+        RoomMaking,
+        RoomTriggerMaking,
+        ObjectEnd
     }
 
     public enum WeaponType
@@ -34,10 +44,36 @@ public class Define
         Key
     }
 
+    public class TriggerInfo
+    {
+        public float posX;
+        public float posY;
+        public float sizeX;
+        public float sizeY;
+        public Vector3 GetPosition() { return new Vector3(posX, posY, 0); }
+    }
+
     public class SpawnInfo
     {
         public Define.ObjectType type;
-        public Vector3 spawnPoint;
+        public float posX;
+        public float posY;
+        public Vector3 GetPosition() { return new Vector3(posX, posY, 0); }
     }
 
+    public class DoorInfo
+    {
+        public Define.ObjectType type;
+        public float posX;
+        public float posY;
+        public bool isClose;
+        public Vector3 GetPosition() { return new Vector3(posX, posY, 0); }
+    }
+
+    public class RoomData
+    {
+        public string name;
+        public string map;
+        public List<Room> rooms;
+    }
 }

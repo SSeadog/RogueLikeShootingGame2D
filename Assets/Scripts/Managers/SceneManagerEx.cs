@@ -6,22 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerEx
 {
-    public BaseScene CurrentScene { get { return GameObject.FindObjectOfType<BaseScene>(); } }
+    public BaseScene currentScene;
 
-    public void Init(string name)
+    public void LoadScene(string name)
     {
         Managers.Clear();
         SceneManager.LoadScene(name);
     }
 
-    public void LoadScene(string name)
-    {
-        Managers.Clear();
-        Init(name);
-    }
-
     public void Clear()
     {
-        CurrentScene.Clear();
+        currentScene?.Clear();
+        currentScene = null;
     }
 }

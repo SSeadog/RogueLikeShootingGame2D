@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class GameManager
 {
-    // 특정 state에서만 동작하는 건 state 안으로 밀어넣기
-    // 이때 GameState를 받지말고 자식으로 넘겨받을 순 없나? 쓰면서 변환하기 너무 번거로운데
-    // RoomController같은 경우 어떻게 관리할지 다시 생각해보기
     private GameState currentState;
+
+    public RoomController roomController = new RoomController();
 
     private int _playerId;
     public List<WeaponBase> playerWeaponList = new List<WeaponBase>();
@@ -32,6 +31,11 @@ public class GameManager
             currentState.OnStart();
     }
 
+    public void OnUpdate()
+    {
+        currentState?.Action();
+    }
+
     public void Clear()
     {
         playerWeaponList.Clear();
@@ -48,6 +52,11 @@ public class GameState
         
     }
 
+    public virtual void Action()
+    {
+
+    }
+
     public virtual void OnEnd()
     {
 
@@ -61,12 +70,41 @@ public class CharacterSelectState : GameState
 
 public class MainState : GameState
 {
-    public RoomController roomController = new RoomController();
-
-    public override void OnEnd()
+    public override void OnStart()
     {
-        roomController.Clear();
-    }}
+        Managers.Game.roomController.LoadRoomData();
+        //RoomEnterState state = new RoomEnterState();
+        //state.SetRoom(Managers.Game.roomController.FindRoom("StartRoom"));
+        //Managers.Game.SetState(state);
+        // 각 룸의 Trigger인포 참조해서 Trigger세팅해두기
+        Managers.Game.roomController.InitRooms();
+    }
+}
+
+public class RoomEnterState : GameState
+{
+    public Room _room;
+
+    public void SetRoom(Room room)
+    {
+        _room = room;
+    }
+
+    // !!테스트 코드!!
+    public override void Action()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            _room.OpenDoors();
+            Managers.Game.SetState(new RoomClearState());
+        }
+    }
+}
+
+public class RoomClearState : GameState
+{
+
+}
 
 public class MainEndState : GameState
 {
@@ -86,18 +124,37 @@ public class MainEndState : GameState
 
 public class RoomController
 {
-    List<Room> _rooms = new List<Room>();
+    Define.RoomData _roomData;
+    Room _currentRoom;
 
     public List<Room> GetRooms()
     {
-        return _rooms;
+        return _roomData.rooms;
     }
 
-    public Room FindRoom(int id)
+    public void LoadRoomData()
     {
-        foreach (Room room in _rooms)
+        _roomData = Managers.Data.roomData;
+    }
+
+    public void SetCurrentRoom(Room room)
+    {
+        _currentRoom = room;
+    }
+
+    public void InitRooms()
+    {
+        foreach (Room room in _roomData.rooms)
         {
-            if (id == room.roomId)
+            room.Init();
+        }
+    }
+
+    public Room FindRoom(string name)
+    {
+        foreach (Room room in _roomData.rooms)
+        {
+            if (name == room.name)
                 return room;
         }
 
@@ -106,11 +163,79 @@ public class RoomController
 
     public void Add(Room room)
     {
-        _rooms.Add(room);
+        _roomData.rooms.Add(room);
     }
 
     public void Clear()
     {
-        _rooms.Clear();
+        _roomData.rooms.Clear();
     }
 }
+
+#region MapMakingState
+public class MapSelectState : GameState
+{
+    // 맵을 만들기 위해 기준이 되는 맵을 선택하는 상태
+    // 일단은 맵이 하나기에 맵을 선택해서 MapMakingState로 넘김
+    public override void OnStart()
+    {
+        Managers.Game.SetState(new MapSpawnState());
+    }
+}
+
+// 인스턴스 소환 모드
+public class MapRoomSpawnState : GameState
+{
+    // 각종 배치 요소들 배치할 수 있는 상태
+    public override void OnStart()
+    {
+        // 필요한 UI를 배치 -> 상태마다 UI는 동일하게 가져가고 자동 배치
+        // 필요한 이벤트 등록
+        (Managers.Scene.currentScene as MapMakingScene)._inputController.SetRoomSpawnMouseEvent();
+    }
+}
+
+public class MapObjectSpawnState : GameState
+{
+    public override void OnStart()
+    {
+        // 필요한 UI를 배치 -> 상태마다 UI는 동일하게 가져가고 자동 배치
+        // 필요한 이벤트 등록
+        (Managers.Scene.currentScene as MapMakingScene)._inputController.SetObjectSpawnMouseEvent();
+    }
+}
+
+public class MapSpawnState : GameState
+{
+    // 각종 배치 요소들 배치할 수 있는 상태
+    public override void OnStart()
+    {
+        // 필요한 UI를 배치 -> 상태마다 UI는 동일하게 가져가고 자동 배치
+        // 필요한 이벤트 등록
+        (Managers.Scene.currentScene as MapMakingScene)._inputController.SetObjectSpawnMouseEvent();
+    }
+}
+
+// 소환한 인스턴스 선택 모드
+public class MapInstanceSelectState : GameState
+{
+    public override void OnStart()
+    {
+        (Managers.Scene.currentScene as MapMakingScene)._inputController.SetEditMouseEvenet();
+    }
+}
+
+// 선택한 인스턴스 수정 모드
+public class MapInstanceEditState : GameState
+{
+    public override void OnStart()
+    {
+
+    }
+}
+
+public class MapMakingDoneState : GameState
+{
+    // 배치를 완료하고 저장하는 상태. 이 상태는 필요 없을 가능성도 있음
+}
+#endregion

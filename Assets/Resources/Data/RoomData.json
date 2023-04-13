@@ -1,0 +1,119 @@
+{
+  "Name": "RoomDataTest",
+  "Map": "",
+  "Rooms": [
+    {
+      "Name": "ARoom",
+      "TriggerInfo": [
+
+      ],
+      "SpawnInfo": [
+        {
+          "Type": "TestEnemy",
+          "PosX": 53,
+          "PosY": 1
+        }
+      ],
+      "DoorInfo": [
+
+      ]
+    },
+    {
+      "Name": "BRoom",
+      "TriggerInfo": [
+        {
+          "posX": 12,
+          "posY": 43,
+          "sizeX": 3,
+          "sizeY": 2
+        },
+        {
+          "posX": 16,
+          "posY": 35,
+          "sizeX": 2,
+          "sizeY": 3
+        },
+        {
+          "posX": 3,
+          "posY": 30,
+          "sizeX": 3,
+          "sizeY": 2
+        }
+      ],
+      "SpawnInfo": [
+
+      ],
+      "DoorInfo": [
+        {
+          "Type": "DoorHorizontal",
+          "PosX": 3,
+          "PosY": 26
+        },
+        {
+          "Type": "DoorHorizontal",
+          "PosX": 12,
+          "PosY": 46
+        },
+        {
+          "Type": "DoorVertical",
+          "PosX": 18,
+          "PosY": 35.5
+        }
+      ]
+    },
+    {
+      "Name": "CRoom",
+      "TriggerInfo": [
+
+      ],
+      "SpawnInfo": [
+      ],
+      "DoorInfo": [
+
+      ]
+    },
+    {
+      "Name": "DRoom",
+      "TriggerInfo": [
+        {
+          "posX": 56,
+          "posY": 39,
+          "sizeX": 3,
+          "sizeY": 2
+        },
+        {
+          "posX": 44,
+          "posY": 45,
+          "sizeX": 2,
+          "sizeY": 3
+        }
+      ],
+      "SpawnInfo": [
+        {
+          "Type": "Store",
+          "PosX": 55,
+          "PosY": 52
+        }
+      ],
+      "DoorInfo": [
+
+      ]
+    },
+    {
+      "Name": "BossRoom",
+      "TriggerInfo": [
+
+      ],
+      "SpawnInfo": [
+        {
+          "Type": "BossEnemy",
+          "PosX": 8,
+          "PosY": 75
+        }
+      ],
+      "DoorInfo": [
+
+      ]
+    }
+  ]
+}

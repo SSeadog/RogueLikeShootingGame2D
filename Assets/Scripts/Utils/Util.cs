@@ -26,7 +26,7 @@ public static class Util
     public static T LoadJson<T>(string path)
     {
         TextAsset textAsset = Resources.Load<TextAsset>(path);
-        return JsonUtility.FromJson<T>(textAsset.text);
+        return JsonConvert.DeserializeObject<T>(textAsset.text);
     }
 
     public static T LoadJsonList<T>(string path)

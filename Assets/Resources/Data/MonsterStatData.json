@@ -1,6 +1,6 @@
 {
   "Monster": {
-    "id": 10001,
+    "id": 10000,
     "name": "Monster",
     "maxHp": 100,
     "speed": 3,
@@ -8,7 +8,7 @@
     "AttackSpeed": 1
   },
   "Hyena": {
-    "id": 10002,
+    "id": 10001,
     "name": "Hyena",
     "maxHp": 50,
     "speed": 5,
@@ -16,7 +16,7 @@
     "AttackSpeed": 1
   },
   "Bomb": {
-    "id": 10003,
+    "id": 10002,
     "name": "Bomb",
     "maxHp": 50,
     "speed": 2,
@@ -24,7 +24,7 @@
     "AttackSpeed": 3
   },
   "BossEnemy": {
-    "id": 10004,
+    "id": 10003,
     "name": "BossEnemy",
     "maxHp": 500,
     "speed": 3,
@@ -32,7 +32,7 @@
     "AttackSpeed": 1
   },
   "TestEnemy": {
-    "id": 10005,
+    "id": 10004,
     "name": "TestEnemy",
     "maxHp": 100,
     "speed": 3,

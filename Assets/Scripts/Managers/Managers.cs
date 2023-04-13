@@ -47,6 +47,11 @@ public class Managers : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        Instance._game.OnUpdate();
+    }
+
     public static void Clear()
     {
         _instance._game.Clear();

@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class RoomTrigger : MonoBehaviour
 {
-    [SerializeField] int _roomId;
+    [SerializeField] string _roomName;
+
+    public void SetRoomName(string roomName)
+    {
+        _roomName = roomName;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            GameState gameState = Managers.Game.GetState();
-            if (gameState is MainState)
-            {
-                MainState mainState = (MainState)gameState;
-                Room room = mainState.roomController.FindRoom(_roomId);
-                room.Found();
-            }
+            Room room = Managers.Game.roomController.FindRoom(_roomName);
+            room.Found();
         }
     }
 }

@@ -173,9 +173,8 @@ public class PlayerController : MonoBehaviour
 
     void Reload(bool must = false)
     {
-        if (must || Input.GetKeyDown(KeyCode.R))
+        if (must || (Input.GetKeyDown(KeyCode.R) && _curWeapon.CurLoadAmmo < _curWeapon.FullLoadAmmo))
         {
-            Debug.Log("Reload!!!");
             _isReloading = true;
             transform.GetComponentInChildren<ReloadGaugeUI>().FillGauge(_curWeapon.GetReloadingTime());
         }
