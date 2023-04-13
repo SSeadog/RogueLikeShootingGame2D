@@ -34,7 +34,10 @@ public class ResourceManager
         if (_originals.ContainsKey(path) == false)
             return null;
 
-        return GameObject.Instantiate(_originals[path], parent);
+        GameObject instance = GameObject.Instantiate(_originals[path], parent);
+        instance.name = _originals[path].name;
+
+        return instance;
     }
 
     public GameObject LoadUI(string path, Transform parent = null)

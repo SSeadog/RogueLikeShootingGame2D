@@ -40,11 +40,16 @@ public class InputController : MonoBehaviour
         mouseLeftButtonClick += SpawnObject;
     }
 
-    public void SetEditMouseEvenet()
+    public void SetInstanceSelectMouseEvenet()
     {
         ClearEventsByState();
         // 인스턴스 선택하는 함수 등록하기
         mouseLeftButtonClick += SelectInstance;
+    }
+
+    public void SetInstanceEditMouseEvent()
+    {
+        ClearEventsByState();
     }
 
     void ClearEventsByState()
@@ -70,7 +75,7 @@ public class InputController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            mouseLeftButtonClick();
+            mouseLeftButtonClick?.Invoke();
         }
     }
 
@@ -124,7 +129,7 @@ public class InputController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin, ray.direction * 10000f, Color.red, 5f);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-        if (hit.transform == null || (hit.transform.name != "RoomMaking(Clone)"))
+        if (hit.transform == null || (hit.transform.name != "RoomMaking"))
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             GameObject instance = Managers.Resource.Instantiate((Managers.Scene.currentScene as MapMakingScene).GetCurSelectObjectPath());
@@ -150,10 +155,10 @@ public class InputController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin, ray.direction * 10000f, Color.red, 5f);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-        if (hit.transform == null || (hit.transform.name == "RoomMaking(Clone)"))
+        if (hit.transform != null && hit.transform.name == "RoomMaking")
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            GameObject instance = Managers.Resource.Instantiate((Managers.Scene.currentScene as MapMakingScene).GetCurSelectObjectPath());
+            GameObject instance = Managers.Resource.Instantiate((Managers.Scene.currentScene as MapMakingScene).GetCurSelectObjectPath(), hit.transform);
             instance.transform.position = pos;
         }
     }
@@ -173,7 +178,8 @@ public class InputController : MonoBehaviour
         if (hit.transform != null)
         {
             Debug.Log(hit.transform.name);
-            (Managers.Scene.currentScene as MapMakingScene)._curSelectInstance = hit.transform.gameObject;
+            (Managers.Scene.currentScene as MapMakingScene).CurSelectInstance = hit.transform.gameObject;
+            Managers.Game.SetState(new MapInstanceEditState());
         }
     }
 }

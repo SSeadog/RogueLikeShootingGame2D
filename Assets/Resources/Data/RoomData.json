@@ -4,6 +4,10 @@
   "Rooms": [
     {
       "Name": "ARoom",
+      "PosX": 3,
+      "PosY": 1,
+      "SizeX": 4688,
+      "SizeY": 3298,
       "TriggerInfo": [
 
       ],
@@ -22,22 +26,22 @@
       "Name": "BRoom",
       "TriggerInfo": [
         {
-          "posX": 12,
-          "posY": 43,
-          "sizeX": 3,
-          "sizeY": 2
+          "PosX": 12,
+          "PosY": 43,
+          "SizeX": 3,
+          "SizeY": 2
         },
         {
-          "posX": 16,
-          "posY": 35,
-          "sizeX": 2,
-          "sizeY": 3
+          "PosX": 16,
+          "PosY": 35,
+          "SizeX": 2,
+          "SizeY": 3
         },
         {
-          "posX": 3,
-          "posY": 30,
-          "sizeX": 3,
-          "sizeY": 2
+          "PosX": 3,
+          "PosY": 30,
+          "SizeX": 3,
+          "SizeY": 2
         }
       ],
       "SpawnInfo": [
@@ -76,16 +80,16 @@
       "Name": "DRoom",
       "TriggerInfo": [
         {
-          "posX": 56,
-          "posY": 39,
-          "sizeX": 3,
-          "sizeY": 2
+          "PosX": 56,
+          "PosY": 39,
+          "SizeX": 3,
+          "SizeY": 2
         },
         {
-          "posX": 44,
-          "posY": 45,
-          "sizeX": 2,
-          "sizeY": 3
+          "PosX": 44,
+          "PosY": 45,
+          "SizeX": 2,
+          "SizeY": 3
         }
       ],
       "SpawnInfo": [

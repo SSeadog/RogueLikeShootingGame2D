@@ -20,8 +20,30 @@ public class MapMakingScene : BaseScene
 
     public EditMode _editMode = EditMode.None;
     public Define.ObjectType _curSelectObjectType;
-    public GameObject _curSelectInstance;
+    GameObject _curSelectInstance;
     public InputController _inputController;
+    string _instanceToolMakingPath = "Prefabs/Objects/InstanceToolMaking";
+
+    public GameObject CurSelectInstance
+    {
+        get { return _curSelectInstance; }
+        set
+        {
+            if (_curSelectInstance != null)
+            {
+                GameObject tool = _curSelectInstance.transform.Find("InstanceToolMaking").gameObject;
+                Destroy(tool);
+            }
+
+            _curSelectInstance = value;
+
+            if (_curSelectInstance != null )
+            {
+                GameObject instance = Managers.Resource.Instantiate(_instanceToolMakingPath, _curSelectInstance.transform);
+                instance.GetComponent<InstanceToolMaking>().Init(_curSelectInstance.GetComponent<BoxCollider2D>());
+            }
+        }
+    }
 
     protected override void Init()
     {

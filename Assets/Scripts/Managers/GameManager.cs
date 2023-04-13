@@ -179,7 +179,7 @@ public class MapSelectState : GameState
     // 일단은 맵이 하나기에 맵을 선택해서 MapMakingState로 넘김
     public override void OnStart()
     {
-        Managers.Game.SetState(new MapSpawnState());
+        Managers.Game.SetState(new MapInstanceSelectState());
     }
 }
 
@@ -221,7 +221,7 @@ public class MapInstanceSelectState : GameState
 {
     public override void OnStart()
     {
-        (Managers.Scene.currentScene as MapMakingScene)._inputController.SetEditMouseEvenet();
+        (Managers.Scene.currentScene as MapMakingScene)._inputController.SetInstanceSelectMouseEvenet();
     }
 }
 
@@ -230,7 +230,12 @@ public class MapInstanceEditState : GameState
 {
     public override void OnStart()
     {
+        (Managers.Scene.currentScene as MapMakingScene)._inputController.SetInstanceEditMouseEvent();
+    }
 
+    public override void OnEnd()
+    {
+        (Managers.Scene.currentScene as MapMakingScene).CurSelectInstance = null;
     }
 }
 

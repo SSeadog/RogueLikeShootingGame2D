@@ -8,6 +8,11 @@ public class Room
     private GameObject _parent;
 
     public string name;
+    public float posX = 10f;
+    public float posY = 10f;
+    public float sizeX = 10f;
+    public float sizeY = 10f;
+
     public bool isDiscovered = false;
 
     public List<Define.TriggerInfo> triggerInfo = new List<Define.TriggerInfo>();
