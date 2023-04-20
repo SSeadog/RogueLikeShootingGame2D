@@ -1,123 +1,84 @@
 {
-  "Name": "RoomDataTest",
-  "Map": "",
+  "Name": "RoomSaveTest",
+  "Map": null,
   "Rooms": [
     {
-      "Name": "ARoom",
-      "PosX": 3,
-      "PosY": 1,
-      "SizeX": 4688,
-      "SizeY": 3298,
-      "TriggerInfo": [
-
-      ],
-      "SpawnInfo": [
+      "name": "RoomTest",
+      "posX": -0.157894567,
+      "posY": 1.6,
+      "sizeX": 1000.0,
+      "sizeY": 1000.0,
+      "isDiscovered": false,
+      "triggerInfo": [
         {
-          "Type": "TestEnemy",
-          "PosX": 53,
-          "PosY": 1
+          "posX": -3.306578,
+          "posY": 3.32631588,
+          "sizeX": 1.0,
+          "sizeY": 1.0
         }
       ],
-      "DoorInfo": [
-
-      ]
-    },
-    {
-      "Name": "BRoom",
-      "TriggerInfo": [
+      "spawnInfo": [
         {
-          "PosX": 12,
-          "PosY": 43,
-          "SizeX": 3,
-          "SizeY": 2
+          "type": 10002,
+          "posX": 0.866842151,
+          "posY": -2.70631576
         },
         {
-          "PosX": 16,
-          "PosY": 35,
-          "SizeX": 2,
-          "SizeY": 3
+          "type": 10002,
+          "posX": 2.63526344,
+          "posY": -2.50421023
         },
         {
-          "PosX": 3,
-          "PosY": 30,
-          "SizeX": 3,
-          "SizeY": 2
-        }
-      ],
-      "SpawnInfo": [
-
-      ],
-      "DoorInfo": [
-        {
-          "Type": "DoorHorizontal",
-          "PosX": 3,
-          "PosY": 26
+          "type": 10002,
+          "posX": 3.99947429,
+          "posY": -1.36736846
         },
         {
-          "Type": "DoorHorizontal",
-          "PosX": 12,
-          "PosY": 46
+          "type": 10002,
+          "posX": 4.075263,
+          "posY": -2.58000016
+        }
+      ],
+      "doorInfo": [
+        {
+          "type": 20003,
+          "posX": -1.228421,
+          "posY": 6.37289429,
+          "isClose": false
         },
         {
-          "Type": "DoorVertical",
-          "PosX": 18,
-          "PosY": 35.5
-        }
-      ]
-    },
-    {
-      "Name": "CRoom",
-      "TriggerInfo": [
-
-      ],
-      "SpawnInfo": [
-      ],
-      "DoorInfo": [
-
-      ]
-    },
-    {
-      "Name": "DRoom",
-      "TriggerInfo": [
-        {
-          "PosX": 56,
-          "PosY": 39,
-          "SizeX": 3,
-          "SizeY": 2
+          "type": 20003,
+          "posX": -0.369473815,
+          "posY": 6.37289429,
+          "isClose": false
         },
         {
-          "PosX": 44,
-          "PosY": 45,
-          "SizeX": 2,
-          "SizeY": 3
-        }
-      ],
-      "SpawnInfo": [
+          "type": 20003,
+          "posX": 0.4894746,
+          "posY": 6.32236862,
+          "isClose": false
+        },
         {
-          "Type": "Store",
-          "PosX": 55,
-          "PosY": 52
-        }
-      ],
-      "DoorInfo": [
-
-      ]
-    },
-    {
-      "Name": "BossRoom",
-      "TriggerInfo": [
-
-      ],
-      "SpawnInfo": [
+          "type": 20004,
+          "posX": 4.62999964,
+          "posY": 3.09578967,
+          "isClose": false
+        },
         {
-          "Type": "BossEnemy",
-          "PosX": 8,
-          "PosY": 75
+          "type": 20004,
+          "posX": 4.65526342,
+          "posY": 2.21157885,
+          "isClose": false
+        },
+        {
+          "type": 20004,
+          "posX": 4.60473776,
+          "posY": 1.35263133,
+          "isClose": false
         }
       ],
-      "DoorInfo": [
-
-      ]
+      "triggerInstances": [],
+      "doorInstances": []
     }
   ]
 }

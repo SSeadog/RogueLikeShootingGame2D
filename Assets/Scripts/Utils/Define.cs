@@ -18,6 +18,9 @@ public class Define
         TestEnemy,
         TestBombEnemy,
         BossEnemy,
+        TestEnemyMaking,
+        TestBombEnemyMaking,
+        BossEnemyMaking,
         Object = 20000,
         Room,
         Store,
@@ -26,6 +29,9 @@ public class Define
         RoomTrigger,
         RoomMaking,
         RoomTriggerMaking,
+        DoorHorizontalMaking,
+        DoorVerticalMaking,
+        StoreMaking,
         ObjectEnd
     }
 

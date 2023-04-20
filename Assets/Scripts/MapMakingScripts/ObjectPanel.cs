@@ -29,7 +29,8 @@ public class ObjectPanel : UIBase
             else
             {
                 _curSelectButton = value;
-                _curSelectButton.GetComponent<Image>().color = Color.gray;
+                if (_curSelectButton != null)
+                    _curSelectButton.GetComponent<Image>().color = Color.gray;
             }
         }
     }
@@ -55,9 +56,6 @@ public class ObjectPanel : UIBase
 
     public void OnRoomButtonClick()
     {
-        // 현재 버튼 색깔 바꿔서 선택됐다는 표시해두기
-        // 마우스에 반투명하게 호버시키기
-        // 룸오브젝트는 오리지널에서 렌더러 붙여넣기
         CurSelectButton = _roomButton;
         _inputController.SelectSpawnObject(Define.ObjectType.RoomMaking);
         Managers.Game.SetState(new MapRoomSpawnState());
@@ -73,13 +71,19 @@ public class ObjectPanel : UIBase
     public void OnMonsterButtonClick()
     {
         CurSelectButton = _monsterButton;
-        _spawnPanel.ShowMonsterSpawnPanel();
+        if (CurSelectButton != null)
+        {
+            _spawnPanel.ShowMonsterSpawnPanel();
+        }
     }
 
     public void OnObjectButtonClick()
     {
         CurSelectButton = _objectButton;
-        _spawnPanel.ShowObjectSpawnPanel();
+        if (CurSelectButton != null)
+        {
+            _spawnPanel.ShowObjectSpawnPanel();
+        }
     }
 
     public void OnSaveButtonClick()

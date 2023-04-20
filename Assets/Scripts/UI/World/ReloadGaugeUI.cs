@@ -29,7 +29,6 @@ public class ReloadGaugeUI : MonoBehaviour
         float time = 0f;
         while (time < endTime)
         {
-            Debug.Log((time / endTime) * _width);
             _bar.GetComponent<RectTransform>().anchoredPosition = new Vector2((time / endTime) * _width, 0f);
             time += Time.deltaTime;
             yield return null;

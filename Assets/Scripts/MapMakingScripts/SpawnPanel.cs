@@ -14,6 +14,10 @@ public class SpawnPanel : UIBase
     [SerializeField] Button _testEnemyButton;
     [SerializeField] Button _testBombButton;
     [SerializeField] Button _testBossButton;
+    [SerializeField] Button _doorHorizontalButton;
+    [SerializeField] Button _doorVerticalButton;
+    [SerializeField] Button _storeButton;
+    [SerializeField] Button _tableButton;
 
     private void Start()
     {
@@ -44,7 +48,8 @@ public class SpawnPanel : UIBase
             else
             {
                 _curSelectButton = value;
-                _curSelectButton.GetComponent<Image>().color = Color.gray;
+                if (_curSelectButton != null)
+                    _curSelectButton.GetComponent<Image>().color = Color.gray;
             }
         }
     }
@@ -52,22 +57,51 @@ public class SpawnPanel : UIBase
     public void OnTestEnemyButtonClick()
     {
         CurSelectButton = _testEnemyButton;
-        _inputController.SelectSpawnObject(Define.ObjectType.TestEnemy);
+        _inputController.SelectSpawnObject(Define.ObjectType.TestEnemyMaking);
         Managers.Game.SetState(new MapObjectSpawnState());
     }
 
     public void OnTestBombEnemyButtonClick()
     {
         CurSelectButton = _testBombButton;
-        _inputController.SelectSpawnObject(Define.ObjectType.TestBombEnemy);
+        _inputController.SelectSpawnObject(Define.ObjectType.TestBombEnemyMaking);
         Managers.Game.SetState(new MapObjectSpawnState());
     }
 
     public void OnTestBossEnemyButtonClick()
     {
         CurSelectButton = _testBossButton;
-        _inputController.SelectSpawnObject(Define.ObjectType.BossEnemy);
+        _inputController.SelectSpawnObject(Define.ObjectType.BossEnemyMaking);
         Managers.Game.SetState(new MapObjectSpawnState());
+    }
+
+    public void OnDoorHorizontalButtonClick()
+    {
+        CurSelectButton = _doorHorizontalButton;
+        _inputController.SelectSpawnObject(Define.ObjectType.DoorHorizontalMaking);
+        Managers.Game.SetState(new MapObjectSpawnState());
+    }
+
+    public void OnDoorVerticalButtonClick()
+    {
+        CurSelectButton = _doorVerticalButton;
+        _inputController.SelectSpawnObject(Define.ObjectType.DoorVerticalMaking);
+        Managers.Game.SetState(new MapObjectSpawnState());
+    }
+
+    public void OnStoreButtonClick()
+    {
+        CurSelectButton = _storeButton;
+        _inputController.SelectSpawnObject(Define.ObjectType.StoreMaking);
+        Managers.Game.SetState(new MapObjectSpawnState());
+    }
+
+    public void OnTableButtonClick()
+    {
+        CurSelectButton = _tableButton;
+        Debug.Log("테이블 선택(아직 제작 안함)");
+        //_inputController.SelectSpawnObject(Define.ObjectType.Table);
+        //Managers.Game.SetState(new MapObjectSpawnState());
     }
 
     public void ShowMonsterSpawnPanel()
@@ -82,6 +116,8 @@ public class SpawnPanel : UIBase
 
     public void Hide()
     {
+        CurSelectButton = null;
+        _inputController.SelectSpawnObject(Define.ObjectType.ObjectEnd);
         MonsterSpawnPanel.SetActive(false);
         ObjectSpawnPanel.SetActive(false);
     }

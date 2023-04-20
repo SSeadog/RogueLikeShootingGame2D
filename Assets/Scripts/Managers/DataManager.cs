@@ -14,6 +14,7 @@ public class DataManager
         monsterStatDict = Util.LoadJsonDict<string, Data.MonsterStat>("Data/MonsterStatData");
         playerStatDict = Util.LoadJsonDict<string, Data.Stat>("Data/PlayerStatData");
         weaponDict = Util.LoadJsonDict<string, Data.Weapon>("Data/WeaponData");
-        roomData = Util.LoadJson<Define.RoomData>("Data/RoomData");
+        // RoomData는 persistantPath로 옮겨서 맵 수정하면 파일 따로 백업해둬야함
+        roomData = Util.LoadJson<Define.RoomData>(Application.persistentDataPath + "/TestRoomData.json");
     }
 }

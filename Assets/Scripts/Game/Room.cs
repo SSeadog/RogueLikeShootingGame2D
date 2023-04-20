@@ -61,6 +61,13 @@ public class Room
 
     private void Spawn()
     {
+        foreach (Define.DoorInfo info in doorInfo)
+        {
+            GameObject instance = Managers.Resource.Instantiate("Prefabs/Objects/" + info.type.ToString(), _parent.transform);
+            instance.transform.position = new Vector3(info.posX, info.posY, 0);
+            doorInstances.Add(instance);
+        }
+
         foreach (Define.SpawnInfo info in spawnInfo)
         {
             if (info.type > Define.ObjectType.Object)
@@ -73,13 +80,6 @@ public class Room
                 GameObject instance = Managers.Resource.Instantiate("Prefabs/Characters/" + info.type.ToString(), _parent.transform);
                 instance.transform.position = info.GetPosition();
             }
-        }
-
-        foreach (Define.DoorInfo info in doorInfo)
-        {
-            GameObject instance = Managers.Resource.Instantiate("Prefabs/Objects/" + info.type.ToString(), _parent.transform);
-            instance.transform.position = new Vector3(info.posX, info.posY, 0);
-            doorInstances.Add(instance);
         }
     }
 

@@ -104,7 +104,7 @@ public class InputController : MonoBehaviour
 
     public void SelectSpawnObject(Define.ObjectType type)
     {
-        MapMakingScene scene = (Managers.Scene.currentScene as MapMakingScene);
+        MapMakingScene scene = Managers.Scene.GetCurrentScene<MapMakingScene>();
         if (type == scene._curSelectObjectType)
             scene._curSelectObjectType = Define.ObjectType.ObjectEnd;
         else
@@ -119,7 +119,7 @@ public class InputController : MonoBehaviour
             return;
         }
 
-        MapMakingScene scene = Managers.Scene.currentScene as MapMakingScene;
+        MapMakingScene scene = Managers.Scene.GetCurrentScene<MapMakingScene>();
         if (scene._curSelectObjectType == Define.ObjectType.ObjectEnd)
         {
             Debug.Log("선택된 오브젝트가 없습니다!");
@@ -132,7 +132,7 @@ public class InputController : MonoBehaviour
         if (hit.transform == null || (hit.transform.name != "RoomMaking"))
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            GameObject instance = Managers.Resource.Instantiate((Managers.Scene.currentScene as MapMakingScene).GetCurSelectObjectPath());
+            GameObject instance = Managers.Resource.Instantiate(Managers.Scene.GetCurrentScene<MapMakingScene>().GetCurSelectObjectPath());
             instance.transform.position = pos;
         }
     }
@@ -145,7 +145,7 @@ public class InputController : MonoBehaviour
             return;
         }
 
-        MapMakingScene scene = Managers.Scene.currentScene as MapMakingScene;
+        MapMakingScene scene = Managers.Scene.GetCurrentScene<MapMakingScene>();
         if (scene._curSelectObjectType == Define.ObjectType.ObjectEnd)
         {
             Debug.Log("선택된 오브젝트가 없습니다!");
@@ -158,16 +158,19 @@ public class InputController : MonoBehaviour
         if (hit.transform != null && hit.transform.name == "RoomMaking")
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            MapMakingScene mapMakingscene = Managers.Scene.currentScene as MapMakingScene;
+            MapMakingScene mapMakingscene = Managers.Scene.GetCurrentScene<MapMakingScene>();
+            // 오브젝트 소환
             if (mapMakingscene._curSelectObjectType > Define.ObjectType.Object)
             {
                 GameObject instance = Managers.Resource.Instantiate(mapMakingscene.GetCurSelectObjectPath(), hit.transform);
                 instance.transform.position = pos;
             }
+            // 몬스터 소환
             else
             {
                 GameObject instance = Managers.Resource.Instantiate(mapMakingscene.GetCurSelectObjectPath());
                 instance.transform.position = pos;
+                instance.GetComponent<MakingObject>().parentRoom = hit.transform.gameObject;
             }
         }
     }
@@ -187,7 +190,7 @@ public class InputController : MonoBehaviour
         if (hit.transform != null)
         {
             Debug.Log(hit.transform.name);
-            (Managers.Scene.currentScene as MapMakingScene).CurSelectInstance = hit.transform.gameObject;
+            Managers.Scene.GetCurrentScene<MapMakingScene>().CurSelectInstance = hit.transform.gameObject;
             Managers.Game.SetState(new MapInstanceEditState());
         }
     }

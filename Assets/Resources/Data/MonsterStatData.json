@@ -15,8 +15,8 @@
     "AttackRange": 5,
     "AttackSpeed": 1
   },
-  "Bomb": {
-    "id": 10002,
+  "TestBombEnemy": {
+    "id": 10003,
     "name": "TestBombEnemy",
     "maxHp": 50,
     "speed": 2,
@@ -24,7 +24,7 @@
     "AttackSpeed": 3
   },
   "BossEnemy": {
-    "id": 10003,
+    "id": 10004,
     "name": "TestBossEnemy",
     "maxHp": 500,
     "speed": 3,
@@ -32,7 +32,7 @@
     "AttackSpeed": 1
   },
   "TestEnemy": {
-    "id": 10004,
+    "id": 10002,
     "name": "TestEnemy",
     "maxHp": 100,
     "speed": 3,

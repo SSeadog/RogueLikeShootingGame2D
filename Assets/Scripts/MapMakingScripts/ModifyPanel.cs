@@ -21,9 +21,9 @@ public class ModifyPanel : UIBase
 
     public void OnDeleteButtonClick()
     {
-        GameObject go = (Managers.Scene.currentScene as MapMakingScene).CurSelectInstance;
+        GameObject go = Managers.Scene.GetCurrentScene<MapMakingScene>().CurSelectInstance;
         Destroy(go);
-        (Managers.Scene.currentScene as MapMakingScene).CurSelectInstance = null;
+        Managers.Scene.GetCurrentScene<MapMakingScene>().CurSelectInstance = null;
     }
 
 }

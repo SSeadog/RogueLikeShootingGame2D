@@ -191,7 +191,7 @@ public class MapRoomSpawnState : GameState
     {
         // 필요한 UI를 배치 -> 상태마다 UI는 동일하게 가져가고 자동 배치
         // 필요한 이벤트 등록
-        (Managers.Scene.currentScene as MapMakingScene)._inputController.SetRoomSpawnMouseEvent();
+        Managers.Scene.GetCurrentScene<MapMakingScene>()._inputController.SetRoomSpawnMouseEvent();
     }
 }
 
@@ -202,7 +202,7 @@ public class MapObjectSpawnState : GameState
     {
         // 필요한 UI를 배치 -> 상태마다 UI는 동일하게 가져가고 자동 배치
         // 필요한 이벤트 등록
-        (Managers.Scene.currentScene as MapMakingScene)._inputController.SetObjectSpawnMouseEvent();
+        Managers.Scene.GetCurrentScene<MapMakingScene>()._inputController.SetObjectSpawnMouseEvent();
     }
 }
 
@@ -213,7 +213,7 @@ public class MapSpawnState : GameState
     {
         // 필요한 UI를 배치 -> 상태마다 UI는 동일하게 가져가고 자동 배치
         // 필요한 이벤트 등록
-        (Managers.Scene.currentScene as MapMakingScene)._inputController.SetObjectSpawnMouseEvent();
+        Managers.Scene.GetCurrentScene<MapMakingScene>()._inputController.SetObjectSpawnMouseEvent();
     }
 }
 
@@ -222,7 +222,7 @@ public class MapInstanceSelectState : GameState
 {
     public override void OnStart()
     {
-        (Managers.Scene.currentScene as MapMakingScene)._inputController.SetInstanceSelectMouseEvenet();
+        Managers.Scene.GetCurrentScene<MapMakingScene>()._inputController.SetInstanceSelectMouseEvenet();
     }
 }
 
@@ -231,12 +231,12 @@ public class MapInstanceEditState : GameState
 {
     public override void OnStart()
     {
-        (Managers.Scene.currentScene as MapMakingScene)._inputController.SetInstanceEditMouseEvent();
+        Managers.Scene.GetCurrentScene<MapMakingScene>()._inputController.SetInstanceEditMouseEvent();
     }
 
     public override void OnEnd()
     {
-        (Managers.Scene.currentScene as MapMakingScene).CurSelectInstance = null;
+        Managers.Scene.GetCurrentScene<MapMakingScene>().CurSelectInstance = null;
     }
 }
 
