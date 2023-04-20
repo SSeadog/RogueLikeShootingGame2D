@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 2066611065149379512}
   m_Layer: 9
   m_Name: RoomTriggerMaking
-  m_TagString: Untagged
+  m_TagString: Making
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

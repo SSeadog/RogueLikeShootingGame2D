@@ -17,7 +17,7 @@
   },
   "Bomb": {
     "id": 10002,
-    "name": "Bomb",
+    "name": "TestBombEnemy",
     "maxHp": 50,
     "speed": 2,
     "AttackRange": 5,
@@ -25,7 +25,7 @@
   },
   "BossEnemy": {
     "id": 10003,
-    "name": "BossEnemy",
+    "name": "TestBossEnemy",
     "maxHp": 500,
     "speed": 3,
     "AttackRange": 8,

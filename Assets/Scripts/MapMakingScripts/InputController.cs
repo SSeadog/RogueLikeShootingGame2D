@@ -158,8 +158,17 @@ public class InputController : MonoBehaviour
         if (hit.transform != null && hit.transform.name == "RoomMaking")
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            GameObject instance = Managers.Resource.Instantiate((Managers.Scene.currentScene as MapMakingScene).GetCurSelectObjectPath(), hit.transform);
-            instance.transform.position = pos;
+            MapMakingScene mapMakingscene = Managers.Scene.currentScene as MapMakingScene;
+            if (mapMakingscene._curSelectObjectType > Define.ObjectType.Object)
+            {
+                GameObject instance = Managers.Resource.Instantiate(mapMakingscene.GetCurSelectObjectPath(), hit.transform);
+                instance.transform.position = pos;
+            }
+            else
+            {
+                GameObject instance = Managers.Resource.Instantiate(mapMakingscene.GetCurSelectObjectPath());
+                instance.transform.position = pos;
+            }
         }
     }
 

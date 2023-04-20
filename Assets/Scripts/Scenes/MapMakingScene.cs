@@ -54,7 +54,17 @@ public class MapMakingScene : BaseScene
 
     public string GetCurSelectObjectPath()
     {
-        return "Prefabs/Objects/" + _curSelectObjectType.ToString();
+        string path = null;
+        if (_curSelectObjectType > Define.ObjectType.Object)
+        {
+            path = "Prefabs/Objects/" + _curSelectObjectType.ToString();
+        }
+        else if (_curSelectObjectType > Define.ObjectType.Monster)
+        {
+            path = "Prefabs/Characters/" + _curSelectObjectType.ToString();
+        }
+
+        return path;
     }
 
     public override void Clear()

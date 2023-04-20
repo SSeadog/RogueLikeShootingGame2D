@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class ObjectPanel : UIBase
 {
     InputController _inputController;
-
     Button _curSelectButton;
+    [SerializeField] SpawnPanel _spawnPanel; // 나중에 LoadUI를 통해서 UI매니저에 등록해서 호출하도록 변경 필요
 
     Button CurSelectButton
     {
@@ -18,6 +18,7 @@ public class ObjectPanel : UIBase
 
         set
         {
+            _spawnPanel.Hide();
             if (_curSelectButton != null)
                 _curSelectButton.GetComponent<Image>().color = Color.white;
 
@@ -41,14 +42,15 @@ public class ObjectPanel : UIBase
 
     void Start()
     {
+        // 수정 필요
         _inputController = GameObject.FindObjectOfType<InputController>();
     }
 
     public void OnInstanceButtonClick()
     {
+        CurSelectButton = _instanceButton;
         _inputController.SelectSpawnObject(Define.ObjectType.ObjectEnd);
         Managers.Game.SetState(new MapInstanceSelectState());
-        CurSelectButton = _instanceButton;
     }
 
     public void OnRoomButtonClick()
@@ -56,26 +58,28 @@ public class ObjectPanel : UIBase
         // 현재 버튼 색깔 바꿔서 선택됐다는 표시해두기
         // 마우스에 반투명하게 호버시키기
         // 룸오브젝트는 오리지널에서 렌더러 붙여넣기
+        CurSelectButton = _roomButton;
         _inputController.SelectSpawnObject(Define.ObjectType.RoomMaking);
         Managers.Game.SetState(new MapRoomSpawnState());
-        CurSelectButton = _roomButton;
     }
 
     public void OnTriggerButtonClick()
     {
+        CurSelectButton = _triggerButton;
         _inputController.SelectSpawnObject(Define.ObjectType.RoomTriggerMaking);
         Managers.Game.SetState(new MapObjectSpawnState());
-        CurSelectButton = _triggerButton;
     }
 
     public void OnMonsterButtonClick()
     {
-
+        CurSelectButton = _monsterButton;
+        _spawnPanel.ShowMonsterSpawnPanel();
     }
 
     public void OnObjectButtonClick()
     {
-
+        CurSelectButton = _objectButton;
+        _spawnPanel.ShowObjectSpawnPanel();
     }
 
     public void OnSaveButtonClick()

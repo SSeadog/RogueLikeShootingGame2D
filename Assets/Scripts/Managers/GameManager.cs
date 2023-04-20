@@ -183,7 +183,7 @@ public class MapSelectState : GameState
     }
 }
 
-// 인스턴스 소환 모드
+// 룸 소환 모드
 public class MapRoomSpawnState : GameState
 {
     // 각종 배치 요소들 배치할 수 있는 상태
@@ -195,6 +195,7 @@ public class MapRoomSpawnState : GameState
     }
 }
 
+// 오브젝트(트리거, 문, 오브젝트, 몬스터) 소환 모드
 public class MapObjectSpawnState : GameState
 {
     public override void OnStart()

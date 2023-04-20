@@ -13,7 +13,7 @@ public static class Util
                 break;
             case Define.ObjectType.Hyena:
                 break;
-            case Define.ObjectType.Bomb:
+            case Define.ObjectType.TestBombEnemy:
                 break;
             case Define.ObjectType.BossEnemy:
                 break;
@@ -41,4 +41,9 @@ public static class Util
         return JsonConvert.DeserializeObject<Dictionary<T, T2>>(textAsset.text);
     }
     #endregion
+
+    public static string ToJson<T>(T data)
+    {
+        return JsonConvert.SerializeObject(data);
+    }
 }
