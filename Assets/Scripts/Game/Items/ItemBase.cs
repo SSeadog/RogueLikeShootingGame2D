@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ItemBase : MonoBehaviour
 {
-    float _followSpeed = 4f;
+    private float _followSpeed = 4f;
 
     public abstract void Effect();
 

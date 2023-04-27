@@ -30,21 +30,21 @@ public class BossEnemyController : EnemyControllerBase
         {
             case EAttackType.Basic:
                 BasicFire();
-                return stat.AttackSpeed;
+                return _stat.AttackSpeed;
             case EAttackType.Tornado:
                 StartCoroutine(TornadoFire());
-                return stat.AttackSpeed * 3f;
+                return _stat.AttackSpeed * 3f;
             case EAttackType.Arc:
                 StartCoroutine(ArcFire());
-                return stat.AttackSpeed * 2f;
+                return _stat.AttackSpeed * 2f;
             default:
-                return stat.AttackSpeed;
+                return _stat.AttackSpeed;
         }
     }
 
     void BasicFire()
     {
-        Vector3 fireVec = (target.transform.position - transform.position).normalized;
+        Vector3 fireVec = (_target.transform.position - transform.position).normalized;
         float rotDeg = Mathf.Atan2(fireVec.y, fireVec.x) * Mathf.Rad2Deg;
 
         GameObject instance = Managers.Resource.Instantiate("Prefabs/Weapons/TestEnemyBullet", _bulletRoot.transform);
@@ -55,7 +55,7 @@ public class BossEnemyController : EnemyControllerBase
 
     IEnumerator TornadoFire()
     {
-        Vector3 initFireVec = (target.transform.position - transform.position).normalized;
+        Vector3 initFireVec = (_target.transform.position - transform.position).normalized;
         float initRotDeg = Mathf.Atan2(initFireVec.y, initFireVec.x) * Mathf.Rad2Deg;
 
         int bulletCount = 60;
@@ -77,7 +77,7 @@ public class BossEnemyController : EnemyControllerBase
 
     IEnumerator ArcFire()
     {
-        Vector3 initFireVec = (target.transform.position - transform.position).normalized;
+        Vector3 initFireVec = (_target.transform.position - transform.position).normalized;
         float initRotDeg = Mathf.Atan2(initFireVec.y, initFireVec.x) * Mathf.Rad2Deg;
 
         int bulletCount = 96;
@@ -105,8 +105,8 @@ public class BossEnemyController : EnemyControllerBase
         base.OnDamaged();
 
         BossInfoPanel bossInfoUi = Managers.Ui.GetUI<BossInfoPanel>();
-        bossInfoUi.SetBossName(stat.name);
-        bossInfoUi.SetBossHpBar(stat.Hp / stat.MaxHp);
+        bossInfoUi.SetBossName(_stat.name);
+        bossInfoUi.SetBossHpBar(_stat.Hp / _stat.MaxHp);
     }
 
     protected override void OnDead()

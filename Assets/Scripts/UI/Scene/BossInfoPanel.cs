@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class BossInfoPanel : UIBase
 {
-    TMP_Text _bossNameText;
-    BossHpBarUI _bossHpBarUI;
+    private TMP_Text _bossNameText;
+    private BossHpBarUI _bossHpBarUI;
 
     void Awake()
     {

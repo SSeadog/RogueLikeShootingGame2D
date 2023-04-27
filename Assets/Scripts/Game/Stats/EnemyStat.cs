@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class EnemyStat : Stat
 {
-    float _attackRange;
-    float _attackSpeed;
+    private float _attackRange;
+    private float _attackSpeed;
 
     public float AttackRange { get { return _attackRange; } }
     public float AttackSpeed { get { return _attackSpeed; } }
@@ -14,7 +10,7 @@ public class EnemyStat : Stat
     {
         base.Init();
 
-        Data.MonsterStat statData = Managers.Data.monsterStatDict[type.ToString()];
+        Data.MonsterStat statData = Managers.Data.MonsterStatDict[type.ToString()];
 
         _maxHp = statData.maxHp;
         _hp = _maxHp;

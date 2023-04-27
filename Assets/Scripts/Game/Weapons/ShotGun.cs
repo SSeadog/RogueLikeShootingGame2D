@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShotGun : WeaponBase
 {
-    int _bulletCount = 4;
-    int _fireTime = 2;
-    float _gap = 15f;
+    private int _bulletCount = 4;
+    private int _fireTime = 2;
+    private float _gap = 15f;
 
     public override void Init()
     {

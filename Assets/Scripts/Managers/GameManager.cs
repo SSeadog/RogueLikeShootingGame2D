@@ -1,35 +1,38 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEditor.EditorTools;
 
 public class GameManager
 {
-    GameState currentState;
-    int _playerId;
-    List<EnemyControllerBase> _spawnedEnemies = new List<EnemyControllerBase>();
-
-    public RoomManager roomManager = new RoomManager();
-    public List<WeaponBase> playerWeaponList = new List<WeaponBase>();
-    public int gold;
-    public int key;
-    public int grenade;
+    private int _playerId;
+    private int _gold;
+    private int _key;
+    private int _grenade;
+    private GameState _currentState;
+    private RoomManager _roomManager = new RoomManager();
+    private List<WeaponBase> _playerWeaponList = new List<WeaponBase>();
+    private List<EnemyControllerBase> _spawnedEnemies = new List<EnemyControllerBase>();
 
     public int PlayerId { get { return _playerId; } set { _playerId = value; } }
+    public int Gold { get { return _gold; } set { _gold = value; } }
+    public int Key { get { return _key; } set { _key = value; } }
+    public int Grenade { get { return _grenade; } set { _grenade = value; } }
+    public RoomManager RoomManager { get { return _roomManager; } }
+    public List<WeaponBase> PlayerWeaponList { get { return _playerWeaponList; } }
     public List<EnemyControllerBase> SpawnedEnemies { get { return _spawnedEnemies; } }
 
     public GameState GetState()
     {
-        return currentState;
+        return _currentState;
     }
 
     public void SetState(GameState state)
     {
-        if (currentState != null)
-            currentState.OnEnd();
-        currentState = state;
+        if (_currentState != null)
+            _currentState.OnEnd();
+        _currentState = state;
 
-        if (currentState != null)
-            currentState.OnStart();
+        if (_currentState != null)
+            _currentState.OnStart();
     }
 
     public void AddSpawnedEnemy(EnemyControllerBase enemy)
@@ -44,16 +47,17 @@ public class GameManager
 
     public void OnUpdate()
     {
-        currentState?.Action();
+        _currentState?.Action();
     }
 
     public void Clear()
     {
-        playerWeaponList.Clear();
+        _playerWeaponList.Clear();
         _spawnedEnemies.Clear();
-        gold = 0;
-        key = 0;
-        grenade = 0;
+        _roomManager.Clear();
+        _gold = 0;
+        _key = 0;
+        _grenade = 0;
     }
 }
 

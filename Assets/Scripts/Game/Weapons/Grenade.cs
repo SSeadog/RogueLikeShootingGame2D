@@ -1,11 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Grenade : MonoBehaviour
 {
-    float _maxSize = 7f;
-    float _curSize = 3f;
+    private float _maxSize = 7f;
+    private float _curSize = 3f;
     public void Explode()
     {
         StartCoroutine(CoExplode());

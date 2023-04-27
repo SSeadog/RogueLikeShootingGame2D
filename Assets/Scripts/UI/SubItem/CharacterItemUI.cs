@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -13,8 +10,8 @@ public class CharacterItemUI : UIBase
         ItemName
     }
 
-    string _name;
-    UnityAction<Data.Stat> _action;
+    private string _name;
+    private UnityAction<Data.Stat> _action;
 
     protected override void Init()
     {
@@ -25,7 +22,7 @@ public class CharacterItemUI : UIBase
         Transform nameTr = Get<Transform>(GameObjects.ItemName.ToString());
         nameTr.GetComponent<Text>().text = _name;
 
-        Data.Stat pStat = Managers.Data.playerStatDict[_name];
+        Data.Stat pStat = Managers.Data.PlayerStatDict[_name];
         gameObject.GetComponent<Button>().onClick.AddListener(()=> { _action.Invoke(pStat); });
     }
 

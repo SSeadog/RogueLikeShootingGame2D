@@ -1,11 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager
 {
-    public GameObject uiRoot = null;
+    private GameObject uiRoot = null;
     private List<UIBase> uiList = new List<UIBase>();
+
+    public GameObject UiRoot { get { return uiRoot; } set { uiRoot = value; } }
 
     public void AddUI(UIBase ui)
     {

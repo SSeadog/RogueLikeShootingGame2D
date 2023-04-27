@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -136,14 +134,12 @@ public class InputController : MonoBehaviour
     {
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            Debug.Log("UI를 클릭했습니다");
             return;
         }
 
         MapMakingScene scene = Managers.Scene.GetCurrentScene<MapMakingScene>();
         if (scene._curSelectObjectType == Define.ObjectType.ObjectEnd)
         {
-            Debug.Log("선택된 오브젝트가 없습니다!");
             return;
         }
 
@@ -162,14 +158,12 @@ public class InputController : MonoBehaviour
     {
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            Debug.Log("UI를 클릭했습니다");
             return;
         }
 
         MapMakingScene scene = Managers.Scene.GetCurrentScene<MapMakingScene>();
         if (scene._curSelectObjectType == Define.ObjectType.ObjectEnd)
         {
-            Debug.Log("선택된 오브젝트가 없습니다!");
             return;
         }
 
@@ -203,7 +197,6 @@ public class InputController : MonoBehaviour
     {
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            Debug.Log("UI를 클릭했습니다");
             GameObject curInstance = Managers.Scene.GetCurrentScene<MapMakingScene>().CurSelectInstance;
             if (curInstance != null)
                 curInstance.GetComponentInChildren<InstanceToolMaking>().gameObject.GetComponent<Image>().enabled = false;
@@ -212,13 +205,11 @@ public class InputController : MonoBehaviour
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.yellow, 5f);
         if (hit.transform != null)
         {
             if (!hit.transform.CompareTag("Making"))
                 return;
 
-            Debug.Log(hit.transform.name);
             Managers.Scene.GetCurrentScene<MapMakingScene>().CurSelectInstance = hit.transform.gameObject;
         }
     }

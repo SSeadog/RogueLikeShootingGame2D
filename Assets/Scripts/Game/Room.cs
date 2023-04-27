@@ -1,11 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Room
 {
-    private GameObject _parent;
 
     public string name;
     public float posX = 10f;
@@ -22,16 +19,17 @@ public class Room
     public List<GameObject> triggerInstances = new List<GameObject>();
     public List<GameObject> doorInstances = new List<GameObject>();
 
+    private GameObject _roomInstance;
 
     public void Init()
     {
         GameObject go = new GameObject();
         go.name = name;
-        _parent = go;
+        _roomInstance = go;
         
         foreach (Define.TriggerInfo info in triggerInfo)
         {
-            GameObject instance = Managers.Resource.Instantiate("Prefabs/Objects/RoomTrigger", _parent.transform);
+            GameObject instance = Managers.Resource.Instantiate("Prefabs/Objects/RoomTrigger", _roomInstance.transform);
             instance.GetComponent<RoomTrigger>().SetRoomName(name);
             instance.transform.localScale = new Vector3(info.sizeX, info.sizeY, 0);
             instance.transform.position = new Vector3(info.posX, info.posY, 0);
@@ -53,7 +51,6 @@ public class Room
         state.SetRoom(this);
         Managers.Game.SetState(state);
 
-        Debug.Log($"Room{name} ¹ß°ß!!");
         isDiscovered = true;
         Spawn();
         CloseDoors();
@@ -63,7 +60,7 @@ public class Room
     {
         foreach (Define.DoorInfo info in doorInfo)
         {
-            GameObject instance = Managers.Resource.Instantiate("Prefabs/Objects/" + info.type.ToString(), _parent.transform);
+            GameObject instance = Managers.Resource.Instantiate("Prefabs/Objects/" + info.type.ToString(), _roomInstance.transform);
             instance.transform.position = new Vector3(info.posX, info.posY, 0);
             doorInstances.Add(instance);
         }
@@ -72,12 +69,12 @@ public class Room
         {
             if (info.type > Define.ObjectType.Object)
             {
-                GameObject instance = Managers.Resource.Instantiate("Prefabs/Objects/" + info.type.ToString(), _parent.transform);
+                GameObject instance = Managers.Resource.Instantiate("Prefabs/Objects/" + info.type.ToString(), _roomInstance.transform);
                 instance.transform.position = new Vector3(info.posX, info.posY, 0);
             }
             else if (info.type > Define.ObjectType.Monster)
             {
-                GameObject instance = Managers.Resource.Instantiate("Prefabs/Characters/" + info.type.ToString(), _parent.transform);
+                GameObject instance = Managers.Resource.Instantiate("Prefabs/Characters/" + info.type.ToString(), _roomInstance.transform);
                 instance.transform.position = info.GetPosition();
                 Managers.Game.AddSpawnedEnemy(instance.GetComponent<EnemyControllerBase>());
             }

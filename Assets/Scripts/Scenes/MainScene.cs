@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MainScene : BaseScene
@@ -14,7 +12,7 @@ public class MainScene : BaseScene
 
         Managers.Game.SetState(new MainInitState());
 
-        Managers.Game.roomManager.FindRoom("StartRoom").Found();
+        Managers.Game.RoomManager.FindRoom("StartRoom").Found();
 
         GameObject playerOriginal = Resources.Load<GameObject>("Prefabs/Characters/TestPlayer");
         GameObject cameraOriginal = Resources.Load<GameObject>("Prefabs/Main Camera");
@@ -26,64 +24,17 @@ public class MainScene : BaseScene
         camera.name = cameraOriginal.name;
         camera.GetComponent<CameraController>().Init(player);
 
-        Managers.Game.gold = 0;
-        Managers.Game.key = 0;
-        Managers.Game.grenade = 2;
+        Managers.Game.Gold = 0;
+        Managers.Game.Key = 0;
+        Managers.Game.Grenade = 2;
 
         // Test
-        Managers.Game.gold += 100;
+        Managers.Game.Gold += 100;
 
-        MakeRooms();
-        LoadUI();
+        LoadMainSceneUI();
     }
 
-    void MakeRooms()
-    {
-        // Room Setting. 파일 로드로 변경 예정
-        //{
-        //    Room ARoom = new Room("ARoom");
-        //    Managers.Game.roomController.Add(ARoom);
-        //}
-
-        //{
-        //    Room BRoom = new Room("BRoom");
-        //    Managers.Game.roomController.Add(BRoom);
-        //    Define.SpawnInfo spawnInfo = new Define.SpawnInfo();
-        //    spawnInfo.type = Define.ObjectType.TestEnemy;
-        //    spawnInfo.spawnPoint = new Vector3(53f, 1f, 0f);
-        //    BRoom.AddSpawnInfo(spawnInfo);
-        //}
-
-        //{
-        //    Room CRoom = new Room("CRoom");
-        //    Managers.Game.roomController.Add(CRoom);
-        //    Define.SpawnInfo spawnInfo = new Define.SpawnInfo();
-        //    spawnInfo.type = Define.ObjectType.DoorHorizontal;
-        //    spawnInfo.spawnPoint = new Vector3(3f, 26f, 0f);
-        //    CRoom.AddSpawnInfo(spawnInfo);
-
-        //    Define.SpawnInfo spawnInfo1 = new Define.SpawnInfo();
-        //    spawnInfo1.type = Define.ObjectType.DoorHorizontal;
-        //    spawnInfo1.spawnPoint = new Vector3(12f, 46f, 0f);
-        //    CRoom.AddSpawnInfo(spawnInfo1);
-
-        //    Define.SpawnInfo spawnInfo2 = new Define.SpawnInfo();
-        //    spawnInfo2.type = Define.ObjectType.DoorVertical;
-        //    spawnInfo2.spawnPoint = new Vector3(18f, 35.5f, 0f);
-        //    CRoom.AddSpawnInfo(spawnInfo2);
-        //}
-
-        //{
-        //    Room BossRoom = new Room("BossRoom");
-        //    Managers.Game.roomController.Add(BossRoom);
-        //    Define.SpawnInfo spawnInfo = new Define.SpawnInfo();
-        //    spawnInfo.type = Define.ObjectType.BossEnemy;
-        //    spawnInfo.spawnPoint = new Vector3(8f, 75f, 0f);
-        //    BossRoom.AddSpawnInfo(spawnInfo);
-        //}
-    }
-
-    void LoadUI()
+    void LoadMainSceneUI()
     {
         GameObject uIRoot = GameObject.Find("UIRoot");
         if (uIRoot == null)
@@ -99,6 +50,5 @@ public class MainScene : BaseScene
 
     public override void Clear()
     {
-        Debug.Log("MainScene Clear()");
     }
 }

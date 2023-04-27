@@ -1,30 +1,11 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public static class Util
 {
-    public static string GetMonsterPrefabPath(Define.ObjectType type)
-    {
-        switch (type)
-        {
-            case Define.ObjectType.Monster:
-                break;
-            case Define.ObjectType.Hyena:
-                break;
-            case Define.ObjectType.TestBombEnemy:
-                break;
-            case Define.ObjectType.BossEnemy:
-                break;
-        }
-
-        return null;
-    }
-
     public static Define.ObjectType ConvertMakingTypeToObjectType(Define.ObjectType type)
     {
         string makingTypeName = type.ToString();

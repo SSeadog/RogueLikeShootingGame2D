@@ -9,8 +9,8 @@ public class MainInitState : GameState
 {
     public override void OnStart()
     {
-        Managers.Game.roomManager.LoadRoomData();
-        Managers.Game.roomManager.InitRooms();
+        Managers.Game.RoomManager.LoadRoomData();
+        Managers.Game.RoomManager.InitRooms();
         Managers.Game.SetState(new MainState());
     }
 }

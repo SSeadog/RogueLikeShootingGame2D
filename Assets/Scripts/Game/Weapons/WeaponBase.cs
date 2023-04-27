@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class WeaponBase : MonoBehaviour
 {
-    public Define.WeaponType weaponType = Define.WeaponType.None;
+    [SerializeField] private Define.WeaponType weaponType = Define.WeaponType.None;
 
     protected GameObject _bulletRoot;
     protected GameObject _bulletOrigin;
@@ -16,18 +15,17 @@ public abstract class WeaponBase : MonoBehaviour
     protected int _curAmmo;
     protected int _curLoadAmmo;
     protected float _bulletSpeed;
-    float _fireSpeed;
 
+    SpriteRenderer _gunSprite;
     Vector3 _initFirePos;
+    float _fireSpeed;
     bool _canFire;
     bool _isFlipped;
-    SpriteRenderer _gunSprite;
 
     public int FullLoadAmmo { get { return _fullLoadAmmo; } }
     public int CurLoadAmmo { get { return _curLoadAmmo; } }
     public int MaxAmmo { get { return _maxAmmo; } }
     public int CurAmmo { get { return _curAmmo; } }
-
 
     void Awake()
     {
@@ -96,7 +94,7 @@ public abstract class WeaponBase : MonoBehaviour
 
     public virtual void Init()
     {
-        Data.Weapon weaponInfo = Managers.Data.weaponDict[weaponType.ToString()];
+        Data.Weapon weaponInfo = Managers.Data.WeaponDict[weaponType.ToString()];
 
         _power = weaponInfo.power;
         _maxAmmo = weaponInfo.maxAmmo;

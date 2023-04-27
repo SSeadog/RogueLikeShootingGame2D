@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Store : MonoBehaviour
 {
     // 판매할 아이템을 랜덤으로 생성하여 가지고 있기
-    SellItem[] _sellItems = new SellItem[3];
-
+    private SellItem[] _sellItems = new SellItem[3];
     private int _itemCount = 3;
     private float _itemOffsetX = -3f;
     private float _itemPaddingX = 3f;

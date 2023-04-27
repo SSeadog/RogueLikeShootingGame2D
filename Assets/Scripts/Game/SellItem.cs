@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class SellItem : MonoBehaviour
 {
-    GameObject _item;
-    int _price = 0;
-    bool _isSold = false;
-
-    bool _isPlayerInTrigger = false;
+    private GameObject _item;
+    private int _price = 0;
+    private bool _isSold = false;
+    private bool _isPlayerInTrigger = false;
 
     public void SetItem(string path, int price = 10)
     {
@@ -25,10 +24,9 @@ public class SellItem : MonoBehaviour
 
         if (_isPlayerInTrigger && Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log($"{_item.name} 구매 시도!!");
-            if (Managers.Game.gold > _price)
+            if (Managers.Game.Gold > _price)
             {
-                Managers.Game.gold -= _price;
+                Managers.Game.Gold -= _price;
                 _isSold = true;
                 _item.GetComponent<ItemBase>().Effect();
 
@@ -46,7 +44,7 @@ public class SellItem : MonoBehaviour
         if (!collision.CompareTag("Player"))
             return;
 
-        Debug.Log($"{_item.name} {_price}!!!");
+        Debug.Log($"{_item.name} {_price} 알리는 UI제작필요!!!");
         _isPlayerInTrigger = true;
     }
 

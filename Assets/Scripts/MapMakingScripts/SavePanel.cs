@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using static Define;
 
 public class SavePanel : MonoBehaviour
 {
@@ -16,7 +14,7 @@ public class SavePanel : MonoBehaviour
     void LoadRoom()
     {
         // RoomData 파일 정보를 바로 읽어오는 것이 아니라 DataManager에서 로드해둔 정보를 기반으로 불러옴
-        foreach(Room room in Managers.Data.roomData.rooms)
+        foreach(Room room in Managers.Data.RoomData.rooms)
         {
             // RoomMaking 로드하기
             GameObject instance = Managers.Resource.Instantiate("Prefabs/Objects/RoomMaking");
@@ -160,7 +158,6 @@ public class SavePanel : MonoBehaviour
         }
 
         string jsonData = Util.ToJson<SaveRoomData>(data);
-        Debug.Log(jsonData);
         Debug.Log(Application.persistentDataPath);
         using (StreamWriter sw = new StreamWriter(Application.persistentDataPath + "/TestRoomData.json"))
         {

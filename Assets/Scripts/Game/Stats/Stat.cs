@@ -1,11 +1,12 @@
-using Data;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Stat : MonoBehaviour
 {
     [SerializeField] protected Define.ObjectType type;
+
+    public UnityAction onGetDamagedAction;
+    public UnityAction onDeadAction;
 
     protected float _maxHp;
     protected float _hp;
@@ -14,9 +15,6 @@ public class Stat : MonoBehaviour
     public float MaxHp { get { return _maxHp; } }
     public float Hp { get { return _hp; } }
     public float Speed { get { return _speed; } }
-
-    public UnityAction onGetDamagedAction;
-    public UnityAction onDeadAction;
 
     public virtual void Init()
     {

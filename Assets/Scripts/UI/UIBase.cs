@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UIBase : MonoBehaviour
 {
-    Dictionary<Type, Dictionary<string, UnityEngine.Object>> objects = new Dictionary<Type, Dictionary<string, UnityEngine.Object>>();
+    private Dictionary<Type, Dictionary<string, UnityEngine.Object>> objects = new Dictionary<Type, Dictionary<string, UnityEngine.Object>>();
 
     void Start()
     {

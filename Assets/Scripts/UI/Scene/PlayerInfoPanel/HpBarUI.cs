@@ -1,14 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class HpBarUI : UIBase
 {
-    // TODO
-    // hp에 맞게 아이콘 개수 만드는 로직 만들면 됨
-
-    Image[] _icons = null;
+    private Image[] _icons = null;
 
     protected override void Init()
     {

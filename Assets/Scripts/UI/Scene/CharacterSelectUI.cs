@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 public class CharacterSelectUI : UIBase
 {
@@ -20,11 +16,11 @@ public class CharacterSelectUI : UIBase
 
         Transform gridPanel = Get<Transform>(GameObjects.GridPanel.ToString());
         
-        List<string> keys = new List<string>(Managers.Data.playerStatDict.Keys);
+        List<string> keys = new List<string>(Managers.Data.PlayerStatDict.Keys);
 
         for (int i = 0; i < keys.Count; i++)
         {
-            Data.Stat pStat = Managers.Data.playerStatDict[keys[i]];
+            Data.Stat pStat = Managers.Data.PlayerStatDict[keys[i]];
             GameObject itemInstance = Managers.Resource.Instantiate("Prefabs/UI/SubItem/CharacterItemUI", gridPanel);
             
             CharacterItemUI uI_CharacterItem = itemInstance.GetComponent<CharacterItemUI>();

@@ -17,27 +17,27 @@ public enum EStateType
 
 public abstract class EnemyControllerBase : MonoBehaviour
 {
-    public EnemyStat stat;
-    public float getAttackedTime = 0.2f; // 고정값
-    public GameObject target;
-
-    public SpriteRenderer _spriteRenderer;
-    public Color _baseColor;
-
+    protected EnemyStat _stat;
     protected EnemyState _state;
     protected GameObject _bulletRoot;
 
-    EStateType _curStateType;
-    Dictionary<EStateType, EnemyState> _states = new Dictionary<EStateType, EnemyState>();
+    private float _getAttackedTime = 0.2f; // 고정값
+    private GameObject _target;
+
+    private SpriteRenderer _spriteRenderer;
+    private Color _baseColor;
+
+    private EStateType _curStateType;
+    private Dictionary<EStateType, EnemyState> _states = new Dictionary<EStateType, EnemyState>();
 
     public virtual void Init()
     {
-        target = GameObject.FindGameObjectWithTag("Player");
-        stat = GetComponent<EnemyStat>();
-        stat.Init();
+        _target = GameObject.FindGameObjectWithTag("Player");
+        _stat = GetComponent<EnemyStat>();
+        _stat.Init();
 
-        stat.onGetDamagedAction += OnDamaged;
-        stat.onDeadAction += OnDead;
+        _stat.onGetDamagedAction += OnDamaged;
+        _stat.onDeadAction += OnDead;
 
         _bulletRoot = GameObject.Find("BulletControll");
         if (_bulletRoot == null)
@@ -75,8 +75,8 @@ public abstract class EnemyControllerBase : MonoBehaviour
     void Update()
     {
         // TestCode
-        if (target == null)
-            target = GameObject.FindGameObjectWithTag("Player");
+        if (_target == null)
+            _target = GameObject.FindGameObjectWithTag("Player");
 
         _state?.Action();
     }
@@ -87,7 +87,7 @@ public abstract class EnemyControllerBase : MonoBehaviour
     {
         if (collision.CompareTag("PlayerBullet"))
         {
-            stat.GetDamaged(10f);
+            _stat.GetDamaged(10f);
         }
     }
 

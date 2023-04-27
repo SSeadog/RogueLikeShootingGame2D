@@ -1,39 +1,36 @@
 using System.Collections;
 using UnityEngine;
 
+public enum PlayerState
+{
+    None,
+    Normal,
+    Action,
+    Fall,
+    Dead
+}
+
 public class PlayerController : MonoBehaviour
 {
-    PlayerStat _stat;
+    private PlayerStat _stat;
+    private WeaponBase _curWeapon;
 
-    WeaponBase _curWeapon;
+    private bool _isReloading = false;
+    private float _reloadingTimer = 0f;
 
-    GameObject _explodeEffect;
+    private float _getAttackedTime = 0.5f;
+    private bool _canAttacked = true;
+    private float _getAttackedTimer = 0f;
 
-    bool _isReloading = false;
-    float _reloadingTimer = 0f;
+    private float _tumbleTime = 0.5f;
+    private bool _isTumbling = false;
+    private float _tumbleTimer = 0f;
 
-    float _getAttackedTime = 0.5f;
-    bool _canAttacked = true;
-    float _getAttackedTimer = 0f;
-
-    float _tumbleTime = 0.5f;
-    bool _isTumbling = false;
-    float _tumbleTimer = 0f;
-
-    SpriteRenderer _spriteRenderer;
-    Color _baseColor;
-
-    Vector3 _dropEnterPoint;
-
-    enum PlayerState
-    {
-        None,
-        Normal,
-        Action,
-        Fall,
-        Dead
-    }
-    PlayerState _state = PlayerState.Normal;
+    private Color _baseColor;
+    private Vector3 _dropEnterPoint;
+    private GameObject _explodeEffect;
+    private SpriteRenderer _spriteRenderer;
+    private PlayerState _state = PlayerState.Normal;
 
     void Start()
     {
@@ -44,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
         _explodeEffect = Managers.Resource.Load("Prefabs/Weapons/Grenade");
 
-        _curWeapon = Managers.Game.playerWeaponList[0];
+        _curWeapon = Managers.Game.PlayerWeaponList[0];
 
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _baseColor = _spriteRenderer.color;
@@ -182,12 +179,12 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (Managers.Game.grenade < 1)
+            if (Managers.Game.Grenade < 1)
                 return;
 
             GameObject instance = Instantiate(_explodeEffect, transform.position, Quaternion.identity);
             instance.GetComponent<Grenade>().Explode();
-            Managers.Game.grenade--;
+            Managers.Game.Grenade--;
         }
     }
 
@@ -300,7 +297,6 @@ public class PlayerController : MonoBehaviour
 
     void OnDead()
     {
-        Debug.Log("Player Dead!!!");
         Managers.Scene.LoadScene("StartScene");
     }
 }

@@ -1,13 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ReloadGaugeUI : MonoBehaviour
 {
-    [SerializeField] GameObject _parentUI;
-    [SerializeField] GameObject _bar;
+    [SerializeField] private GameObject _parentUI;
+    [SerializeField] private GameObject _bar;
 
-    float _width;
+    private float _width;
 
     void Start()
     {

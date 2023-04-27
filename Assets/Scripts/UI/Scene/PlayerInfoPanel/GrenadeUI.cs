@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class GrenadeUI : UIBase
 {
-    [SerializeField] GameObject _grenadeIcon;
-    int _curCount = 0;
-    List<GameObject> _icons = new List<GameObject>();
+    [SerializeField] private GameObject _grenadeIcon;
+    private List<GameObject> _icons = new List<GameObject>();
+    private int _curCount = 0;
 
     void Start()
     {
-        SetGrenadeCount(Managers.Game.grenade);
+        SetGrenadeCount(Managers.Game.Grenade);
     }
 
     void Update()
     {
-        SetGrenadeCount(Managers.Game.grenade);
+        SetGrenadeCount(Managers.Game.Grenade);
     }
 
     public void SetGrenadeCount(int count)

@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomTrigger : MonoBehaviour
 {
-    [SerializeField] string _roomName;
+    [SerializeField] private string _roomName;
 
     public void SetRoomName(string roomName)
     {
@@ -15,7 +13,7 @@ public class RoomTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Room room = Managers.Game.roomManager.FindRoom(_roomName);
+            Room room = Managers.Game.RoomManager.FindRoom(_roomName);
             room.Found();
         }
     }

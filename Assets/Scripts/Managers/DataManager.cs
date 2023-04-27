@@ -1,20 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DataManager
 {
-    public Dictionary<string, Data.MonsterStat> monsterStatDict;
-    public Dictionary<string, Data.Stat> playerStatDict;
-    public Dictionary<string, Data.Weapon> weaponDict;
-    public Define.RoomData roomData;
+    Dictionary<string, Data.MonsterStat> _monsterStatDict;
+    Dictionary<string, Data.Stat> _playerStatDict;
+    Dictionary<string, Data.Weapon> _weaponDict;
+    Define.RoomData _roomData;
+
+    public Dictionary<string, Data.MonsterStat> MonsterStatDict { get { return _monsterStatDict; } }
+    public Dictionary<string, Data.Stat> PlayerStatDict { get { return _playerStatDict; } }
+    public Dictionary<string, Data.Weapon> WeaponDict { get { return _weaponDict; } }
+    public Define.RoomData RoomData { get { return _roomData; } }
 
     public void Init()
     {
-        monsterStatDict = Util.LoadJsonDict<string, Data.MonsterStat>("Data/MonsterStatData");
-        playerStatDict = Util.LoadJsonDict<string, Data.Stat>("Data/PlayerStatData");
-        weaponDict = Util.LoadJsonDict<string, Data.Weapon>("Data/WeaponData");
-        // RoomData는 persistantPath로 옮겨서 맵 수정하면 파일 따로 백업해둬야함
-        roomData = Util.LoadJson<Define.RoomData>(Application.persistentDataPath + "/TestRoomData.json");
+        _monsterStatDict = Util.LoadJsonDict<string, Data.MonsterStat>("Data/MonsterStatData");
+        _playerStatDict = Util.LoadJsonDict<string, Data.Stat>("Data/PlayerStatData");
+        _weaponDict = Util.LoadJsonDict<string, Data.Weapon>("Data/WeaponData");
+        _roomData = Util.LoadJson<Define.RoomData>(Application.persistentDataPath + "/TestRoomData.json");
     }
 }

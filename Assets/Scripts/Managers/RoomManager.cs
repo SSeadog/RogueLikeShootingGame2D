@@ -1,11 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class RoomManager
 {
-    Define.RoomData _roomData;
-    Room _currentRoom;
+    private Define.RoomData _roomData;
 
     public List<Room> GetRooms()
     {
@@ -14,12 +11,7 @@ public class RoomManager
 
     public void LoadRoomData()
     {
-        _roomData = Managers.Data.roomData;
-    }
-
-    public void SetCurrentRoom(Room room)
-    {
-        _currentRoom = room;
+        _roomData = Managers.Data.RoomData;
     }
 
     public void InitRooms()
@@ -41,13 +33,8 @@ public class RoomManager
         return null;
     }
 
-    public void Add(Room room)
-    {
-        _roomData.rooms.Add(room);
-    }
-
     public void Clear()
     {
-        _roomData.rooms.Clear();
+        _roomData?.rooms.Clear();
     }
 }

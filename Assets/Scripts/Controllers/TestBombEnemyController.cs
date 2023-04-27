@@ -9,11 +9,11 @@ public class TestBombEnemyController : EnemyControllerBase
     // 폭발 후 사망, 총에 맞아 사망 시 폭발 구현
     // 데미지 주는 거 구현
 
-    float _explodeRange = 5f;
-    float _jumpPower = 200f;
-    float _explodePower = 50f;
+    private float _explodeRange = 5f;
+    private float _jumpPower = 200f;
+    private float _explodePower = 50f;
 
-    Rigidbody2D _rb;
+    private Rigidbody2D _rb;
 
     public override void Init()
     {
@@ -24,7 +24,7 @@ public class TestBombEnemyController : EnemyControllerBase
     public override float Attack()
     {
         StartCoroutine(CoAttack());
-        return stat.AttackSpeed;
+        return _stat.AttackSpeed;
     }
 
     IEnumerator CoAttack()
@@ -32,7 +32,7 @@ public class TestBombEnemyController : EnemyControllerBase
         // 도약 준비
         yield return new WaitForSeconds(0.2f);
 
-        Vector3 dir = (target.transform.position - transform.position).normalized;
+        Vector3 dir = (_target.transform.position - transform.position).normalized;
         // 도약
         _rb.AddForce(dir * _jumpPower);
         yield return new WaitForSeconds(0.8f);

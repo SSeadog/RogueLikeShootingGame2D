@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class SpawnState : EnemyState
 {
-    float _spawnTime = 1f;
-    float _spawnTimer = 0f;
+    private float _spawnTime = 1f;
+    private float _spawnTimer = 0f;
 
     public override void Action()
     {
@@ -31,13 +31,13 @@ public class MoveState : EnemyState
 {
     public override void Action()
     {
-        float distance = (_enemyController.target.transform.position - _enemyController.transform.position).magnitude;
+        float distance = (_enemyController._target.transform.position - _enemyController.transform.position).magnitude;
         if (distance < _enemyController.stat.AttackRange)
         {
             _enemyController.SetState(EStateType.AttackState);
         }
 
-        Vector2 moveVec = _enemyController.target.transform.position - _enemyController.transform.position;
+        Vector2 moveVec = _enemyController._target.transform.position - _enemyController.transform.position;
         _enemyController.transform.Translate(moveVec.normalized * _enemyController.stat.Speed * Time.deltaTime);
     }
 }
@@ -63,7 +63,7 @@ public class AttackState : EnemyState
         if (_canAttack == false)
             return;
 
-        float distance = (_enemyController.target.transform.position - _enemyController.transform.position).magnitude;
+        float distance = (_enemyController._target.transform.position - _enemyController.transform.position).magnitude;
         if (distance > _enemyController.stat.AttackRange)
         {
             _enemyController.SetState(EStateType.MoveState);
@@ -112,7 +112,7 @@ public class AttackedState : EnemyState
     public override void Action()
     {
         _getAttackedTimer += Time.deltaTime;
-        if (_getAttackedTimer > _enemyController.getAttackedTime)
+        if (_getAttackedTimer > _enemyController._getAttackedTime)
             _enemyController.SetState(_beforeStateType);
     }
 
