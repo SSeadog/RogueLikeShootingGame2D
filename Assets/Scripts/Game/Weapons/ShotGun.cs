@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ShotGun : WeaponBase
 {
-    int _bulletCount = 3;
+    int _bulletCount = 4;
     int _fireTime = 2;
-    float _gap = 10f;
+    float _gap = 15f;
 
     public override void Init()
     {
@@ -19,7 +19,7 @@ public class ShotGun : WeaponBase
         _bulletOrigin = Resources.Load<GameObject>("Prefabs/Weapons/TestPlayerBullet");
     }
 
-    public override void GenerateBullets()
+    public override void FireBullets()
     {
         StartCoroutine(CoGenerateBullets());
     }
@@ -30,11 +30,11 @@ public class ShotGun : WeaponBase
         Vector3 worldMousePoint = Camera.main.ScreenToWorldPoint(mousePos);
         Vector2 dir = (worldMousePoint - _firePos.position).normalized;
 
-        float initRotDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - _gap * ((float)(_bulletCount - 1) / 2);
-
+        int tempBulletCount = _bulletCount;
         for (int j = 0; j < _fireTime; j++)
         {
-            for (int i = 0; i < _bulletCount; i++)
+            float initRotDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - _gap * ((float)(tempBulletCount - 1) / 2);
+            for (int i = 0; i < tempBulletCount; i++)
             {
                 float tempRotDeg = initRotDeg + _gap * i;
                 
@@ -43,10 +43,10 @@ public class ShotGun : WeaponBase
                 Vector3 fireVec = new Vector3(Mathf.Cos(rotRad), Mathf.Sin(rotRad), 0).normalized;
 
                 GameObject instanceBullet = Instantiate(_bulletOrigin, _firePos.position, transform.rotation, _bulletRoot.transform);
-                instanceBullet.GetComponent<Rigidbody2D>().AddForce(fireVec * _power);
+                instanceBullet.GetComponent<Rigidbody2D>().AddForce(fireVec * _bulletSpeed);
             }
-
-            yield return new WaitForSeconds(0.1f);
+            tempBulletCount++;
+            yield return new WaitForSeconds(0.05f);
         }
     }
 

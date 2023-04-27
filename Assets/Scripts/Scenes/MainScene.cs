@@ -14,6 +14,8 @@ public class MainScene : BaseScene
 
         Managers.Game.SetState(new MainInitState());
 
+        Managers.Game.roomManager.FindRoom("StartRoom").Found();
+
         GameObject playerOriginal = Resources.Load<GameObject>("Prefabs/Characters/TestPlayer");
         GameObject cameraOriginal = Resources.Load<GameObject>("Prefabs/Main Camera");
 
@@ -27,6 +29,9 @@ public class MainScene : BaseScene
         Managers.Game.gold = 0;
         Managers.Game.key = 0;
         Managers.Game.grenade = 2;
+
+        // Test
+        Managers.Game.gold += 100;
 
         MakeRooms();
         LoadUI();

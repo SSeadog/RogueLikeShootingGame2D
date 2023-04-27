@@ -15,7 +15,7 @@ public class TestGun : WeaponBase
         _bulletOrigin = Resources.Load<GameObject>("Prefabs/Weapons/TestPlayerBullet");
     }
 
-    public override void GenerateBullets()
+    public override void FireBullets()
     {
         Vector2 mousePos = Input.mousePosition;
         Vector3 worldMousePoint = Camera.main.ScreenToWorldPoint(mousePos);
@@ -25,7 +25,7 @@ public class TestGun : WeaponBase
         Vector3 fireVec = new Vector3(Mathf.Cos(rotRad), Mathf.Sin(rotRad), 0).normalized;
 
         GameObject instanceBullet = Instantiate(_bulletOrigin, _firePos.position, Quaternion.AngleAxis(rotRad * Mathf.Rad2Deg + 90, Vector3.forward), _bulletRoot.transform);
-        instanceBullet.GetComponent<Rigidbody2D>().AddForce(fireVec * _power);
+        instanceBullet.GetComponent<Rigidbody2D>().AddForce(fireVec * _bulletSpeed);
     }
 
     public override void Reload()

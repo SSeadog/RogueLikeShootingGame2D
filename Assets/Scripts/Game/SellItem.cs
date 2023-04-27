@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SellItem : MonoBehaviour
 {
-    // 아이템의 가격, 판매여부 관리해야함
-
     GameObject _item;
     int _price = 0;
     bool _isSold = false;
@@ -22,14 +20,29 @@ public class SellItem : MonoBehaviour
 
     private void Update()
     {
+        if (_isSold)
+            return;
+
         if (_isPlayerInTrigger && Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log($"{_item.name} 구매 시도!!");
+            if (Managers.Game.gold > _price)
+            {
+                Managers.Game.gold -= _price;
+                _isSold = true;
+                _item.GetComponent<ItemBase>().Effect();
+
+                _isPlayerInTrigger = false;
+                Destroy(_item);
+            }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (_isSold)
+            return;
+
         if (!collision.CompareTag("Player"))
             return;
 
@@ -39,6 +52,9 @@ public class SellItem : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (_isSold)
+            return;
+
         if (!collision.CompareTag("Player"))
             return;
 

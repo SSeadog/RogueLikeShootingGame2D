@@ -34,6 +34,8 @@ namespace Data
         public float power;
         public int maxAmmo;
         public int fullLoadAmmo;
+        public float bulletSpeed;
+        public float fireSpeed;
         public string bulletResourcePath;
     }
 

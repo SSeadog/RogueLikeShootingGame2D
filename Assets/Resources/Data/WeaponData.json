@@ -5,6 +5,8 @@
     "power": 1.1,
     "maxAmmo": 900,
     "fullLoadAmmo": 15,
+    "bulletSpeed": 1,
+    "fireSpeed": 0.05,
     "bulletResourcePath": "Prefabs/Weapons/TestPlayerBullet"
   },
   "ShotGun": {
@@ -13,6 +15,8 @@
     "power": 2,
     "maxAmmo": 200,
     "fullLoadAmmo": 5,
+    "bulletSpeed": 0.7,
+    "fireSpeed": 0.5,
     "bulletResourcePath": "Prefabs/Weapons/TestPlayerBullet"
   }
 }

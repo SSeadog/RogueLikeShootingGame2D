@@ -20,6 +20,6 @@ public class Ammo : ItemBase
 
     public override void Effect()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("AmmoÈ¹µæ ±¸Çö ÇÊ¿ä!");
     }
 }

@@ -47,12 +47,18 @@ public class SavePanel : MonoBehaviour
                 if (info.type > Define.ObjectType.Object)
                 {
                     GameObject objectInstance = Managers.Resource.Instantiate("Prefabs/Objects/" + Util.ConvertObjectTypeToMakingType(info.type), instance.transform);
-                    objectInstance.transform.position = new Vector3(info.posX, info.posY, 0);
+                    objectInstance.transform.position = info.GetPosition();
+                    MakingObject makingObject = objectInstance.GetComponent<MakingObject>();
+                    if (makingObject != null)
+                        makingObject.parentRoom = instance;
                 }
                 else if (info.type > Define.ObjectType.Monster)
                 {
                     GameObject monsterInstance = Managers.Resource.Instantiate("Prefabs/Characters/" + Util.ConvertObjectTypeToMakingType(info.type), instance.transform);
                     monsterInstance.transform.position = info.GetPosition();
+                    MakingObject makingObject = monsterInstance.GetComponent<MakingObject>();
+                    if (makingObject != null)
+                        makingObject.parentRoom = instance;
                 }
             }
         }
@@ -119,10 +125,24 @@ public class SavePanel : MonoBehaviour
                 }
             }
 
+            MakingObject[] makingObjects = GameObject.FindObjectsOfType<MakingObject>();
             // 오브젝트 저장
+            for (int i = 0; i < makingObjects.Length; i++)
+            {
+                if (makingObjects[i].parentRoom.GetComponentInChildren<InputField>().text != roomData.name)
+                    continue;
+
+                if (makingObjects[i].type > Define.ObjectType.Object)
+                {
+                    Define.SpawnInfo spawnInfo = new Define.SpawnInfo();
+                    spawnInfo.type = Util.ConvertMakingTypeToObjectType(makingObjects[i].type);
+                    spawnInfo.posX = makingObjects[i].transform.position.x;
+                    spawnInfo.posY = makingObjects[i].transform.position.y;
+                    roomData.spawnInfo.Add(spawnInfo);
+                }
+            }
 
             // 몬스터 저장. 매 room마다 모든 MakingObject를 대상을 찾기에 비효율적일 수도 있음
-            MakingObject[] makingObjects = GameObject.FindObjectsOfType<MakingObject>();
             for (int i = 0; i < makingObjects.Length; i++)
             {
                 if (makingObjects[i].parentRoom.GetComponentInChildren<InputField>().text != roomData.name)

@@ -105,7 +105,6 @@ public class PlayerController : MonoBehaviour
 
             if (_reloadingTimer > _curWeapon.GetReloadingTime())
             {
-                Debug.Log("Reload Done!!!");
                 _curWeapon.Reload();
                 _isReloading = false;
                 _reloadingTimer = 0f;
@@ -115,7 +114,6 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Update쪽에서는 if문으로 갈랐는데 여기서도 똑같이 갈라주면 되나..?
         if (_isTumbling)
             return;
 

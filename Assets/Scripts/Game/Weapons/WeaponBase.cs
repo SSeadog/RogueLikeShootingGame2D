@@ -13,18 +13,15 @@ public abstract class WeaponBase : MonoBehaviour
     protected float _power;
     protected int _maxAmmo;
     protected int _fullLoadAmmo;
-
-    [SerializeField] protected int _curAmmo;
-    [SerializeField] protected int _curLoadAmmo;
+    protected int _curAmmo;
+    protected int _curLoadAmmo;
+    protected float _bulletSpeed;
+    float _fireSpeed;
 
     Vector3 _initFirePos;
-
-    float reloadingTime;
-
+    bool _canFire;
     bool _isFlipped;
     SpriteRenderer _gunSprite;
-
-
 
     public int FullLoadAmmo { get { return _fullLoadAmmo; } }
     public int CurLoadAmmo { get { return _curLoadAmmo; } }
@@ -38,16 +35,28 @@ public abstract class WeaponBase : MonoBehaviour
     }
 
     public abstract void LoadBulletResource();
-    public abstract void GenerateBullets();
+    public abstract void FireBullets();
 
     public void Fire()
     {
         if (_curLoadAmmo == 0)
             return;
 
+        if (!_canFire)
+            return;
+
+        _canFire = false;
         _curLoadAmmo--;
-        GenerateBullets();
         Managers.Ui.GetUI<LoadedAmmoUI>().RemoveBullet();
+
+        FireBullets();
+        StartCoroutine(CoWaitFire());
+    }
+
+    IEnumerator CoWaitFire()
+    {
+        yield return new WaitForSeconds(_fireSpeed);
+        _canFire = true;
     }
 
     public float GetReloadingTime()
@@ -94,6 +103,8 @@ public abstract class WeaponBase : MonoBehaviour
         _fullLoadAmmo = weaponInfo.fullLoadAmmo;
         _curAmmo = _maxAmmo - _fullLoadAmmo;
         _curLoadAmmo = _fullLoadAmmo;
+        _bulletSpeed = weaponInfo.bulletSpeed;
+        _fireSpeed = weaponInfo.fireSpeed;
 
         _bulletRoot = GetBulletRoot();
         _firePos = transform.Find("FirePos");
@@ -102,6 +113,7 @@ public abstract class WeaponBase : MonoBehaviour
         _gunSprite = GetComponentInChildren<SpriteRenderer>();
 
         LoadBulletResource();
+        _canFire = true;
     }
 
     GameObject GetBulletRoot()
