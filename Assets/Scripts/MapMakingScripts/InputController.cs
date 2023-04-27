@@ -3,14 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 // Input관련 작업을 InputManager로 두고 할지는 고민해봐야할 듯?
 // 생각보다 할 일이 조금 있을 거 같음
 public class InputController : MonoBehaviour
 {
-    private float _orthographicSize;
-    private float _scrollSpeed;
-    private float _moveSpeed;
+    bool _pressed = false;
+    float _pressTime;
+
+    float _orthographicSize;
+    float _scrollSpeed;
+    float _moveSpeed;
 
     Action mouseLeftButtonClick;
     Action mouseWheelDown;
@@ -43,13 +47,13 @@ public class InputController : MonoBehaviour
     public void SetInstanceSelectMouseEvenet()
     {
         ClearEventsByState();
-        // 인스턴스 선택하는 함수 등록하기
         mouseLeftButtonClick += SelectInstance;
     }
 
     public void SetInstanceEditMouseEvent()
     {
         ClearEventsByState();
+        mouseLeftButtonClick += SelectInstance;
     }
 
     void ClearEventsByState()
@@ -75,7 +79,24 @@ public class InputController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            mouseLeftButtonClick?.Invoke();
+            _pressed = true;
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            if (_pressed)
+                _pressTime += Time.deltaTime;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (_pressed && _pressTime < 0.2f)
+            {
+                mouseLeftButtonClick?.Invoke();
+            }
+
+            _pressed = false;
+            _pressTime = 0f;
         }
     }
 
@@ -164,11 +185,14 @@ public class InputController : MonoBehaviour
             {
                 GameObject instance = Managers.Resource.Instantiate(mapMakingscene.GetCurSelectObjectPath(), hit.transform);
                 instance.transform.position = pos;
+                MakingObject makingObject = instance.GetComponent<MakingObject>();
+                if (makingObject != null)
+                    makingObject.parentRoom = hit.transform.gameObject;
             }
             // 몬스터 소환
             else
             {
-                GameObject instance = Managers.Resource.Instantiate(mapMakingscene.GetCurSelectObjectPath());
+                GameObject instance = Managers.Resource.Instantiate(mapMakingscene.GetCurSelectObjectPath(), hit.transform);
                 instance.transform.position = pos;
                 instance.GetComponent<MakingObject>().parentRoom = hit.transform.gameObject;
             }
@@ -180,6 +204,9 @@ public class InputController : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
         {
             Debug.Log("UI를 클릭했습니다");
+            GameObject curInstance = Managers.Scene.GetCurrentScene<MapMakingScene>().CurSelectInstance;
+            if (curInstance != null)
+                curInstance.GetComponentInChildren<InstanceToolMaking>().gameObject.GetComponent<Image>().enabled = false;
             return;
         }
 
@@ -189,9 +216,11 @@ public class InputController : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * 100f, Color.yellow, 5f);
         if (hit.transform != null)
         {
+            if (!hit.transform.CompareTag("Making"))
+                return;
+
             Debug.Log(hit.transform.name);
             Managers.Scene.GetCurrentScene<MapMakingScene>().CurSelectInstance = hit.transform.gameObject;
-            Managers.Game.SetState(new MapInstanceEditState());
         }
     }
 }

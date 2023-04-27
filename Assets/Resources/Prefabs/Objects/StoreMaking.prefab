@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 8982579853825597212}
   - component: {fileID: 908277120601870084}
   - component: {fileID: 2636202465758366159}
+  - component: {fileID: 6477772484318453596}
   m_Layer: 0
   m_Name: StoreMaking
-  m_TagString: Untagged
+  m_TagString: Making
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,3 +77,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6477772484318453596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5050065716324955998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29dcc36f65b603a41bd1a2f799b8bd93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 20010
+  parentRoom: {fileID: 0}

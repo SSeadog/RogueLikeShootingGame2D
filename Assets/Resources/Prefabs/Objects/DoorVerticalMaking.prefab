@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 560276608921977248}
   m_Layer: 0
   m_Name: DoorVerticalMaking
-  m_TagString: Untagged
+  m_TagString: Making
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,7 +63,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 10, y: 30}
   m_EdgeRadius: 0
 --- !u!222 &4140725347381074714
 CanvasRenderer:

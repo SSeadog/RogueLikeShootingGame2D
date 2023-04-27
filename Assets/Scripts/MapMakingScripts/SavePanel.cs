@@ -23,6 +23,7 @@ public class SavePanel : MonoBehaviour
             instance.transform.Find("InputField").GetComponent<InputField>().text = room.name;
             instance.transform.position = new Vector3(room.posX, room.posY);
             instance.GetComponent<RectTransform>().sizeDelta = new Vector2(room.sizeX, room.sizeY);
+            instance.GetComponent<BoxCollider2D>().size = new Vector2(room.sizeX, room.sizeY);
 
             // Trigger
             foreach (Define.TriggerInfo info in room.triggerInfo)
@@ -124,6 +125,9 @@ public class SavePanel : MonoBehaviour
             MakingObject[] makingObjects = GameObject.FindObjectsOfType<MakingObject>();
             for (int i = 0; i < makingObjects.Length; i++)
             {
+                if (makingObjects[i].parentRoom.GetComponentInChildren<InputField>().text != roomData.name)
+                    continue;
+
                 if (makingObjects[i].type > Define.ObjectType.Monster && makingObjects[i].type < Define.ObjectType.Object)
                 {
                     Define.SpawnInfo spawnInfo = new Define.SpawnInfo();

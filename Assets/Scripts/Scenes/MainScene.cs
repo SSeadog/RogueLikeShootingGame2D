@@ -12,7 +12,7 @@ public class MainScene : BaseScene
         if (Managers.Game.PlayerId == 0)
             Managers.Game.PlayerId = 1;
 
-        Managers.Game.SetState(new MainState());
+        Managers.Game.SetState(new MainInitState());
 
         GameObject playerOriginal = Resources.Load<GameObject>("Prefabs/Characters/TestPlayer");
         GameObject cameraOriginal = Resources.Load<GameObject>("Prefabs/Main Camera");

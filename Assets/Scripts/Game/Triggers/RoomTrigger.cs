@@ -15,7 +15,7 @@ public class RoomTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Room room = Managers.Game.roomController.FindRoom(_roomName);
+            Room room = Managers.Game.roomManager.FindRoom(_roomName);
             room.Found();
         }
     }

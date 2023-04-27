@@ -51,7 +51,7 @@ public class ObjectPanel : UIBase
     {
         CurSelectButton = _instanceButton;
         _inputController.SelectSpawnObject(Define.ObjectType.ObjectEnd);
-        Managers.Game.SetState(new MapInstanceSelectState());
+        Managers.Game.SetState(new MapInstanceEditState());
     }
 
     public void OnRoomButtonClick()

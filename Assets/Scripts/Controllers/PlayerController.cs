@@ -184,8 +184,12 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (Managers.Game.grenade < 1)
+                return;
+
             GameObject instance = Instantiate(_explodeEffect, transform.position, Quaternion.identity);
             instance.GetComponent<Grenade>().Explode();
+            Managers.Game.grenade--;
         }
     }
 
@@ -299,6 +303,6 @@ public class PlayerController : MonoBehaviour
     void OnDead()
     {
         Debug.Log("Player Dead!!!");
-        Managers.Scene.LoadScene("TestStartScene");
+        Managers.Scene.LoadScene("StartScene");
     }
 }

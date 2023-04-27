@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1183567700395457709}
   - component: {fileID: 3171861191043588797}
   - component: {fileID: -2828939647960693212}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   m_Component:
   - component: {fileID: 492984706492773309}
   - component: {fileID: 1482299717341712448}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bullet (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4261763227668578394}
   - component: {fileID: 2697813442603616692}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bullet (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2449976488694994779}
   - component: {fileID: 7703046044996841234}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7319009325446497878}
   - component: {fileID: 3489884122750871478}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bullet (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -79,6 +79,7 @@ public class Room
             {
                 GameObject instance = Managers.Resource.Instantiate("Prefabs/Characters/" + info.type.ToString(), _parent.transform);
                 instance.transform.position = info.GetPosition();
+                Managers.Game.AddSpawnedEnemy(instance.GetComponent<EnemyControllerBase>());
             }
         }
     }
