@@ -55,14 +55,14 @@ public class SpawnPanel : UIBase
     public void OnTestEnemyButtonClick()
     {
         CurSelectButton = _testEnemyButton;
-        _inputController.SelectSpawnObject(Define.ObjectType.TestEnemyMaking);
+        _inputController.SelectSpawnObject(Define.ObjectType.BasicEnemyMaking);
         Managers.Game.SetState(new MapObjectSpawnState());
     }
 
     public void OnTestBombEnemyButtonClick()
     {
         CurSelectButton = _testBombButton;
-        _inputController.SelectSpawnObject(Define.ObjectType.TestBombEnemyMaking);
+        _inputController.SelectSpawnObject(Define.ObjectType.BombEnemyMaking);
         Managers.Game.SetState(new MapObjectSpawnState());
     }
 

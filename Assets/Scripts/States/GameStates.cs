@@ -40,12 +40,27 @@ public class RoomEnterState : GameState
 
 public class MainEndState : GameState
 {
-    public override void OnStart()
+    float _stopTime = 2f;
+    float _stopTimer = 0f;
+    bool _isStop = false;
+
+    public override void Action()
     {
-        // 몬스터 사망 등 1초 정도 기다렸다가 UI 뛰우는 효과 줄지 고민
-        Time.timeScale = 0f;
-        GameEndingPanel gameEndingPanel = Managers.Ui.GetUI<GameEndingPanel>();
-        gameEndingPanel.Show();
+        // 타이머 두고 2초 정도 기다리기
+        if (_stopTimer < _stopTime)
+        {
+            _stopTimer += Time.deltaTime;
+        }
+        else if (_stopTimer > _stopTime)
+        {
+            if (_isStop == false)
+            {
+                _isStop = true;
+                //Time.timeScale = 0f;
+                GameEndingPanel gameEndingPanel = Managers.Ui.GetUI<GameEndingPanel>();
+                gameEndingPanel.Show();
+            }
+        }
     }
 
     public override void OnEnd()

@@ -25,7 +25,7 @@ public class CharacterSelectUI : UIBase
             
             CharacterItemUI uI_CharacterItem = itemInstance.GetComponent<CharacterItemUI>();
             uI_CharacterItem.SetInfo(pStat.name);
-            uI_CharacterItem.SetEvent((data) => { Debug.Log(data.name + " ¼±ÅÃ"); Managers.Game.PlayerId = data.id; Managers.Scene.LoadScene("MainScene"); });
+            uI_CharacterItem.SetEvent((data) => { Managers.Game.PlayerId = data.id; Managers.Scene.LoadScene("MainScene"); });
         }
     }
 }

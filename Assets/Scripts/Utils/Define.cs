@@ -14,11 +14,11 @@ public class Define
         Food,
         Monster = 10000,
         Hyena,
-        TestEnemy,
-        TestBombEnemy,
+        BasicEnemy,
+        BombEnemy,
         BossEnemy,
-        TestEnemyMaking,
-        TestBombEnemyMaking,
+        BasicEnemyMaking,
+        BombEnemyMaking,
         BossEnemyMaking,
         Object = 20000,
         Room,
@@ -37,7 +37,7 @@ public class Define
     public enum WeaponType
     {
         None,
-        TestGun,
+        MachineGun,
         ShotGun
     }
 

@@ -1,22 +1,20 @@
 {
-  "TestGun": {
+  "MachineGun": {
     "id": 0,
-    "name": "TestGun",
-    "power": 1.1,
+    "power": 5.6,
     "maxAmmo": 900,
-    "fullLoadAmmo": 15,
+    "fullLoadAmmo": 40,
     "bulletSpeed": 1,
-    "fireSpeed": 0.05,
+    "fireSpeed": 0.1,
     "bulletResourcePath": "Prefabs/Weapons/TestPlayerBullet"
   },
   "ShotGun": {
     "id": 1,
-    "name": "ShotGun",
     "power": 2,
     "maxAmmo": 200,
     "fullLoadAmmo": 5,
     "bulletSpeed": 0.7,
-    "fireSpeed": 0.5,
+    "fireSpeed": 0.6,
     "bulletResourcePath": "Prefabs/Weapons/TestPlayerBullet"
   }
 }

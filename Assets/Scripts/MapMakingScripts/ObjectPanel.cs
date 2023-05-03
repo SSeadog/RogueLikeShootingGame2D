@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 public class ObjectPanel : UIBase
 {
-    InputController _inputController;
-    Button _curSelectButton;
     [SerializeField] SpawnPanel _spawnPanel; // 나중에 LoadUI를 통해서 UI매니저에 등록해서 호출하도록 변경 필요
+    [SerializeField] InputController _inputController;
+    Button _curSelectButton;
 
     Button CurSelectButton
     {
@@ -38,12 +38,6 @@ public class ObjectPanel : UIBase
     [SerializeField] Button _triggerButton;
     [SerializeField] Button _monsterButton;
     [SerializeField] Button _objectButton;
-
-    void Start()
-    {
-        // 수정 필요
-        _inputController = GameObject.FindObjectOfType<InputController>();
-    }
 
     public void OnInstanceButtonClick()
     {

@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnState : EnemyState
@@ -21,6 +22,11 @@ public class SpawnState : EnemyState
 
 public class IdleState : EnemyState
 {
+    public override void OnStart(EnemyControllerBase enemyController)
+    {
+        base.OnStart(enemyController);
+        _enemyController.SetAnim("Idle");
+    }
     public override void Action()
     {
         _enemyController.SetState(EStateType.MoveState);
@@ -29,16 +35,33 @@ public class IdleState : EnemyState
 
 public class MoveState : EnemyState
 {
+    public override void OnStart(EnemyControllerBase enemyController)
+    {
+        base.OnStart(enemyController);
+        _enemyController.SetAnim("Walk");
+    }
     public override void Action()
     {
-        float distance = (_enemyController._target.transform.position - _enemyController.transform.position).magnitude;
-        if (distance < _enemyController.stat.AttackRange)
+        // 방향 구하고 -> 방향으로 움직이면 flipX true
+        // 아니면 flipX false
+
+        Vector3 vec = (_enemyController.Target.transform.position - _enemyController.transform.position).normalized;
+        float rotDeg = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
+        rotDeg = rotDeg < 0 ? rotDeg + 360 : rotDeg;
+
+        if (rotDeg > 90 && rotDeg < 270)
+            _enemyController.RotateSprite(false);
+        else
+            _enemyController.RotateSprite(true);
+
+        float distance = (_enemyController.Target.transform.position - _enemyController.transform.position).magnitude;
+        if (distance < _enemyController.Stat.AttackRange)
         {
             _enemyController.SetState(EStateType.AttackState);
         }
 
-        Vector2 moveVec = _enemyController._target.transform.position - _enemyController.transform.position;
-        _enemyController.transform.Translate(moveVec.normalized * _enemyController.stat.Speed * Time.deltaTime);
+        Vector2 moveVec = _enemyController.Target.transform.position - _enemyController.transform.position;
+        _enemyController.transform.Translate(moveVec.normalized * _enemyController.Stat.Speed * Time.deltaTime);
     }
 }
 
@@ -51,6 +74,7 @@ public class AttackState : EnemyState
     public override void OnStart(EnemyControllerBase enemyController)
     {
         base.OnStart(enemyController);
+        _enemyController.SetAnim("Attack");
     }
 
     public void SetTarget(GameObject target)
@@ -63,8 +87,8 @@ public class AttackState : EnemyState
         if (_canAttack == false)
             return;
 
-        float distance = (_enemyController._target.transform.position - _enemyController.transform.position).magnitude;
-        if (distance > _enemyController.stat.AttackRange)
+        float distance = (_enemyController.Target.transform.position - _enemyController.transform.position).magnitude;
+        if (distance > _enemyController.Stat.AttackRange)
         {
             _enemyController.SetState(EStateType.MoveState);
             return;
@@ -106,19 +130,19 @@ public class AttackedState : EnemyState
     {
         base.OnStart(enemyController);
 
-        _enemyController._spriteRenderer.color = Color.red;
+        _enemyController.ChangeColor(Color.red);
     }
 
     public override void Action()
     {
         _getAttackedTimer += Time.deltaTime;
-        if (_getAttackedTimer > _enemyController._getAttackedTime)
+        if (_getAttackedTimer > _enemyController.GetAttackedTime)
             _enemyController.SetState(_beforeStateType);
     }
 
     public override void OnEnd()
     {
-        _enemyController._spriteRenderer.color = _enemyController._baseColor;
+        _enemyController.ChangeColorToBaseColor();
     }
 
     public override void Clear()
@@ -131,13 +155,15 @@ public class AttackedState : EnemyState
 public class DieState : EnemyState
 {
     float _timer = 0f;
-    float _dieTime = 1f;
+    float _dieTime = 0.5f;
 
     public override void OnStart(EnemyControllerBase enemyController)
     {
         base.OnStart(enemyController);
 
         _enemyController.GetComponent<Collider2D>().enabled = false;
+        _enemyController.SetAnim("Dead");
+        _enemyController.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         Managers.Game.RemoveSpawnedEnemy(_enemyController);
     }
 

@@ -20,8 +20,6 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        _player = GameObject.FindGameObjectWithTag("Player");
-
         screenMidX = Screen.width / 2;
         screenMidY = Screen.height / 2;
     }
@@ -33,9 +31,6 @@ public class CameraController : MonoBehaviour
 
     void MoveCamera()
     {
-        if (_player == null)
-            return;
-
         Vector3 playerPos = _player.transform.position;
         Vector2 mousePos = Input.mousePosition;
         mousePos.x -= screenMidX;

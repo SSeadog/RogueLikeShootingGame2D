@@ -23,11 +23,9 @@ public class Stat : MonoBehaviour
     public void GetDamaged(float damage)
     {
         _hp -= damage;
-        if (_hp > 0)
-        {
-            onGetDamagedAction?.Invoke();
-        }
-        else
+        onGetDamagedAction?.Invoke();
+
+        if (_hp <= 0)
         {
             _hp = 0;
             Die();

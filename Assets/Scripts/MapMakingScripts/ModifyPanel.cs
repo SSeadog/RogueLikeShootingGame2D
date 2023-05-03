@@ -6,12 +6,11 @@ using UnityEngine.UI;
 
 public class ModifyPanel : UIBase
 {
-    Text _selectObjectNameText;
+    [SerializeField] Text _selectObjectNameText;
 
     protected override void Init()
     {
         base.Init();
-        _selectObjectNameText = transform.Find("SelectObjectNameText").GetComponent<Text>();
     }
 
     public void SetText(string text)

@@ -14,7 +14,7 @@ public class MainScene : BaseScene
 
         Managers.Game.RoomManager.FindRoom("StartRoom").Found();
 
-        GameObject playerOriginal = Resources.Load<GameObject>("Prefabs/Characters/TestPlayer");
+        GameObject playerOriginal = Resources.Load<GameObject>("Prefabs/Characters/Player");
         GameObject cameraOriginal = Resources.Load<GameObject>("Prefabs/Main Camera");
 
         GameObject player = Instantiate(playerOriginal);

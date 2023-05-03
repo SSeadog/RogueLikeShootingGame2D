@@ -4,10 +4,12 @@ using UnityEngine;
 public abstract class WeaponBase : MonoBehaviour
 {
     [SerializeField] private Define.WeaponType weaponType = Define.WeaponType.None;
+    [SerializeField] protected Transform _firePos;
+    [SerializeField] protected Transform _leftHandPoint;
+    [SerializeField] protected Transform _rightHandPoint;
 
     protected GameObject _bulletRoot;
     protected GameObject _bulletOrigin;
-    protected Transform _firePos;
 
     protected float _power;
     protected int _maxAmmo;
@@ -22,19 +24,27 @@ public abstract class WeaponBase : MonoBehaviour
     bool _canFire;
     bool _isFlipped;
 
+    public float Power { get { return _power; } }
     public int FullLoadAmmo { get { return _fullLoadAmmo; } }
     public int CurLoadAmmo { get { return _curLoadAmmo; } }
     public int MaxAmmo { get { return _maxAmmo; } }
     public int CurAmmo { get { return _curAmmo; } }
+    public Transform LeftHandPoint { get { return _leftHandPoint; } }
+    public Transform RightHandPoint { get { return _rightHandPoint; } }
 
     void Awake()
     {
         Init();
     }
 
+    void Update()
+    {
+        ReduceRebound();
+    }
+
     public abstract void LoadBulletResource();
     public abstract void FireBullets();
-
+    protected abstract void ReduceRebound();
     public void Fire()
     {
         if (_curLoadAmmo == 0)
@@ -79,6 +89,11 @@ public abstract class WeaponBase : MonoBehaviour
             _firePos.localPosition = _initFirePos;
     }
 
+    public void SetVisible(bool visible)
+    {
+        _gunSprite.enabled = visible;
+    }
+
     public virtual void Reload()
     {
         if (_curLoadAmmo == _fullLoadAmmo)
@@ -105,7 +120,6 @@ public abstract class WeaponBase : MonoBehaviour
         _fireSpeed = weaponInfo.fireSpeed;
 
         _bulletRoot = GetBulletRoot();
-        _firePos = transform.Find("FirePos");
         _initFirePos = _firePos.localPosition;
 
         _gunSprite = GetComponentInChildren<SpriteRenderer>();
@@ -123,5 +137,14 @@ public abstract class WeaponBase : MonoBehaviour
         }
 
         return _bulletRoot;
+    }
+
+    protected float GetMouseRotDeg()
+    {
+        Vector2 mousePos = Input.mousePosition;
+        Vector3 worldMousePoint = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector2 dir = (worldMousePoint - _firePos.position).normalized;
+
+        return Mathf.Atan2(dir.y, dir.x);
     }
 }

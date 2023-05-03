@@ -4,6 +4,9 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private List<string> _voidTagList = new List<string>();
+    private float _power;
+
+    public float Power { get { return _power; } set { _power = value; } }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

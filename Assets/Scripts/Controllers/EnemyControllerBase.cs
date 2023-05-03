@@ -20,15 +20,19 @@ public abstract class EnemyControllerBase : MonoBehaviour
     protected EnemyStat _stat;
     protected EnemyState _state;
     protected GameObject _bulletRoot;
+    protected GameObject _target;
 
-    private float _getAttackedTime = 0.2f; // 고정값
-    private GameObject _target;
-
+    private Dictionary<EStateType, EnemyState> _states = new Dictionary<EStateType, EnemyState>();
     private SpriteRenderer _spriteRenderer;
     private Color _baseColor;
-
     private EStateType _curStateType;
-    private Dictionary<EStateType, EnemyState> _states = new Dictionary<EStateType, EnemyState>();
+    private float _getAttackedTime = 0.2f; // 고정값
+    private Animator _animator;
+
+    public EnemyStat Stat { get { return _stat; } }
+    public GameObject Target { get { return _target; } }
+    public float GetAttackedTime { get { return _getAttackedTime; } }
+
 
     public virtual void Init()
     {
@@ -45,7 +49,8 @@ public abstract class EnemyControllerBase : MonoBehaviour
             _bulletRoot = new GameObject("BulletControll");
         }
 
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponentInChildren<Animator>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _baseColor = _spriteRenderer.color;
 
         for (int i = (int)EStateType.SpawnState; i < (int)EStateType.Max; i++)
@@ -72,6 +77,16 @@ public abstract class EnemyControllerBase : MonoBehaviour
         _state?.OnStart(this);
     }
 
+    public void SetAnim(string animName)
+    {
+        _animator.Play(animName);
+    }
+
+    public void RotateSprite(bool rotateX)
+    {
+        _spriteRenderer.flipX = rotateX;
+    }
+
     void Update()
     {
         // TestCode
@@ -83,11 +98,22 @@ public abstract class EnemyControllerBase : MonoBehaviour
 
     public abstract float Attack();
 
+    public void ChangeColorToBaseColor()
+    {
+        _spriteRenderer.color = _baseColor;
+    }
+
+    public void ChangeColor(Color color)
+    {
+        _spriteRenderer.color = color;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("PlayerBullet"))
         {
-            _stat.GetDamaged(10f);
+            float power = collision.gameObject.GetComponent<Bullet>().Power;
+            _stat.GetDamaged(power);
         }
     }
 

@@ -23,25 +23,23 @@ public class ShotGun : WeaponBase
         StartCoroutine(CoGenerateBullets());
     }
 
+    // 마우스 방향으로 _fireTime만큼 부채꼴 총알 웨이브를 만듦
+    // 각 웨이브의 총알 개수는 이전 개수 + 1
     IEnumerator CoGenerateBullets()
     {
-        Vector2 mousePos = Input.mousePosition;
-        Vector3 worldMousePoint = Camera.main.ScreenToWorldPoint(mousePos);
-        Vector2 dir = (worldMousePoint - _firePos.position).normalized;
-
         int tempBulletCount = _bulletCount;
         for (int j = 0; j < _fireTime; j++)
         {
-            float initRotDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - _gap * ((float)(tempBulletCount - 1) / 2);
+            float initRotDeg = GetMouseRotDeg() * Mathf.Rad2Deg - _gap * ((float)(tempBulletCount - 1) / 2);
             for (int i = 0; i < tempBulletCount; i++)
             {
                 float tempRotDeg = initRotDeg + _gap * i;
-                
                 float rotRad = tempRotDeg * Mathf.Deg2Rad;
 
                 Vector3 fireVec = new Vector3(Mathf.Cos(rotRad), Mathf.Sin(rotRad), 0).normalized;
 
                 GameObject instanceBullet = Instantiate(_bulletOrigin, _firePos.position, transform.rotation, _bulletRoot.transform);
+                instanceBullet.GetComponent<Bullet>().Power = Power;
                 instanceBullet.GetComponent<Rigidbody2D>().AddForce(fireVec * _bulletSpeed);
             }
             tempBulletCount++;
@@ -52,5 +50,9 @@ public class ShotGun : WeaponBase
     public override void Reload()
     {
         base.Reload();
+    }
+
+    protected override void ReduceRebound()
+    {
     }
 }

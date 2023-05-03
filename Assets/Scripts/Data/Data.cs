@@ -28,7 +28,6 @@ namespace Data
     public class Weapon
     {
         public int id;
-        public string name;
         public float power;
         public int maxAmmo;
         public int fullLoadAmmo;
