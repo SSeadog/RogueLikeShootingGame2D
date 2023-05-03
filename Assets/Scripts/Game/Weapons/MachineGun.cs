@@ -13,7 +13,7 @@ public class MachineGun : WeaponBase
 
     public override void LoadBulletResource()
     {
-        _bulletOrigin = Resources.Load<GameObject>("Prefabs/Weapons/TestPlayerBullet");
+        _bulletOrigin = Resources.Load<GameObject>("Prefabs/Weapons/PlayerBullet");
     }
 
     public override void FireBullets()

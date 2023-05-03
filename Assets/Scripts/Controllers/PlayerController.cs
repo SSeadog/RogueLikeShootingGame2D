@@ -20,16 +20,12 @@ public class PlayerController : MonoBehaviour
     private PlayerStat _stat;
     private WeaponBase _curWeapon;
 
-    private bool _isReloading = false;
+    private float _invincibilityTime = 0.5f;
+    private float _invincibilityTimer = 0f;
     private float _reloadingTimer = 0f;
-
-    private float _getAttackedTime = 0.5f;
-    private bool _canAttacked = true;
-    private float _getAttackedTimer = 0f;
-
-    private float _tumbleTime = 0.5f;
+    private bool _isInvincibility = false;
+    private bool _isReloading = false;
     private bool _isTumbling = false;
-    private float _tumbleTimer = 0f;
 
     private Color _baseColor;
     private Vector3 _dropEnterPoint;
@@ -40,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
+    private float _tumbleDist = 5f;
 
     void Start()
     {
@@ -85,15 +82,15 @@ public class PlayerController : MonoBehaviour
             // 죽은 상태에서도 일반 동작들 못하게 막기
         }
 
-        if (_canAttacked == false)
+        if (_isInvincibility == true)
         {
-            _getAttackedTimer += Time.deltaTime;
-            if (_getAttackedTimer > _getAttackedTime)
+            _invincibilityTimer += Time.deltaTime;
+            if (_invincibilityTimer > _invincibilityTime)
             {
                 ChangeColor(Color.white);
 
-                _canAttacked = true;
-                _getAttackedTimer = 0f;
+                _isInvincibility = false;
+                _invincibilityTimer = 0f;
             }
         }
 
@@ -130,11 +127,23 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_isTumbling)
-            return;
-
-        Move();
-        Rotate();
+        if (_state == PlayerState.Normal || _state == PlayerState.Move)
+        {
+            Move();
+            Rotate();
+        }
+        else if (_state == PlayerState.Action)
+        {
+            // 액션 중일때는 일반 동작들 못하게 막기
+        }
+        else if (_state == PlayerState.Fall)
+        {
+            // 떨어지는 중일 때도 일반 동작들 못하게 막기
+        }
+        else if (_state == PlayerState.Dead)
+        {
+            // 죽은 상태에서도 일반 동작들 못하게 막기
+        }
     }
 
     void Anims()
@@ -151,10 +160,10 @@ public class PlayerController : MonoBehaviour
                 _animator.Play("Roll");
                 break;
             case PlayerState.Fall:
-                _animator.Play("Fall");
+                //_animator.Play("Fall");
                 break;
             case PlayerState.Dead:
-                _animator.Play("Die");
+                //_animator.Play("Die");
                 break;
         }
     }
@@ -163,47 +172,43 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            
-            StartCoroutine(CoTumble());
+            float xAxis = Input.GetAxisRaw("Horizontal");
+            float yAxis = Input.GetAxisRaw("Vertical");
+            Vector3 tumbleVec = new Vector3(xAxis, yAxis, 0f).normalized;
+            if (tumbleVec != Vector3.zero)
+                StartCoroutine(CoTumble(tumbleVec));
         }
     }
 
-    IEnumerator CoTumble()
+    IEnumerator CoTumble(Vector3 tumbleVec)
     {
+        float totalTumbleDist = 0f;
         _state = PlayerState.Action;
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Bullet"), true);
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
         _curWeapon.SetVisible(false);
         _isTumbling = true;
+        SetIgnoreLayerCollisions(new int[2] { LayerMask.NameToLayer("Bullet"), LayerMask.NameToLayer("Enemy") }, true);
 
-        float xAxis = Input.GetAxisRaw("Horizontal");
-        float yAxis = Input.GetAxisRaw("Vertical");
-        Vector3 tumbleVec = new Vector3(xAxis, yAxis, 0f).normalized;
-
-        float angle = Mathf.Atan2(yAxis, xAxis) * Mathf.Rad2Deg;
         // z가 90보다 크고 270보다 작을 때만 플립
+        float angle = Mathf.Atan2(tumbleVec.y, tumbleVec.x) * Mathf.Rad2Deg;
         angle = angle < 0 ? angle + 360 : angle;
-
         if (angle > 90 && angle < 270)
-            _characterTransform.rotation = Quaternion.Euler(0, 180, 0);
+            Flip(true);
         else
-            _characterTransform.rotation = Quaternion.Euler(0, 0, 0);
+            Flip(false);
 
-        while (_tumbleTimer < _tumbleTime)
+        while (totalTumbleDist < _tumbleDist)
         {
-            _tumbleTimer += Time.deltaTime;
-            Vector3 tumbleTick = tumbleVec * Time.deltaTime * 2.5f * _stat.Speed;
+            Vector3 tumbleTick = tumbleVec * Time.deltaTime * _tumbleDist * 2f;
             transform.position = transform.position + tumbleTick;
+            totalTumbleDist += tumbleTick.magnitude;
 
             yield return null;
         }
 
         _state = PlayerState.Normal;
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Bullet"), false);
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
+        SetIgnoreLayerCollisions(new int[2] { LayerMask.NameToLayer("Bullet"), LayerMask.NameToLayer("Enemy") }, false);
         _curWeapon.SetVisible(true);
         _isTumbling = false;
-        _tumbleTimer = 0f;
     }
 
     void Fire()
@@ -267,15 +272,21 @@ public class PlayerController : MonoBehaviour
 
     void Rotate()
     {
-        if (_curWeapon == null)
-            return;
-
+        // z가 90보다 크고 270보다 작을 때만 플립
         Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float angle = Mathf.Atan2(mouse.y - _curWeapon.transform.position.y, mouse.x - _curWeapon.transform.position.x) * Mathf.Rad2Deg;
-        // z가 90보다 크고 270보다 작을 때만 플립
         angle = angle < 0 ? angle + 360 : angle;
-
         if (angle > 90 && angle < 270)
+            Flip(true);
+        else
+            Flip(false);
+
+        _curWeapon.transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    void Flip(bool isFlip)
+    {
+        if (isFlip)
         {
             _curWeapon.Flip(true);
             _characterTransform.rotation = Quaternion.Euler(0, 180, 0);
@@ -285,18 +296,21 @@ public class PlayerController : MonoBehaviour
             _curWeapon.Flip(false);
             _characterTransform.rotation = Quaternion.Euler(0, 0, 0);
         }
+    }
 
-        _curWeapon.transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    void SetIgnoreLayerCollisions(int[] layers, bool isIgnore)
+    {
+        for (int i = 0; i < layers.Length; i++)
+        {
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), layers[i], isIgnore);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_canAttacked == false)
-            return;
-
-        if (collision.CompareTag("EnemyBullet"))
+        if (collision.CompareTag("UnderGround"))
         {
-            //_stat.GetDamaged(1);
+            _dropEnterPoint = transform.position;
         }
 
         if (collision.gameObject.GetComponent<ItemBase>() != null)
@@ -304,17 +318,22 @@ public class PlayerController : MonoBehaviour
             collision.gameObject.GetComponent<ItemBase>().GetItem(transform);
         }
 
-        if (collision.CompareTag("UnderGround"))
+        if (_isInvincibility == false)
+            return;
+
+        if (collision.CompareTag("EnemyBullet"))
         {
-            _dropEnterPoint = transform.position;
+            _stat.GetDamaged(1);
         }
     }
-
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("UnderGround"))
         {
+            if (_isInvincibility)
+                return;
+
             if (_state == PlayerState.Fall)
                 return;
 
@@ -349,6 +368,7 @@ public class PlayerController : MonoBehaviour
         Vector3 respawnPoint = _dropEnterPoint + (_dropEnterPoint - transform.position).normalized;
         transform.localScale = Vector3.one;
         transform.position = respawnPoint;
+        _isInvincibility = true;
         _state = PlayerState.Normal;
     }
 
@@ -363,8 +383,8 @@ public class PlayerController : MonoBehaviour
     void OnAttacekd()
     {
         ChangeColor(Color.red);
-        _canAttacked = false;
-        _getAttackedTimer = 0f;
+        _isInvincibility = false;
+        _invincibilityTimer = 0f;
         Managers.Ui.GetUI<HpBarUI>().SetHpBar((int)_stat.Hp);
     }
 

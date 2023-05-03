@@ -10,7 +10,7 @@ public class EnemyController : EnemyControllerBase
         base.Init();
 
         _firePower = 0.1f;
-        _bullet = Resources.Load<GameObject>("Prefabs/Weapons/TestEnemyBullet");
+        _bullet = Managers.Resource.Load("Prefabs/Weapons/EnemyBullet");
     }
 
     public override float Attack()

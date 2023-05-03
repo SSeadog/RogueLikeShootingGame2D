@@ -5,6 +5,7 @@ using UnityEngine;
 public class SellItem : MonoBehaviour
 {
     private GameObject _item;
+    private GameObject _sellItemUI;
     private int _price = 0;
     private bool _isSold = false;
     private bool _isPlayerInTrigger = false;
@@ -13,8 +14,12 @@ public class SellItem : MonoBehaviour
     {
         _item = Managers.Resource.Instantiate(path, transform);
         _item.GetComponent<CircleCollider2D>().enabled = false;
-
         _price = price;
+
+        _sellItemUI = Managers.Resource.Instantiate("Prefabs/UI/World/SellItemUI", transform);
+        _sellItemUI.GetComponent<SellItemUI>().SetText(_item.name, _price);
+        _sellItemUI.transform.position += Vector3.up;
+        _sellItemUI.SetActive(false);
     }
 
     private void Update()
@@ -44,8 +49,8 @@ public class SellItem : MonoBehaviour
         if (!collision.CompareTag("Player"))
             return;
 
-        Debug.Log($"{_item.name} {_price} 알리는 UI제작필요!!!");
         _isPlayerInTrigger = true;
+        _sellItemUI.SetActive(true);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -57,5 +62,6 @@ public class SellItem : MonoBehaviour
             return;
 
         _isPlayerInTrigger = false;
+        _sellItemUI.SetActive(false);
     }
 }

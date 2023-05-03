@@ -47,7 +47,7 @@ public class BossEnemyController : EnemyControllerBase
         Vector3 fireVec = (_target.transform.position - transform.position).normalized;
         float rotDeg = Mathf.Atan2(fireVec.y, fireVec.x) * Mathf.Rad2Deg;
 
-        GameObject instance = Managers.Resource.Instantiate("Prefabs/Weapons/TestEnemyBullet", _bulletRoot.transform);
+        GameObject instance = Managers.Resource.Instantiate("Prefabs/Weapons/EnemyBullet", _bulletRoot.transform);
         instance.transform.position = transform.position + fireVec;
         instance.transform.rotation = Quaternion.AngleAxis(rotDeg - 90, Vector3.forward);
         instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(Mathf.Cos(rotDeg * Mathf.Deg2Rad), Mathf.Sin(rotDeg * Mathf.Deg2Rad)) * _firePower);
@@ -65,7 +65,7 @@ public class BossEnemyController : EnemyControllerBase
         {
             float rotDeg = initRotDeg + curBulletCount * 10f;
             Vector2 fireVec = new Vector2(Mathf.Cos(rotDeg * Mathf.Deg2Rad), Mathf.Sin(rotDeg * Mathf.Deg2Rad));
-            GameObject instance = Managers.Resource.Instantiate("Prefabs/Weapons/TestEnemyBullet", _bulletRoot.transform);
+            GameObject instance = Managers.Resource.Instantiate("Prefabs/Weapons/EnemyBullet", _bulletRoot.transform);
             instance.transform.position = transform.position + new Vector3(fireVec.x, fireVec.y, 0f) * 2f;
             instance.transform.rotation = Quaternion.AngleAxis(rotDeg - 90, Vector3.forward);
             instance.GetComponent<Rigidbody2D>().AddForce(fireVec * _firePower);
@@ -90,7 +90,7 @@ public class BossEnemyController : EnemyControllerBase
             {
                 float rotDeg = initRotDeg + (i - fireOneTimeCount / 2 - 1) * 10f;
                 Vector2 fireVec = new Vector2(Mathf.Cos(rotDeg * Mathf.Deg2Rad), Mathf.Sin(rotDeg * Mathf.Deg2Rad));
-                GameObject instance = Managers.Resource.Instantiate("Prefabs/Weapons/TestEnemyBullet", _bulletRoot.transform);
+                GameObject instance = Managers.Resource.Instantiate("Prefabs/Weapons/EnemyBullet", _bulletRoot.transform);
                 instance.transform.position = transform.position + new Vector3(fireVec.x, fireVec.y, 0f) * 2f;
                 instance.transform.rotation = Quaternion.AngleAxis(rotDeg - 90, Vector3.forward);
                 instance.GetComponent<Rigidbody2D>().AddForce(fireVec * _firePower);
@@ -112,6 +112,8 @@ public class BossEnemyController : EnemyControllerBase
     protected override void OnDead()
     {
         base.OnDead();
-        Managers.Game.SetState(new MainEndState());
+        MainEndState state = new MainEndState();
+        state.IsWin = true;
+        Managers.Game.SetState(state);
     }
 }

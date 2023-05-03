@@ -40,9 +40,18 @@ public class RoomEnterState : GameState
 
 public class MainEndState : GameState
 {
-    float _stopTime = 2f;
-    float _stopTimer = 0f;
-    bool _isStop = false;
+    private bool _isWin = false;
+    private float _stopTime = 2f;
+    private float _stopTimer = 0f;
+    private bool _isStop = false;
+
+    public bool IsWin { get { return _isWin; } set { _isWin = value; } }
+
+    public override void OnStart()
+    {
+        GameEndingPanel gameEndingPanel = Managers.Ui.GetUI<GameEndingPanel>();
+        gameEndingPanel.Show(_isWin, _stopTime);
+    }
 
     public override void Action()
     {
@@ -56,9 +65,7 @@ public class MainEndState : GameState
             if (_isStop == false)
             {
                 _isStop = true;
-                //Time.timeScale = 0f;
-                GameEndingPanel gameEndingPanel = Managers.Ui.GetUI<GameEndingPanel>();
-                gameEndingPanel.Show();
+                Time.timeScale = 0f;
             }
         }
     }

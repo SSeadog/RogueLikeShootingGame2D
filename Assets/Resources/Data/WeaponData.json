@@ -6,7 +6,7 @@
     "fullLoadAmmo": 40,
     "bulletSpeed": 1,
     "fireSpeed": 0.1,
-    "bulletResourcePath": "Prefabs/Weapons/TestPlayerBullet"
+    "bulletResourcePath": "Prefabs/Weapons/PlayerBullet"
   },
   "ShotGun": {
     "id": 1,
@@ -15,6 +15,6 @@
     "fullLoadAmmo": 5,
     "bulletSpeed": 0.7,
     "fireSpeed": 0.6,
-    "bulletResourcePath": "Prefabs/Weapons/TestPlayerBullet"
+    "bulletResourcePath": "Prefabs/Weapons/PlayerBullet"
   }
 }
