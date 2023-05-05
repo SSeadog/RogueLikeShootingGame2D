@@ -17,6 +17,11 @@ public class MainInitState : GameState
 
 public class MainState : GameState
 {
+
+    public override void Action()
+    {
+        Managers.Game.PlayTime += Time.deltaTime;
+    }
 }
 
 public class RoomEnterState : GameState
@@ -35,6 +40,8 @@ public class RoomEnterState : GameState
             _room.OpenDoors();
             Managers.Game.SetState(new MainState());
         }
+
+        Managers.Game.PlayTime += Time.deltaTime;
     }
 }
 

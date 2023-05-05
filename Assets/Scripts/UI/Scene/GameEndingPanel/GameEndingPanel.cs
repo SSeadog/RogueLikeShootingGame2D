@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,10 +51,11 @@ public class GameEndingPanel : UIBase
             _deathCauseText.text = "사망 원인";
         }
 
-        _playerNameText.text = "캐릭터 이름";
-        _playTimeText.text = "00:00";
-        _goldText.text = "111";
-        _killCountText.text = "999";
+        string playerName = ((Define.ObjectType)Managers.Game.PlayerId).ToString();
+        _playerNameText.text = Managers.Data.PlayerStatDict[playerName].name;
+        _playTimeText.text = Managers.Game.PlayTime.ToString();
+        _goldText.text = Managers.Game.Gold.ToString();
+        _killCountText.text = Managers.Game.KillCount.ToString();
     }
 
     IEnumerator CoShow(float fadeTime)

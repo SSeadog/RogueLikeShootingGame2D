@@ -1,7 +1,7 @@
 {
   "MachineGun": {
     "id": 0,
-    "power": 5.6,
+    "power": 13,
     "maxAmmo": 900,
     "fullLoadAmmo": 40,
     "bulletSpeed": 1,
@@ -10,7 +10,7 @@
   },
   "ShotGun": {
     "id": 1,
-    "power": 2,
+    "power": 5,
     "maxAmmo": 200,
     "fullLoadAmmo": 5,
     "bulletSpeed": 0.7,

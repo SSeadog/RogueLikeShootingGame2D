@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private bool _isInvincibility = false;
     private bool _isReloading = false;
     private bool _isTumbling = false;
+    private bool _isPushed = false;
 
     private Color _baseColor;
     private Vector3 _dropEnterPoint;
@@ -112,16 +113,19 @@ public class PlayerController : MonoBehaviour
         _rightHand.rotation = Quaternion.LookRotation(_curWeapon.RightHandPoint.position - _rightHand.position) * Quaternion.Euler(0f, -90f, 0f);
 
         // 폭탄 몹 때문에 밀려날 때 충돌 없애는 로직
-        // 특정 레이어(몬스터)만 피하도록 수정 필요할 듯
-        if (_collider.enabled)
+        if (_rigidbody.velocity != Vector2.zero)
         {
-            if (_rigidbody.velocity != Vector2.zero)
-                _collider.enabled = false;
+            if (!_isPushed)
+                SetIgnoreLayerCollisions(new int[1] { LayerMask.NameToLayer("Enemy") }, true);
+
+            _isPushed = true;
         }
-        else
+        if (_rigidbody.velocity == Vector2.zero)
         {
-            if (_rigidbody.velocity == Vector2.zero)
-                _collider.enabled = true;
+            if (_isPushed)
+                SetIgnoreLayerCollisions(new int[1] { LayerMask.NameToLayer("Enemy") }, false);
+
+            _isPushed = false;
         }
     }
 
@@ -318,7 +322,7 @@ public class PlayerController : MonoBehaviour
             collision.gameObject.GetComponent<ItemBase>().GetItem(transform);
         }
 
-        if (_isInvincibility == false)
+        if (_isInvincibility == true)
             return;
 
         if (collision.CompareTag("EnemyBullet"))
@@ -383,8 +387,7 @@ public class PlayerController : MonoBehaviour
     void OnAttacekd()
     {
         ChangeColor(Color.red);
-        _isInvincibility = false;
-        _invincibilityTimer = 0f;
+        _isInvincibility = true;
         Managers.Ui.GetUI<HpBarUI>().SetHpBar((int)_stat.Hp);
     }
 

@@ -8,6 +8,7 @@ public class BombEnemyController : EnemyControllerBase
     // 데미지 주는 거 구현
 
     private float _explodeRange = 5f;
+    private float _damgeRange = 3f;
     private float _jumpPower = 200f;
     private float _explodePower = 20f;
 
@@ -58,12 +59,9 @@ public class BombEnemyController : EnemyControllerBase
 
     void Explode()
     {
-        // 반경 안이면 데미지 + 밀어내기
-        // 반경 밖이면 일정 범위 밀어내기
-        // 거리에 따라 밀어내는 힘 조절하기
-
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _explodeRange);
 
+        
         foreach(Collider2D collider in colliders)
         {
             if (collider.CompareTag("Enemy") == true || collider.CompareTag("PlayerBullet") == true || collider.CompareTag("EnemyBullet") == true)
@@ -74,7 +72,13 @@ public class BombEnemyController : EnemyControllerBase
             {
                 Vector3 explodeVec = new Vector3(rb.position.x, rb.position.y, 0) - transform.position;
                 float dist = explodeVec.magnitude;
-                rb.AddForce(explodeVec.normalized * _explodePower * Mathf.Clamp(_explodeRange - dist, 1f, _explodeRange - 1f), ForceMode2D.Impulse);
+                // 데미지 반경 안이면 데미지 주기
+                if (dist < _damgeRange)
+                    rb.gameObject.GetComponent<PlayerStat>()?.GetDamaged(1f);
+
+                // 폭발 반경 안이면 일정 범위 밀어내기
+                if (dist < _explodeRange)
+                    rb.AddForce(explodeVec.normalized * _explodePower * Mathf.Clamp(_explodeRange - dist, 1f, _explodeRange - 1f), ForceMode2D.Impulse);
             }
         }
 

@@ -126,6 +126,7 @@ public abstract class EnemyControllerBase : MonoBehaviour
     protected virtual void OnDead()
     {
         SetState(EStateType.DieState);
+        Managers.Game.KillCount++;
     }
 }
 
