@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         {
             _reloadingTimer += Time.deltaTime;
 
-            if (_reloadingTimer > _curWeapon.GetReloadingTime())
+            if (_reloadingTimer > _curWeapon.ReloadSpeed)
             {
                 _curWeapon.Reload();
                 _isReloading = false;
@@ -239,7 +239,7 @@ public class PlayerController : MonoBehaviour
         if (must || (Input.GetKeyDown(KeyCode.R) && _curWeapon.CurLoadAmmo < _curWeapon.FullLoadAmmo))
         {
             _isReloading = true;
-            transform.GetComponentInChildren<ReloadGaugeUI>().FillGauge(_curWeapon.GetReloadingTime());
+            transform.GetComponentInChildren<ReloadGaugeUI>().FillGauge(_curWeapon.ReloadSpeed);
         }
     }
 

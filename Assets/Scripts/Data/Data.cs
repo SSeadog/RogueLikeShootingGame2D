@@ -32,6 +32,7 @@ namespace Data
         public int fullLoadAmmo;
         public float bulletSpeed;
         public float fireSpeed;
+        public float reloadSpeed;
         public string bulletResourcePath;
     }
 }

@@ -3,18 +3,20 @@
     "id": 0,
     "power": 13,
     "maxAmmo": 900,
-    "fullLoadAmmo": 40,
+    "fullLoadAmmo": 25,
     "bulletSpeed": 1,
     "fireSpeed": 0.1,
+    "reloadSpeed": 0.5,
     "bulletResourcePath": "Prefabs/Weapons/PlayerBullet"
   },
   "ShotGun": {
     "id": 1,
-    "power": 5,
+    "power": 21,
     "maxAmmo": 200,
-    "fullLoadAmmo": 5,
+    "fullLoadAmmo": 2,
     "bulletSpeed": 0.7,
     "fireSpeed": 0.6,
+    "reloadSpeed": 0.6,
     "bulletResourcePath": "Prefabs/Weapons/PlayerBullet"
   }
 }

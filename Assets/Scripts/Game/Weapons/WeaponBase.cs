@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public abstract class WeaponBase : MonoBehaviour
@@ -17,18 +18,20 @@ public abstract class WeaponBase : MonoBehaviour
     protected int _curAmmo;
     protected int _curLoadAmmo;
     protected float _bulletSpeed;
+    protected float _reloadSpeed;
 
-    SpriteRenderer _gunSprite;
-    Vector3 _initFirePos;
-    float _fireSpeed;
-    bool _canFire;
-    bool _isFlipped;
+    private SpriteRenderer _gunSprite;
+    private Vector3 _initFirePos;
+    private float _fireSpeed;
+    private bool _canFire;
+    private bool _isFlipped;
 
     public float Power { get { return _power; } }
     public int FullLoadAmmo { get { return _fullLoadAmmo; } }
     public int CurLoadAmmo { get { return _curLoadAmmo; } }
     public int MaxAmmo { get { return _maxAmmo; } }
     public int CurAmmo { get { return _curAmmo; } }
+    public float ReloadSpeed { get { return _reloadSpeed; } }
     public Transform LeftHandPoint { get { return _leftHandPoint; } }
     public Transform RightHandPoint { get { return _rightHandPoint; } }
 
@@ -65,11 +68,6 @@ public abstract class WeaponBase : MonoBehaviour
     {
         yield return new WaitForSeconds(_fireSpeed);
         _canFire = true;
-    }
-
-    public float GetReloadingTime()
-    {
-        return 1f;
     }
 
     public void Flip(bool isFlip)
@@ -118,6 +116,7 @@ public abstract class WeaponBase : MonoBehaviour
         _curLoadAmmo = _fullLoadAmmo;
         _bulletSpeed = weaponInfo.bulletSpeed;
         _fireSpeed = weaponInfo.fireSpeed;
+        _reloadSpeed = weaponInfo.reloadSpeed;
 
         _bulletRoot = GetBulletRoot();
         _initFirePos = _firePos.localPosition;

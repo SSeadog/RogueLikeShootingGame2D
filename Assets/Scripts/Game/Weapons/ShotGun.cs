@@ -5,7 +5,7 @@ public class ShotGun : WeaponBase
 {
     private int _bulletCount = 4;
     private int _fireTime = 2;
-    private float _gap = 15f;
+    private float _gap = 10f;
 
     public override void Init()
     {
