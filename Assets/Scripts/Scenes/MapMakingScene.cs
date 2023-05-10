@@ -12,7 +12,7 @@ public class MapMakingScene : BaseScene
     public EditMode _editMode = EditMode.None;
     public Define.ObjectType _curSelectObjectType;
     GameObject _curSelectInstance;
-    public InputController _inputController;
+    public InputController inputController;
     string _instanceToolMakingPath = "Prefabs/Objects/InstanceToolMaking";
 
     public GameObject CurSelectInstance
@@ -43,7 +43,7 @@ public class MapMakingScene : BaseScene
     protected override void Init()
     {
         base.Init();
-        _inputController = GameObject.FindObjectOfType<InputController>();
+        inputController = GameObject.FindObjectOfType<InputController>();
         Managers.Game.SetState(new MapSelectState());
     }
 

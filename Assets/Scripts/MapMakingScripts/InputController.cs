@@ -10,20 +10,26 @@ public class InputController : MonoBehaviour
     bool _pressed = false;
     float _pressTime;
 
-    float _orthographicSize;
+    float _maxZoomLevel = 35f;
+    float _minZoomLevel = 1f;
+    float _zoomLevel; // 확대가 많이 될 수록 값이 작아짐. 확대가 적을 수록 값이 높아짐. 1~35
     float _scrollSpeed;
     float _moveSpeed;
+
+    Vector3 _beforeMousePos;
 
     Action mouseLeftButtonClick;
     Action mouseWheelDown;
     Action mouseWheelUp;
     Action mouseWheelButtonClick;
 
+    public float ZoomLevel { get { return _zoomLevel; } }
+
     void Start()
     {
-        _orthographicSize = Camera.main.orthographicSize;
+        _zoomLevel = Camera.main.orthographicSize;
         _scrollSpeed = 1f;
-        _moveSpeed = 0.5f;
+        _moveSpeed = 1f;
 
         mouseWheelUp += EnLarge;
         mouseWheelDown += Reduce;
@@ -70,10 +76,7 @@ public class InputController : MonoBehaviour
             mouseWheelDown();
         }
 
-        if (Input.GetMouseButton(2))
-        {
-            mouseWheelButtonClick();
-        }
+        
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -98,27 +101,47 @@ public class InputController : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (Input.GetMouseButtonDown(2))
+        {
+            _beforeMousePos = _beforeMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+
+        if (Input.GetMouseButton(2))
+        {
+            mouseWheelButtonClick();
+        }
+
+        if (Input.GetMouseButtonUp(2))
+        {
+            _beforeMousePos = Vector3.zero;
+        }
+    }
     private void EnLarge()
     {
-        _orthographicSize -= _scrollSpeed;
-        if (_orthographicSize < 1f)
-            _orthographicSize = 1f;
-        Camera.main.orthographicSize = _orthographicSize;
+        _zoomLevel -= _scrollSpeed;
+        if (_zoomLevel < _minZoomLevel)
+            _zoomLevel = _minZoomLevel;
+        Camera.main.orthographicSize = _zoomLevel;
     }
 
     private void Reduce()
     {
-        _orthographicSize += _scrollSpeed;
-        Camera.main.orthographicSize = _orthographicSize;
+        _zoomLevel += _scrollSpeed;
+        if (_zoomLevel > _maxZoomLevel)
+            _zoomLevel = _maxZoomLevel;
+        Camera.main.orthographicSize = _zoomLevel;
     }
 
     private void Move()
     {
-        float movX = Input.GetAxis("Mouse X");
-        float movY = Input.GetAxis("Mouse Y");
+        if (_beforeMousePos == Vector3.zero)
+            return;
 
-        Vector3 movVec = new Vector3(-movX, -movY, 0f) * _moveSpeed;
-        Camera.main.transform.Translate(movVec);
+        Vector3 curMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 moveVec = _beforeMousePos - curMousePos;
+        Camera.main.transform.Translate(moveVec);
     }
 
     public void SelectSpawnObject(Define.ObjectType type)
