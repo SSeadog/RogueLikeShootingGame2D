@@ -205,7 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 104608582}
   - component: {fileID: 104608583}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BigCandleLight (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 268371278}
   - component: {fileID: 268371279}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SmallWindowLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,7 +427,7 @@ GameObject:
   m_Component:
   - component: {fileID: 429913616}
   - component: {fileID: 429913617}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SmallCandleLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -538,7 +538,7 @@ GameObject:
   m_Component:
   - component: {fileID: 753982741}
   - component: {fileID: 753982742}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SmallWindowLight (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -649,7 +649,7 @@ GameObject:
   m_Component:
   - component: {fileID: 788584441}
   - component: {fileID: 788584442}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SmallWindowLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -900,7 +900,7 @@ GameObject:
   m_Component:
   - component: {fileID: 975782820}
   - component: {fileID: 975782821}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SmallWindowLight (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1099,7 +1099,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1095689665}
   - component: {fileID: 1095689664}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Global Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1210,7 +1210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1212244911}
   - component: {fileID: 1212244912}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BigCandleLight (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1311,6 +1311,169 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!1 &1299623934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1299623936}
+  - component: {fileID: 1299623935}
+  - component: {fileID: 1299623937}
+  - component: {fileID: 1299623938}
+  m_Layer: 4
+  m_Name: Water
+  m_TagString: Water
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &1299623935
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299623934}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 4c9d4e5fe6b74da4593a370112ff543c, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 5e29e47859e7c4b4abe87a7fbe6d746c, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1299623936
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299623934}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.58, y: 9.54, z: 0.1112276}
+  m_LocalScale: {x: 15, y: 5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1299623937
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299623934}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!331 &1299623938
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299623934}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 15d0c3709176029428a0da2f8cecf0b5, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 5e29e47859e7c4b4abe87a7fbe6d746c, type: 2}
+  m_MaskAlphaCutoff: 0.2
+  m_FrontSortingLayerID: 0
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
+  m_FrontSortingOrder: 0
+  m_BackSortingOrder: 0
+  m_IsCustomRangeActive: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1357268987
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,7 +1556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1426657733}
   - component: {fileID: 1426657734}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SmallCandleLight (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1504,7 +1667,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1432080369}
   - component: {fileID: 1432080370}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BigCandleLight (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1687,7 +1850,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1519464191}
   - component: {fileID: 1519464192}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BigWindowLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1798,7 +1961,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1523490317}
   - component: {fileID: 1523490318}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BigCandleLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1909,7 +2072,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1547881746}
   - component: {fileID: 1547881747}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BigCandleLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2092,7 +2255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1662200381}
   - component: {fileID: 1662200382}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SmallCandleLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2239,7 +2402,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1835072289}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2358,7 +2521,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1897827235}
   - component: {fileID: 1897827236}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BigCandleLight (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2569,7 +2732,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2134600523}
   - component: {fileID: 2134600524}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SmallCandleLight (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
