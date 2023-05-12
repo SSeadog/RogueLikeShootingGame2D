@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class Reflection : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer _reflection;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("리플렉션 트리거 엔터");
-        GetComponent<SpriteRenderer>().enabled = true;
+        if (collision.CompareTag("Water"))
+        {
+            Debug.Log("리플렉션 트리거 엔터");
+            _reflection.enabled = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("리플렉션 트리거 엑싯");
-        GetComponent<SpriteRenderer>().enabled = false;
+        if (collision.CompareTag("Water"))
+        {
+            Debug.Log("리플렉션 트리거 엑싯");
+            _reflection.enabled = false;
+        }
     }
 }

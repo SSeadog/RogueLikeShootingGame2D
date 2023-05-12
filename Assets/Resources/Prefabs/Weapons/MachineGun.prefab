@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 886058190650221684}
   - component: {fileID: 2932795247723190860}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MachineGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7505013948952614751}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LeftHandPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8306608362445305914}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FirePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2503051058819326538}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RightHandPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6269279692539446624}
   - component: {fileID: 8041789972745052040}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
