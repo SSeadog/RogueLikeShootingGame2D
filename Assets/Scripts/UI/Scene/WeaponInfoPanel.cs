@@ -1,22 +1,67 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponInfoPanel : UIBase
 {
-    private TMP_Text _ammoText;
-    private Image _weaponImage;
-    private LoadedAmmoUI _ammo; // 총알 ui 로직에 대해서는 좀더 고민해보기
+    private List<Image> _bulletIconList = new List<Image>();
+    private int _maxIndex = 0;
+    private int _currentIndex = 0;
 
-    void Awake()
+    enum TMP_Texts
     {
-        GameObject weaponImage = Managers.Resource.LoadUI("Prefabs/UI/Scene/WeaponInfoPanel/WeaponImage", transform);
-        GameObject loadedAmmo = Managers.Resource.LoadUI("Prefabs/UI/Scene/WeaponInfoPanel/LoadedAmmoUI", transform);
-        GameObject ammoText = Managers.Resource.LoadUI("Prefabs/UI/Scene/WeaponInfoPanel/AmmoText", transform);
+        AmmoText
+    }
 
-        _ammoText = ammoText.GetComponent<TMP_Text>();
-        _weaponImage = weaponImage.GetComponent<Image>();
-        _ammo = loadedAmmo.GetComponent<LoadedAmmoUI>();
+    enum Images
+    {
+        WeaponImage
+    }
+
+    enum Transforms
+    {
+        LoadedAmmoUI
+    }
+
+    protected override void Init()
+    {
+        base.Init();
+
+        Bind<TMP_Text>(typeof(TMP_Texts));
+        Bind<Image>(typeof(Images));
+        Bind<Transform>(typeof(Transforms));
+
+        LoadBullets();
+    }
+
+    void LoadBullets()
+    {
+        WeaponBase weapon = Managers.Game.PlayerWeaponList[0];
+        Transform ammoUIRoot = Get<Transform>(Transforms.LoadedAmmoUI.ToString());
+        for (int i = 0; i < weapon.FullLoadAmmo; i++)
+        {
+            GameObject instance = Managers.Resource.LoadUI("Prefabs/UI/SubItem/AmmoUI", ammoUIRoot);
+            _bulletIconList.Add(instance.GetComponent<Image>());
+        }
+
+        _maxIndex = weapon.FullLoadAmmo;
+        _currentIndex = 0;
+    }
+
+    public void RemoveBullet()
+    {
+        _bulletIconList[_currentIndex].enabled = false;
+        _currentIndex++;
+    }
+
+    public void FillBullet(int loadedAmmo)
+    {
+        for (int i = _currentIndex - 1; i >= _currentIndex - loadedAmmo; i--)
+        {
+            _bulletIconList[i].enabled = true;
+        }
+        _currentIndex = 0;
     }
 
     void Update()
@@ -25,6 +70,6 @@ public class WeaponInfoPanel : UIBase
             return;
 
         WeaponBase weapon = Managers.Game.PlayerWeaponList[0];
-        _ammoText.text = $"{weapon.CurLoadAmmo}/{weapon.CurAmmo}";
+        Get<TMP_Text>(TMP_Texts.AmmoText.ToString()).text = $"{weapon.CurLoadAmmo}/{weapon.CurAmmo}";
     }
 }

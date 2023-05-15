@@ -20,6 +20,27 @@ public static class Util
         return Enum.Parse<Define.ObjectType>(makingTypeName);
     }
 
+    public static GameObject FindChild(GameObject gameObject , string name)
+    {
+        Transform tr = FindChild<Transform>(gameObject, name);
+
+        if (tr == null)
+            return null;
+
+        return tr.gameObject;
+    }
+
+    public static T FindChild<T>(GameObject gameObject, string name) where T : UnityEngine.Object
+    {
+        T[] childs = gameObject.GetComponentsInChildren<T>();
+        foreach (T child in childs)
+        {
+            if (child.name == name)
+                return child;
+        }
+        return null;
+    }
+
     #region ReadJson
     public static T LoadJson<T>(string path)
     {

@@ -4,8 +4,14 @@ using UnityEngine.UI;
 
 public class CharacterItemUI : UIBase
 {
-    [SerializeField] GameObject _itemIcon;
-    [SerializeField] GameObject _itemName;
+    enum Texts
+    {
+        ItemName
+    }
+    enum GameObjects
+    {
+        ItemIcon
+    }
 
     private string _name;
     private UnityAction<Data.Stat> _action;
@@ -14,8 +20,10 @@ public class CharacterItemUI : UIBase
     {
         base.Init();
 
-        _itemName.GetComponent<Text>().text = _name;
+        Bind<Text>(typeof(Texts));
+        Bind<GameObject>(typeof(GameObjects));
 
+        Get<Text>(Texts.ItemName.ToString()).text = _name;
         Data.Stat pStat = Managers.Data.PlayerStatDict[_name];
         gameObject.GetComponent<Button>().onClick.AddListener(()=> { _action.Invoke(pStat); });
     }

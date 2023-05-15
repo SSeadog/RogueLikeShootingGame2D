@@ -2,7 +2,15 @@ using UnityEngine;
 
 public class CharacterSelectState : GameState
 {
+    public override void OnStart()
+    {
+        Managers.Ui.Init();
+    }
 
+    public override void OnEnd()
+    {
+        Managers.Ui.Clear();
+    }
 }
 
 public class MainInitState : GameState
@@ -12,6 +20,7 @@ public class MainInitState : GameState
         Managers.Game.RoomManager.LoadRoomData();
         Managers.Game.RoomManager.InitRooms();
         Managers.Game.SetState(new MainState());
+        Managers.Ui.Init();
     }
 }
 
@@ -58,6 +67,7 @@ public class MainEndState : GameState
     {
         GameEndingPanel gameEndingPanel = Managers.Ui.GetUI<GameEndingPanel>();
         gameEndingPanel.Show(_isWin, _stopTime);
+        Managers.Ui.Clear();
     }
 
     public override void Action()

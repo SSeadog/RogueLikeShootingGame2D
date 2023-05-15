@@ -57,7 +57,7 @@ public abstract class WeaponBase : MonoBehaviour
 
         _canFire = false;
         _curLoadAmmo--;
-        Managers.Ui.GetUI<LoadedAmmoUI>().RemoveBullet();
+        Managers.Ui.GetUI<WeaponInfoPanel>().RemoveBullet();
 
         FireBullets();
         StartCoroutine(CoWaitFire());
@@ -101,7 +101,7 @@ public abstract class WeaponBase : MonoBehaviour
 
         _curAmmo -= reloadAmmoCount;
         _curLoadAmmo += reloadAmmoCount;
-        Managers.Ui.GetUI<LoadedAmmoUI>().FillBullet(reloadAmmoCount);
+        Managers.Ui.GetUI<WeaponInfoPanel>().FillBullet(reloadAmmoCount);
     }
 
     public virtual void Init()

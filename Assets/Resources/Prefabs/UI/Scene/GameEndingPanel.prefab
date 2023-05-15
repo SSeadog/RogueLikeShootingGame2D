@@ -742,9 +742,9 @@ RectTransform:
   m_Father: {fileID: 6206831538379407790}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200.95, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 143.31, y: 49.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &245360499833882877
@@ -797,7 +797,7 @@ GameObject:
   - component: {fileID: 487784270878594533}
   - component: {fileID: 5589091389416718352}
   m_Layer: 5
-  m_Name: Text
+  m_Name: DeathCauseText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -954,9 +954,9 @@ RectTransform:
   m_Father: {fileID: 6206831538379407790}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 376.65497, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 188.1, y: 49.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2224706608795642108
@@ -1009,7 +1009,7 @@ GameObject:
   - component: {fileID: 7623531137606386721}
   - component: {fileID: 7957523439108084361}
   m_Layer: 5
-  m_Name: Text
+  m_Name: KillCountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1221,7 +1221,7 @@ GameObject:
   - component: {fileID: 1158322400702654770}
   - component: {fileID: 2769796484966705639}
   m_Layer: 5
-  m_Name: Text
+  m_Name: PlayerNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1513,13 +1513,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0841b3ec85b31604eb167dc39088d689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resultTitleText: {fileID: 3803098859829951001}
-  _playerNameText: {fileID: 2769796484966705639}
-  _playTimeText: {fileID: 2445749438559610179}
-  _goldText: {fileID: 7738758490027362233}
-  _killCountText: {fileID: 7957523439108084361}
-  _deathCauseRow: {fileID: 6009718968520469131}
-  _deathCauseText: {fileID: 5589091389416718352}
 --- !u!1 &3803098859829951003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1532,7 +1525,7 @@ GameObject:
   - component: {fileID: 3803098859829951006}
   - component: {fileID: 3803098859829951001}
   m_Layer: 5
-  m_Name: GameResult
+  m_Name: ResultTitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2089,12 +2082,12 @@ GameObject:
   - component: {fileID: 6206831538379407790}
   - component: {fileID: 4950696993050529792}
   m_Layer: 5
-  m_Name: DataRow
+  m_Name: DeathCauseRow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6206831538379407790
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2112,9 +2105,9 @@ RectTransform:
   m_Father: {fileID: 9046692727201159472}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: -330}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 600, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4950696993050529792
@@ -2220,7 +2213,7 @@ GameObject:
   - component: {fileID: 4152570994451480658}
   - component: {fileID: 2445749438559610179}
   m_Layer: 5
-  m_Name: Text
+  m_Name: PlayTimeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2758,7 +2751,7 @@ GameObject:
   - component: {fileID: 584243460240651089}
   - component: {fileID: 7738758490027362233}
   m_Layer: 5
-  m_Name: Text
+  m_Name: CollectedGoldText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
