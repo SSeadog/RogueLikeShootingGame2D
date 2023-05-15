@@ -36,11 +36,7 @@ public class MainScene : BaseScene
 
     void LoadMainSceneUI()
     {
-        GameObject uIRoot = GameObject.Find("UIRoot");
-        if (uIRoot == null)
-        {
-            uIRoot = new GameObject("UIRoot");
-        }
+        GameObject uIRoot = Managers.Ui.UiRoot;
 
         Managers.Resource.LoadUI("Prefabs/UI/Scene/PlayerInfoPanel", uIRoot.transform);
         Managers.Resource.LoadUI("Prefabs/UI/Scene/WeaponInfoPanel", uIRoot.transform);

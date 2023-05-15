@@ -1,16 +1,30 @@
 using System.Collections;
 using UnityEngine;
 
-public class ReloadGaugeUI : MonoBehaviour
+public class ReloadGaugeUI : UIBase
 {
-    [SerializeField] private GameObject _parentUI;
-    [SerializeField] private GameObject _bar;
+    enum GameObjects
+    {
+        Background,
+        Foreground
+    }
+
+    enum RectTransforms
+    {
+        Bar
+    }
 
     private float _width;
 
-    void Start()
+    protected override void Init()
     {
-        _width = _parentUI.GetComponent<RectTransform>().sizeDelta.x;
+        base.Init();
+        Bind<GameObject>(typeof(GameObjects));
+        Bind<RectTransform>(typeof(RectTransforms));
+        _width = gameObject.GetComponent<RectTransform>().sizeDelta.x;
+
+        Get<GameObject>(GameObjects.Background.ToString()).SetActive(false);
+        Get<GameObject>(GameObjects.Foreground.ToString()).SetActive(false);
     }
 
     public void FillGauge(float endTime = 1f)
@@ -25,10 +39,11 @@ public class ReloadGaugeUI : MonoBehaviour
             transform.GetChild(i).gameObject.SetActive(true);
         }
 
+        RectTransform bar = Get<RectTransform>(RectTransforms.Bar.ToString());
         float time = 0f;
         while (time < endTime)
         {
-            _bar.GetComponent<RectTransform>().anchoredPosition = new Vector2((time / endTime) * _width, 0f);
+            bar.GetComponent<RectTransform>().anchoredPosition = new Vector2((time / endTime) * _width, 0f);
             time += Time.deltaTime;
             yield return null;
         }

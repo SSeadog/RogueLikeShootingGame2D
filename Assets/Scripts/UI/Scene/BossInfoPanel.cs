@@ -3,37 +3,39 @@ using UnityEngine;
 
 public class BossInfoPanel : UIBase
 {
-    private TMP_Text _bossNameText;
-    private BossHpBarUI _bossHpBarUI;
-
-    void Awake()
+    enum TMP_Texts
     {
-        GameObject bossNameUI = Managers.Resource.LoadUI("Prefabs/UI/Scene/BossInfoPanel/BossNameUI", transform);
-        GameObject bossHpBarUI = Managers.Resource.LoadUI("Prefabs/UI/Scene/BossInfoPanel/BossHpBarUI", transform);
+        BossNameUI
+    }
+    enum Transforms
+    {
+        BossHpBarForeground
+    }
 
-        _bossNameText = bossNameUI.GetComponent<TMP_Text>();
-        _bossHpBarUI = bossHpBarUI.GetComponent<BossHpBarUI>();
+    protected override void Init()
+    {
+        base.Init();
+        Bind<Transform>(typeof(Transforms));
+        Bind<TMP_Text>(typeof(TMP_Texts));
 
         gameObject.SetActive(false);
     }
 
-    void SetActive()
-    {
-        if (gameObject.activeSelf)
-            return;
-
-        gameObject.SetActive(true);
-    }
-
     public void SetBossName(string name)
     {
-        SetActive();
-        _bossNameText.text = name;
+        if (gameObject.activeSelf == false)
+            gameObject.SetActive(true);
+        Get<TMP_Text>(TMP_Texts.BossNameUI.ToString()).text = name;
     }
 
     public void SetBossHpBar(float percent)
     {
-        SetActive();
-        _bossHpBarUI.SetHpBar(percent);
+        if (gameObject.activeSelf == false)
+            gameObject.SetActive(true);
+
+        if (percent < 0f)
+            percent = 0f;
+
+        Get<Transform>(Transforms.BossHpBarForeground.ToString()).localScale = new Vector3(percent, 1f, 1f);
     }
 }

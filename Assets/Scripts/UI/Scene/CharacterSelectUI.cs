@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class CharacterSelectUI : UIBase
 {
-    [SerializeField] GameObject _gridPanel;
-
-    enum GameObjects
+    enum Transforms
     {
         GridPanel
     }
@@ -14,12 +12,15 @@ public class CharacterSelectUI : UIBase
     {
         base.Init();
         
+        Bind<Transform>(typeof(Transforms));
+
         List<string> keys = new List<string>(Managers.Data.PlayerStatDict.Keys);
 
+        Transform gridPanel = Get<Transform>(Transforms.GridPanel.ToString());
         for (int i = 0; i < keys.Count; i++)
         {
             Data.Stat pStat = Managers.Data.PlayerStatDict[keys[i]];
-            GameObject itemInstance = Managers.Resource.Instantiate("Prefabs/UI/SubItem/CharacterItemUI", _gridPanel.transform);
+            GameObject itemInstance = Managers.Resource.Instantiate("Prefabs/UI/SubItem/CharacterItemUI", gridPanel);
             
             CharacterItemUI uI_CharacterItem = itemInstance.GetComponent<CharacterItemUI>();
             uI_CharacterItem.SetInfo(pStat.name);

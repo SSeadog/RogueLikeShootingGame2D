@@ -8,6 +8,15 @@ public class UIManager
 
     public GameObject UiRoot { get { return uiRoot; } set { uiRoot = value; } }
 
+    public void Init()
+    {
+        uiRoot = GameObject.Find("UIRoot");
+        if (uiRoot == null)
+        {
+            uiRoot = new GameObject("UIRoot");
+        }
+    }
+
     public void AddUI(UIBase ui)
     {
         uiList.Add(ui);
@@ -32,6 +41,7 @@ public class UIManager
 
     public void Clear()
     {
+        uiRoot = null;
         uiList.Clear();
     }
 }

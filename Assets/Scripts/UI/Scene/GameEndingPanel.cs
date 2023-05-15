@@ -8,24 +8,32 @@ using UnityEngine.UI;
 public class GameEndingPanel : UIBase
 {
     // Todo
-    // 실제 데이터 넣기
     // 다른 UI는 끄기
-
-    [SerializeField] private TMP_Text _resultTitleText;
-    [SerializeField] private TMP_Text _playerNameText;
-    [SerializeField] private TMP_Text _playTimeText;
-    [SerializeField] private TMP_Text _goldText;
-    [SerializeField] private TMP_Text _killCountText;
-    [SerializeField] private GameObject _deathCauseRow;
-    [SerializeField] private TMP_Text _deathCauseText;
-
     private float _fadeTimer = 0f;
     private float _baseAlpha = 0.5f;
     private float _plusDelta = 0.01f;
 
+    enum TMP_Texts
+    {
+        ResultTitleText,
+        PlayerNameText,
+        PlayTimeText,
+        CollectedGoldText,
+        KillCountText,
+        DeathCauseText
+    }
+
+    enum GameObjects
+    {
+        DeathCauseRow
+    }
+
     protected override void Init()
     {
         base.Init();
+        Bind<TMP_Text>(typeof(TMP_Texts));
+        Bind<GameObject>(typeof(GameObjects));
+        Get<GameObject>(GameObjects.DeathCauseRow.ToString()).SetActive(false);
         gameObject.SetActive(false);
     }
 
@@ -41,21 +49,21 @@ public class GameEndingPanel : UIBase
         if (isWin)
         {
             // 승리 시 데이터
-            _resultTitleText.text = "플레이어 승리!";
+            Get<TMP_Text>(TMP_Texts.ResultTitleText.ToString()).text = "플레이어 승리!";
         }
         else
         {
             // 패배 시 데이터
-            _resultTitleText.text = "플레이어 패배!";
-            _deathCauseRow.SetActive(true);
-            _deathCauseText.text = "사망 원인";
+            Get<TMP_Text>(TMP_Texts.ResultTitleText.ToString()).text = "플레이어 패배!";
+            Get<GameObject>(GameObjects.DeathCauseRow.ToString()).SetActive(true);
+            Get<TMP_Text>(TMP_Texts.DeathCauseText.ToString()).text = "사망 원인";
         }
 
         string playerName = ((Define.ObjectType)Managers.Game.PlayerId).ToString();
-        _playerNameText.text = Managers.Data.PlayerStatDict[playerName].name;
-        _playTimeText.text = Managers.Game.PlayTime.ToString();
-        _goldText.text = Managers.Game.Gold.ToString();
-        _killCountText.text = Managers.Game.KillCount.ToString();
+        Get<TMP_Text>(TMP_Texts.PlayerNameText.ToString()).text = Managers.Data.PlayerStatDict[playerName].name;
+        Get<TMP_Text>(TMP_Texts.PlayTimeText.ToString()).text = Managers.Game.PlayTime.ToString();
+        Get<TMP_Text>(TMP_Texts.CollectedGoldText.ToString()).text = Managers.Game.Gold.ToString();
+        Get<TMP_Text>(TMP_Texts.KillCountText.ToString()).text = Managers.Game.KillCount.ToString();
     }
 
     IEnumerator CoShow(float fadeTime)

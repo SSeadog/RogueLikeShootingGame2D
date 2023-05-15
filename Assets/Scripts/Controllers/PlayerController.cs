@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         _baseColor = Color.white;
 
-        Managers.Ui.GetUI<HpBarUI>().SetHpBar((int)_stat.Hp);
+        Managers.Ui.GetUI<PlayerInfoPanel>().SetHpBar((int)_stat.Hp);
 
         _characterTransform = transform.Find("Character");
         _animator = _characterTransform.GetComponent<Animator>();
@@ -389,7 +389,7 @@ public class PlayerController : MonoBehaviour
     {
         ChangeColor(Color.red);
         _isInvincibility = true;
-        Managers.Ui.GetUI<HpBarUI>().SetHpBar((int)_stat.Hp);
+        Managers.Ui.GetUI<PlayerInfoPanel>().SetHpBar((int)_stat.Hp);
     }
 
     void OnDead()
