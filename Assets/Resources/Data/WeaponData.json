@@ -1,6 +1,6 @@
 {
   "MachineGun": {
-    "id": 0,
+    "id": 1,
     "power": 13,
     "maxAmmo": 900,
     "fullLoadAmmo": 25,
@@ -10,7 +10,7 @@
     "bulletResourcePath": "Prefabs/Weapons/PlayerBullet"
   },
   "ShotGun": {
-    "id": 1,
+    "id": 2,
     "power": 21,
     "maxAmmo": 200,
     "fullLoadAmmo": 2,
@@ -18,5 +18,15 @@
     "fireSpeed": 0.6,
     "reloadSpeed": 0.6,
     "bulletResourcePath": "Prefabs/Weapons/PlayerBullet"
+  },
+  "SniperRifle": {
+    "id": 3,
+    "power": 34,
+    "maxAmmo": 150,
+    "fullLoadAmmo": 1,
+    "bulletSpeed": 99999,
+    "fireSpeed": 0,
+    "reloadSpeed": 0.9,
+    "bulletResourcePath": "Prefabs/Weapons/PlayerSniperBullet"
   }
 }

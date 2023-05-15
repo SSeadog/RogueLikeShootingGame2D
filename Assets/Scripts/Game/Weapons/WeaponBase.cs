@@ -18,12 +18,15 @@ public abstract class WeaponBase : MonoBehaviour
     protected int _curLoadAmmo;
     protected float _bulletSpeed;
     protected float _reloadSpeed;
+    protected float _reboundDelta = 0.15f;
 
     private SpriteRenderer _gunSprite;
     private Vector3 _initFirePos;
     private float _fireSpeed;
     private bool _canFire;
     private bool _isFlipped;
+    private float _curRebound;
+    private float _maxRebound = 0.3f;
 
     public float Power { get { return _power; } }
     public int FullLoadAmmo { get { return _fullLoadAmmo; } }
@@ -46,7 +49,12 @@ public abstract class WeaponBase : MonoBehaviour
 
     public abstract void LoadBulletResource();
     public abstract void FireBullets();
-    protected abstract void ReduceRebound();
+
+    protected float GetCurRebound()
+    {
+        return Random.Range(-_curRebound, _curRebound);
+    }
+
     public void Fire()
     {
         if (_curLoadAmmo == 0)
@@ -60,7 +68,22 @@ public abstract class WeaponBase : MonoBehaviour
         Managers.Ui.GetUI<LoadedAmmoUI>().RemoveBullet();
 
         FireBullets();
+        AddRebound();
         StartCoroutine(CoWaitFire());
+    }
+
+    void ReduceRebound()
+    {
+        if (_curRebound > 0f)
+        {
+            _curRebound -= Time.deltaTime;
+        }
+    }
+
+    void AddRebound()
+    {
+        if (_curRebound < _maxRebound)
+            _curRebound += _reboundDelta;
     }
 
     IEnumerator CoWaitFire()
@@ -137,7 +160,7 @@ public abstract class WeaponBase : MonoBehaviour
         return _bulletRoot;
     }
 
-    protected float GetMouseRotDeg()
+    protected float GetMouseRotRad()
     {
         Vector2 mousePos = Input.mousePosition;
         Vector3 worldMousePoint = Camera.main.ScreenToWorldPoint(mousePos);

@@ -10,6 +10,7 @@ public class ShotGun : WeaponBase
     public override void Init()
     {
         base.Init();
+        _reboundDelta = 0.1f;
     }
 
     public override void LoadBulletResource()
@@ -30,7 +31,7 @@ public class ShotGun : WeaponBase
         int tempBulletCount = _bulletCount;
         for (int j = 0; j < _fireTime; j++)
         {
-            float initRotDeg = GetMouseRotDeg() * Mathf.Rad2Deg - _gap * ((float)(tempBulletCount - 1) / 2);
+            float initRotDeg = GetMouseRotRad() * Mathf.Rad2Deg - _gap * ((float)(tempBulletCount - 1) / 2);
             for (int i = 0; i < tempBulletCount; i++)
             {
                 float tempRotDeg = initRotDeg + _gap * i;
@@ -38,7 +39,7 @@ public class ShotGun : WeaponBase
 
                 Vector3 fireVec = new Vector3(Mathf.Cos(rotRad), Mathf.Sin(rotRad), 0).normalized;
 
-                GameObject instanceBullet = Instantiate(_bulletOrigin, _firePos.position, transform.rotation, _bulletRoot.transform);
+                GameObject instanceBullet = Instantiate(_bulletOrigin, _firePos.position, Quaternion.AngleAxis(rotRad * Mathf.Rad2Deg + 90, Vector3.forward), _bulletRoot.transform);
                 instanceBullet.GetComponent<Bullet>().Power = Power;
                 instanceBullet.GetComponent<Rigidbody2D>().AddForce(fireVec * _bulletSpeed);
             }
@@ -50,9 +51,5 @@ public class ShotGun : WeaponBase
     public override void Reload()
     {
         base.Reload();
-    }
-
-    protected override void ReduceRebound()
-    {
     }
 }

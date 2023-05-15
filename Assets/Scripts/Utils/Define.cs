@@ -38,7 +38,8 @@ public class Define
     {
         None,
         MachineGun,
-        ShotGun
+        ShotGun,
+        SniperRifle
     }
 
     public enum ItemType
