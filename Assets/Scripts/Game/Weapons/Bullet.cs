@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
 
     public float Power { get { return _power; } set { _power = value; } }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnterAction(Collider2D collision)
     {
         bool isCollisionIgnore = false;
         foreach (string tagName in _voidTagList)
@@ -24,5 +24,10 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        OnTriggerEnterAction(collision);
     }
 }
