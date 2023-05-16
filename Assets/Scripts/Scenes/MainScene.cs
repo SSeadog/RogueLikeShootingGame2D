@@ -28,9 +28,6 @@ public class MainScene : BaseScene
         Managers.Game.Key = 0;
         Managers.Game.Grenade = 2;
 
-        // Test
-        Managers.Game.Gold += 100;
-
         LoadMainSceneUI();
     }
 

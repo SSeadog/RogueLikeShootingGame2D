@@ -34,5 +34,6 @@ namespace Data
         public float fireSpeed;
         public float reloadSpeed;
         public string bulletResourcePath;
+        public string thumbnailPath;
     }
 }

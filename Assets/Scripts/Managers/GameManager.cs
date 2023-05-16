@@ -12,6 +12,7 @@ public class GameManager
     private GameState _currentState;
     private RoomManager _roomManager = new RoomManager();
     private Dictionary<Define.WeaponType, WeaponBase> _playerWeaponDict = new Dictionary<Define.WeaponType, WeaponBase>();
+    private Define.WeaponType _curPlayerWeaponType;
     private List<EnemyControllerBase> _spawnedEnemies = new List<EnemyControllerBase>();
 
     public int PlayerId { get { return _playerId; } set { _playerId = value; } }
@@ -43,14 +44,24 @@ public class GameManager
     {
         GameObject weapon = Managers.Resource.Instantiate("Prefabs/Weapons/" + curWeaponType.ToString(), parent);
         Managers.Game.PlayerWeaponList.Add(curWeaponType, weapon.GetComponent<WeaponBase>());
+        weapon.SetActive(false);
     }
 
     public WeaponBase SwapWeapon(Define.WeaponType weaponType)
     {
-        if ((int)weaponType > _playerWeaponDict.Count)
+        if (weaponType == _curPlayerWeaponType)
             return null;
 
+        if (_playerWeaponDict.ContainsKey(weaponType) == false)
+            return null;
+
+        if (_curPlayerWeaponType != Define.WeaponType.None)
+            _playerWeaponDict[_curPlayerWeaponType].gameObject.SetActive(false);
+
         _playerWeaponDict[weaponType].gameObject.SetActive(true);
+        Managers.Ui.GetUI<WeaponInfoPanel>().SetPanel(weaponType);
+        _curPlayerWeaponType = weaponType;
+
         return _playerWeaponDict[weaponType];
     }
 

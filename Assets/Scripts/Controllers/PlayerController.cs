@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum PlayerState
 {
     None,
     Normal,
+    Reloading,
     Move,
     Action,
     Fall,
@@ -37,7 +36,6 @@ public class PlayerController : MonoBehaviour
     private Transform _characterTransform;
     private Animator _animator;
     private Rigidbody2D _rigidbody;
-    private Collider2D _collider;
     private float _tumbleDist = 5f;
 
     public WeaponBase CurWeapon { get { return _curWeapon; } }
@@ -62,12 +60,19 @@ public class PlayerController : MonoBehaviour
         _characterTransform = transform.Find("Character");
         _animator = _characterTransform.GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
-        _collider = GetComponent<Collider2D>();
     }
 
     void Update()
     {
         if (_state == PlayerState.Normal || _state == PlayerState.Move)
+        {
+            Tumble();
+            Fire();
+            Reload();
+            ExplodeGrenade();
+            SwapWeapon();
+        }
+        else if (_state == PlayerState.Reloading)
         {
             Tumble();
             Fire();
@@ -92,7 +97,7 @@ public class PlayerController : MonoBehaviour
             _invincibilityTimer += Time.deltaTime;
             if (_invincibilityTimer > _invincibilityTime)
             {
-                ChangeColor(Color.white);
+                ChangeColor(_baseColor);
 
                 _isInvincibility = false;
                 _invincibilityTimer = 0f;
@@ -135,7 +140,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_state == PlayerState.Normal || _state == PlayerState.Move)
+        if (_state == PlayerState.Normal || _state == PlayerState.Move || _state == PlayerState.Reloading)
         {
             Move();
             Rotate();
@@ -244,6 +249,7 @@ public class PlayerController : MonoBehaviour
         {
             _isReloading = true;
             transform.GetComponentInChildren<ReloadGaugeUI>().FillGauge(_curWeapon.ReloadSpeed);
+            _state = PlayerState.Reloading;
         }
     }
 
@@ -257,6 +263,22 @@ public class PlayerController : MonoBehaviour
             GameObject instance = Instantiate(_explodeEffect, transform.position, Quaternion.identity);
             instance.GetComponent<Grenade>().Explode();
             Managers.Game.Grenade--;
+        }
+    }
+
+    void SwapWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            WeaponBase weapon = Managers.Game.SwapWeapon(Define.WeaponType.MachineGun);
+            if (weapon != null)
+                _curWeapon = weapon;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            WeaponBase weapon = Managers.Game.SwapWeapon(Define.WeaponType.SniperRifle);
+            if (weapon != null)
+                _curWeapon = weapon;
         }
     }
 

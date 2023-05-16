@@ -27,6 +27,23 @@ public class ResourceManager
         return _originals[path];
     }
 
+    public T Load<T>(string path) where T : UnityEngine.Object
+    {
+        if (_originals.ContainsKey(path) == false)
+        {
+            T original = Resources.Load<T>(path);
+            if (original == null)
+            {
+                Debug.Log($"리소스 로드 실패! {path}");
+                return null;
+            }
+
+            return original;
+        }
+
+        return null;
+    }
+
     public GameObject Instantiate(string path, Transform parent = null)
     {
         Load(path);

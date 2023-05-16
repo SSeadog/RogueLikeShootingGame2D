@@ -16,7 +16,7 @@ public class Store : MonoBehaviour
 
     void GenerateRandomItems()
     {
-        Define.ItemType[] itemTypes = new Define.ItemType[3] { Define.ItemType.Ammo, Define.ItemType.Food, Define.ItemType.Key };
+        Define.ItemType[] itemTypes = new Define.ItemType[3] { Define.ItemType.Ammo, Define.ItemType.Food, Define.ItemType.GunItem };
 
         for (int i = 0; i < _itemCount; i++)
         {

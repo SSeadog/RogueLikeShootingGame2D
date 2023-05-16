@@ -47,7 +47,8 @@ public class Define
         None,
         Food,
         Ammo,
-        Key
+        Key,
+        GunItem
     }
 
     public class TriggerInfo

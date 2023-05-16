@@ -7,7 +7,8 @@
     "bulletSpeed": 1,
     "fireSpeed": 0.1,
     "reloadSpeed": 0.5,
-    "bulletResourcePath": "Prefabs/Weapons/PlayerBullet"
+    "bulletResourcePath": "Prefabs/Weapons/PlayerBullet",
+    "thumbnailPath": "Art/Textures/Weapons/MachineGun"
   },
   "ShotGun": {
     "id": 2,
@@ -17,7 +18,8 @@
     "bulletSpeed": 0.7,
     "fireSpeed": 0.6,
     "reloadSpeed": 0.6,
-    "bulletResourcePath": "Prefabs/Weapons/PlayerBullet"
+    "bulletResourcePath": "Prefabs/Weapons/PlayerBullet",
+    "thumbnailPath": "Art/Textures/Weapons/ShotGun"
   },
   "SniperRifle": {
     "id": 3,
@@ -26,7 +28,8 @@
     "fullLoadAmmo": 1,
     "bulletSpeed": 99999,
     "fireSpeed": 0,
-    "reloadSpeed": 0.9,
-    "bulletResourcePath": "Prefabs/Weapons/PlayerSniperBullet"
+    "reloadSpeed": 0.3,
+    "bulletResourcePath": "Prefabs/Weapons/PlayerSniperBullet",
+    "thumbnailPath": "Art/Textures/Weapons/SniperRifle"
   }
 }

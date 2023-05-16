@@ -7,9 +7,19 @@ public class UIBase : MonoBehaviour
     // GameObject, Image, Text 등의 UI요소들을 저장할 Dictionary
     Dictionary<Type, Dictionary<string, UnityEngine.Object>> _objects = new Dictionary<Type, Dictionary<string, UnityEngine.Object>>();
 
+    void Awake()
+    {
+        InitImediately();
+    }
+    
     void Start()
     {
         Init();
+    }
+
+    protected virtual void InitImediately()
+    {
+
     }
 
     protected virtual void Init()

@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 2275176048341386692}
   - component: {fileID: 2275176048341386695}
   m_Layer: 5
-  m_Name: WeaponImage
+  m_Name: WeaponImageBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 2275176049116886801}
   - component: {fileID: 2275176049116886806}
   m_Layer: 5
-  m_Name: Image
+  m_Name: WeaponImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
