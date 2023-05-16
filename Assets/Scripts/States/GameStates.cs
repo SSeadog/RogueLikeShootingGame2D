@@ -68,6 +68,7 @@ public class MainEndState : GameState
         GameEndingPanel gameEndingPanel = Managers.Ui.GetUI<GameEndingPanel>();
         gameEndingPanel.Show(_isWin, _stopTime);
         Managers.Ui.Clear();
+        Managers.Game.Clear();
     }
 
     public override void Action()

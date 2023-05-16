@@ -4,7 +4,7 @@
     "name": "Apple",
     "maxHp": 6,
     "speed": 5,
-    "weaponId": 3
+    "weaponId": 1
   },
   "Banana": {
     "id": 2,

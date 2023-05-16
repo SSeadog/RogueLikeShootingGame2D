@@ -32,7 +32,7 @@ public abstract class WeaponBase : MonoBehaviour
     public int FullLoadAmmo { get { return _fullLoadAmmo; } }
     public int CurLoadAmmo { get { return _curLoadAmmo; } }
     public int MaxAmmo { get { return _maxAmmo; } }
-    public int CurAmmo { get { return _curAmmo; } }
+    public int CurAmmo { get { return _curAmmo; } set { if (value < _maxAmmo) _curAmmo = value; else _curAmmo = _maxAmmo; } }
     public float ReloadSpeed { get { return _reloadSpeed; } }
     public Transform LeftHandPoint { get { return _leftHandPoint; } }
     public Transform RightHandPoint { get { return _rightHandPoint; } }

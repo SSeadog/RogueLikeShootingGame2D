@@ -9,6 +9,7 @@ public class SellItem : MonoBehaviour
     private int _price = 0;
     private bool _isSold = false;
     private bool _isPlayerInTrigger = false;
+    private Stat _playerStat;
 
     public void SetItem(string path, int price = 10)
     {
@@ -33,10 +34,11 @@ public class SellItem : MonoBehaviour
             {
                 Managers.Game.Gold -= _price;
                 _isSold = true;
-                _item.GetComponent<ItemBase>().Effect();
+                _item.GetComponent<ItemBase>().Effect(_playerStat);
 
                 _isPlayerInTrigger = false;
                 Destroy(_item);
+                Destroy(_sellItemUI);
             }
         }
     }
@@ -50,6 +52,7 @@ public class SellItem : MonoBehaviour
             return;
 
         _isPlayerInTrigger = true;
+        _playerStat = collision.GetComponent<PlayerStat>();
         _sellItemUI.SetActive(true);
     }
 
@@ -62,6 +65,7 @@ public class SellItem : MonoBehaviour
             return;
 
         _isPlayerInTrigger = false;
+        _playerStat = null;
         _sellItemUI.SetActive(false);
     }
 }

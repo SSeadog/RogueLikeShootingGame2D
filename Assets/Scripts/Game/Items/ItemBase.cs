@@ -5,7 +5,7 @@ public abstract class ItemBase : MonoBehaviour
 {
     private float _followSpeed = 4f;
 
-    public abstract void Effect();
+    public abstract void Effect(Stat stat);
 
     public void GetItem(Transform target)
     {
@@ -20,6 +20,10 @@ public abstract class ItemBase : MonoBehaviour
             yield return null;
         }
 
-        Effect();
+        Stat stat = target.GetComponent<Stat>();
+        if (stat != null)
+            Effect(stat);
+        else
+            Effect(null);
     }
 }

@@ -16,8 +16,8 @@ public class Ammo : ItemBase
         }
     }
 
-    public override void Effect()
+    public override void Effect(Stat stat)
     {
-        Debug.Log("AmmoÈ¹µæ ±¸Çö ÇÊ¿ä!");
+        stat.GetComponent<PlayerController>().CurWeapon.CurAmmo += 70;
     }
 }

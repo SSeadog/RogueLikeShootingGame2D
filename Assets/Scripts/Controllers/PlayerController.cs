@@ -40,16 +40,19 @@ public class PlayerController : MonoBehaviour
     private Collider2D _collider;
     private float _tumbleDist = 5f;
 
+    public WeaponBase CurWeapon { get { return _curWeapon; } }
+
     void Start()
     {
         _stat = GetComponent<PlayerStat>();
         _stat.Init();
         _stat.onGetDamagedAction += OnAttacekd;
+        _stat.onRecoveryAction += OnRecovery;
         _stat.onDeadAction += OnDead;
 
         _explodeEffect = Managers.Resource.Load("Prefabs/Weapons/Grenade");
 
-        _curWeapon = Managers.Game.PlayerWeaponList[0];
+        _curWeapon = Managers.Game.SwapWeapon(_stat.CurWeaponType);
 
         _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         _baseColor = Color.white;
@@ -384,11 +387,16 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.color = color;
         }
     }
-
+    
     void OnAttacekd()
     {
         ChangeColor(Color.red);
         _isInvincibility = true;
+        Managers.Ui.GetUI<PlayerInfoPanel>().SetHpBar((int)_stat.Hp);
+    }
+
+    void OnRecovery()
+    {
         Managers.Ui.GetUI<PlayerInfoPanel>().SetHpBar((int)_stat.Hp);
     }
 

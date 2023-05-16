@@ -12,11 +12,11 @@ public class PlayerStat : Stat
         Define.ObjectType playerType = (Define.ObjectType)Managers.Game.PlayerId;
         Data.Stat statData = Managers.Data.PlayerStatDict[playerType.ToString()];
 
-        _hp = statData.maxHp;
+        _maxHp = statData.maxHp;
+        _hp = _maxHp;
         _speed = statData.speed;
         curWeaponType = (Define.WeaponType)statData.weaponId;
 
-        GameObject weapon = Managers.Resource.Instantiate("Prefabs/Weapons/" + CurWeaponType.ToString(), transform);
-        Managers.Game.PlayerWeaponList.Add(weapon.GetComponent<WeaponBase>());
+        Managers.Game.LoadWeapon(curWeaponType, transform);
     }
 }

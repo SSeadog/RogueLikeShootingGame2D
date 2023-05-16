@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _editMode: 0
   _curSelectObjectType: 0
-  _inputController: {fileID: 0}
+  inputController: {fileID: 0}
 --- !u!1 &100080460
 GameObject:
   m_ObjectHideFlags: 0

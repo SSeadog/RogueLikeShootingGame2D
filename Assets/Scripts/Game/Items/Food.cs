@@ -10,8 +10,8 @@ public class Food : ItemBase
         }
     }
 
-    public override void Effect()
+    public override void Effect(Stat stat)
     {
-        Debug.Log("player Hp 2칸 증가 구현 필요!");
+        stat.RecoverHp(2);
     }
 }

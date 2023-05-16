@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class GameManager
@@ -12,7 +11,7 @@ public class GameManager
     private float _playTime;
     private GameState _currentState;
     private RoomManager _roomManager = new RoomManager();
-    private List<WeaponBase> _playerWeaponList = new List<WeaponBase>();
+    private Dictionary<Define.WeaponType, WeaponBase> _playerWeaponDict = new Dictionary<Define.WeaponType, WeaponBase>();
     private List<EnemyControllerBase> _spawnedEnemies = new List<EnemyControllerBase>();
 
     public int PlayerId { get { return _playerId; } set { _playerId = value; } }
@@ -22,7 +21,7 @@ public class GameManager
     public int KillCount { get { return _killCount; } set { _killCount = value; } }
     public float PlayTime { get { return _playTime; } set { _playTime = value; } }
     public RoomManager RoomManager { get { return _roomManager; } }
-    public List<WeaponBase> PlayerWeaponList { get { return _playerWeaponList; } }
+    public Dictionary<Define.WeaponType, WeaponBase> PlayerWeaponList { get { return _playerWeaponDict; } }
     public List<EnemyControllerBase> SpawnedEnemies { get { return _spawnedEnemies; } }
 
     public GameState GetState()
@@ -38,6 +37,21 @@ public class GameManager
 
         if (_currentState != null)
             _currentState.OnStart();
+    }
+
+    public void LoadWeapon(Define.WeaponType curWeaponType, Transform parent)
+    {
+        GameObject weapon = Managers.Resource.Instantiate("Prefabs/Weapons/" + curWeaponType.ToString(), parent);
+        Managers.Game.PlayerWeaponList.Add(curWeaponType, weapon.GetComponent<WeaponBase>());
+    }
+
+    public WeaponBase SwapWeapon(Define.WeaponType weaponType)
+    {
+        if ((int)weaponType > _playerWeaponDict.Count)
+            return null;
+
+        _playerWeaponDict[weaponType].gameObject.SetActive(true);
+        return _playerWeaponDict[weaponType];
     }
 
     public void AddSpawnedEnemy(EnemyControllerBase enemy)
@@ -57,7 +71,7 @@ public class GameManager
 
     public void Clear()
     {
-        _playerWeaponList.Clear();
+        _playerWeaponDict.Clear();
         _spawnedEnemies.Clear();
         _roomManager.Clear();
         _gold = 0;
