@@ -36,4 +36,34 @@ namespace Data
         public string bulletResourcePath;
         public string thumbnailPath;
     }
+
+    public class TriggerInfo
+    {
+        public float posX;
+        public float posY;
+        public float sizeX;
+        public float sizeY;
+    }
+
+    public class SpawnInfo
+    {
+        public Define.ObjectType type;
+        public float posX;
+        public float posY;
+    }
+
+    public class DoorInfo
+    {
+        public Define.ObjectType type;
+        public float posX;
+        public float posY;
+        public bool isClose;
+    }
+
+    public class RoomData
+    {
+        public string name;
+        public string map;
+        public List<Room> rooms;
+    }
 }

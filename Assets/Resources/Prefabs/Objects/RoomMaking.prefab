@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 6079330113770556051}
   - component: {fileID: 6079330113770556048}
   - component: {fileID: -6565024077043502983}
-  - component: {fileID: 4925697415848095808}
+  - component: {fileID: 7301774060656855787}
   m_Layer: 0
   m_Name: RoomMaking
   m_TagString: Making
@@ -268,7 +268,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6079330113770556078}
   m_CullTransparentMesh: 1
---- !u!61 &4925697415848095808
+--- !u!61 &7301774060656855787
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

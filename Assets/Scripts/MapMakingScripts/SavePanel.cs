@@ -24,28 +24,28 @@ public class SavePanel : MonoBehaviour
             instance.GetComponent<BoxCollider2D>().size = new Vector2(room.sizeX, room.sizeY);
 
             // Trigger
-            foreach (Define.TriggerInfo info in room.triggerInfo)
+            foreach (Data.TriggerInfo info in room.triggerInfo)
             {
                 GameObject triggerInstance = Managers.Resource.Instantiate("Prefabs/Objects/RoomTriggerMaking", instance.transform);
                 triggerInstance.GetComponent<RoomTrigger>().SetRoomName(name);
                 triggerInstance.transform.localScale = new Vector3(info.sizeX, info.sizeY, 0);
-                triggerInstance.transform.position = new Vector3(info.posX, info.posY, 0);
+                triggerInstance.transform.position = new Vector3(info.posX, info.posY, -1f);
             }
 
             // Door
-            foreach (Define.DoorInfo info in room.doorInfo)
+            foreach (Data.DoorInfo info in room.doorInfo)
             {
                 GameObject doorInstance = Managers.Resource.Instantiate("Prefabs/Objects/" + Util.ConvertObjectTypeToMakingType(info.type), instance.transform);
-                doorInstance.transform.position = new Vector3(info.posX, info.posY, 0);
+                doorInstance.transform.position = new Vector3(info.posX, info.posY, -1f);
             }
 
             // Monster + Object
-            foreach (Define.SpawnInfo info in room.spawnInfo)
+            foreach (Data.SpawnInfo info in room.spawnInfo)
             {
                 if (info.type > Define.ObjectType.Object)
                 {
                     GameObject objectInstance = Managers.Resource.Instantiate("Prefabs/Objects/" + Util.ConvertObjectTypeToMakingType(info.type), instance.transform);
-                    objectInstance.transform.position = info.GetPosition();
+                    objectInstance.transform.position = new Vector3(info.posX, info.posY, -1f);
                     MakingObject makingObject = objectInstance.GetComponent<MakingObject>();
                     if (makingObject != null)
                         makingObject.parentRoom = instance;
@@ -53,12 +53,16 @@ public class SavePanel : MonoBehaviour
                 else if (info.type > Define.ObjectType.Monster)
                 {
                     GameObject monsterInstance = Managers.Resource.Instantiate("Prefabs/Characters/" + Util.ConvertObjectTypeToMakingType(info.type), instance.transform);
-                    monsterInstance.transform.position = info.GetPosition();
+                    monsterInstance.transform.position = new Vector3(info.posX, info.posY, -1f);
                     MakingObject makingObject = monsterInstance.GetComponent<MakingObject>();
                     if (makingObject != null)
                         makingObject.parentRoom = instance;
                 }
             }
+
+            // Test
+            instance.GetComponent<BoxCollider2D>().isTrigger = false;
+            instance.GetComponent<BoxCollider2D>().isTrigger = true;
         }
     }
 
@@ -98,7 +102,7 @@ public class SavePanel : MonoBehaviour
                 {
                     Transform trigger = room.transform.GetChild(i);
 
-                    Define.TriggerInfo triggerData = new Define.TriggerInfo();
+                    Data.TriggerInfo triggerData = new Data.TriggerInfo();
                     triggerData.posX = trigger.position.x;
                     triggerData.posY = trigger.position.y;
                     triggerData.sizeX = trigger.GetComponent<RectTransform>().sizeDelta.x / 100;
@@ -114,7 +118,7 @@ public class SavePanel : MonoBehaviour
                 {
                     Transform door = room.transform.GetChild(i);
 
-                    Define.DoorInfo doorData = new Define.DoorInfo();
+                    Data.DoorInfo doorData = new Data.DoorInfo();
                     Define.ObjectType makingType = Enum.Parse<Define.ObjectType>(room.transform.GetChild(i).name);
                     doorData.type = Util.ConvertMakingTypeToObjectType(makingType);
                     doorData.posX = door.position.x;
@@ -132,7 +136,7 @@ public class SavePanel : MonoBehaviour
 
                 if (makingObjects[i].type > Define.ObjectType.Object)
                 {
-                    Define.SpawnInfo spawnInfo = new Define.SpawnInfo();
+                    Data.SpawnInfo spawnInfo = new Data.SpawnInfo();
                     spawnInfo.type = Util.ConvertMakingTypeToObjectType(makingObjects[i].type);
                     spawnInfo.posX = makingObjects[i].transform.position.x;
                     spawnInfo.posY = makingObjects[i].transform.position.y;
@@ -148,7 +152,7 @@ public class SavePanel : MonoBehaviour
 
                 if (makingObjects[i].type > Define.ObjectType.Monster && makingObjects[i].type < Define.ObjectType.Object)
                 {
-                    Define.SpawnInfo spawnInfo = new Define.SpawnInfo();
+                    Data.SpawnInfo spawnInfo = new Data.SpawnInfo();
                     spawnInfo.type = Util.ConvertMakingTypeToObjectType(makingObjects[i].type);
                     spawnInfo.posX = makingObjects[i].transform.position.x;
                     spawnInfo.posY = makingObjects[i].transform.position.y;

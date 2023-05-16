@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class RoomManager
 {
-    private Define.RoomData _roomData;
+    private Data.RoomData _roomData;
 
     public List<Room> GetRooms()
     {
