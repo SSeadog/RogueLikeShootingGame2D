@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnState : EnemyState
@@ -42,17 +41,7 @@ public class MoveState : EnemyState
     }
     public override void Action()
     {
-        // 방향 구하고 -> 방향으로 움직이면 flipX true
-        // 아니면 flipX false
-
-        Vector3 vec = (_enemyController.Target.transform.position - _enemyController.transform.position).normalized;
-        float rotDeg = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
-        rotDeg = rotDeg < 0 ? rotDeg + 360 : rotDeg;
-
-        if (rotDeg > 90 && rotDeg < 270)
-            _enemyController.RotateSprite(false);
-        else
-            _enemyController.RotateSprite(true);
+        _enemyController.RotateSprite(isMoveRight());
 
         float distance = (_enemyController.Target.transform.position - _enemyController.transform.position).magnitude;
         if (distance < _enemyController.Stat.AttackRange)
@@ -63,23 +52,28 @@ public class MoveState : EnemyState
         Vector2 moveVec = _enemyController.Target.transform.position - _enemyController.transform.position;
         _enemyController.transform.Translate(moveVec.normalized * _enemyController.Stat.Speed * Time.deltaTime);
     }
+
+    bool isMoveRight()
+    {
+        Vector3 vec = (_enemyController.Target.transform.position - _enemyController.transform.position).normalized;
+        float rotDeg = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
+        rotDeg = rotDeg < 0 ? rotDeg + 360 : rotDeg;
+
+        if (rotDeg > 90 && rotDeg < 270)
+            return false;
+        else
+            return true;
+    }
 }
 
 public class AttackState : EnemyState
 {
-    GameObject _target;
     protected bool _canAttack = true;
-    float _attackCoolTime;
 
     public override void OnStart(EnemyControllerBase enemyController)
     {
         base.OnStart(enemyController);
         _enemyController.SetAnim("Attack");
-    }
-
-    public void SetTarget(GameObject target)
-    {
-        _target = target;
     }
 
     public override void Action()
@@ -94,9 +88,8 @@ public class AttackState : EnemyState
             return;
         }
 
-        // attack별 쿨타임을 받고 지금 쿨타임과 다르다면 쿨타임 세팅을 바꾸고 해당 시간만큼 기다리게 만들기
+        // attack별 쿨타임을 받고 해당 시간만큼 기다리게 만들기
         float coolTime = _enemyController.Attack();
-        _attackCoolTime = coolTime;
         _canAttack = false;
         _enemyController.StartCoroutine(CoCoolDown(coolTime));
     }
@@ -109,9 +102,6 @@ public class AttackState : EnemyState
 
     public override void Clear()
     {
-        _target = null;
-        _canAttack = true;
-        _attackCoolTime = 0f;
     }
 }
 
