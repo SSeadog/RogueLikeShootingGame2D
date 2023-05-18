@@ -11,24 +11,21 @@ public class MainScene : BaseScene
             Managers.Game.PlayerId = 1;
 
         Managers.Game.SetState(new MainInitState());
-
         Managers.Game.RoomManager.FindRoom("StartRoom").Found();
 
-        GameObject playerOriginal = Resources.Load<GameObject>("Prefabs/Characters/Player");
-        GameObject cameraOriginal = Resources.Load<GameObject>("Prefabs/Main Camera");
-
-        GameObject player = Instantiate(playerOriginal);
-        player.name = playerOriginal.name;
-
-        GameObject camera = Instantiate(cameraOriginal);
-        camera.name = cameraOriginal.name;
+        GameObject player = Managers.Resource.Instantiate("Prefabs/Characters/Player");
+        GameObject camera = Managers.Resource.Instantiate("Prefabs/Main Camera");
         camera.GetComponent<CameraController>().Init(player);
 
+        SetInitItems();
+        LoadMainSceneUI();
+    }
+
+    void SetInitItems()
+    {
         Managers.Game.Gold = 0;
         Managers.Game.Key = 0;
         Managers.Game.Grenade = 2;
-
-        LoadMainSceneUI();
     }
 
     void LoadMainSceneUI()

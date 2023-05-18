@@ -26,7 +26,7 @@ public class UIBase : MonoBehaviour
     {
     }
 
-    protected void Bind<T>(Type type) where T : UnityEngine.Object
+    protected void Bind<T>(Type enumType) where T : UnityEngine.Object
     {
         if (_objects.ContainsKey(typeof(T)) == false)
         {
@@ -34,7 +34,7 @@ public class UIBase : MonoBehaviour
             _objects.Add(typeof(T), objects);
         }
 
-        string[] names = type.GetEnumNames();
+        string[] names = enumType.GetEnumNames();
 
         foreach (string name in names)
         {

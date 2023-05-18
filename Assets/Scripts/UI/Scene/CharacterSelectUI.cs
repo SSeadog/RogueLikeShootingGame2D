@@ -5,7 +5,7 @@ public class CharacterSelectUI : UIBase
 {
     enum Transforms
     {
-        GridPanel
+        Content
     }
 
     protected override void Init()
@@ -16,14 +16,14 @@ public class CharacterSelectUI : UIBase
 
         List<string> keys = new List<string>(Managers.Data.PlayerStatDict.Keys);
 
-        Transform gridPanel = Get<Transform>(Transforms.GridPanel.ToString());
+        Transform gridPanel = Get<Transform>(Transforms.Content.ToString());
         for (int i = 0; i < keys.Count; i++)
         {
-            Data.Stat pStat = Managers.Data.PlayerStatDict[keys[i]];
+            Data.PlayerStat pStat = Managers.Data.PlayerStatDict[keys[i]];
             GameObject itemInstance = Managers.Resource.Instantiate("Prefabs/UI/SubItem/CharacterItemUI", gridPanel);
             
             CharacterItemUI uI_CharacterItem = itemInstance.GetComponent<CharacterItemUI>();
-            uI_CharacterItem.SetInfo(pStat.name);
+            uI_CharacterItem.SetInfo(pStat);
             uI_CharacterItem.SetEvent((data) => { Managers.Game.PlayerId = data.id; Managers.Scene.LoadScene("MainScene"); });
         }
     }

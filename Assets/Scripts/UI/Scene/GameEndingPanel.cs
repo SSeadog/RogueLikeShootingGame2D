@@ -23,17 +23,10 @@ public class GameEndingPanel : UIBase
         DeathCauseText
     }
 
-    enum GameObjects
-    {
-        DeathCauseRow
-    }
-
     protected override void Init()
     {
         base.Init();
         Bind<TMP_Text>(typeof(TMP_Texts));
-        Bind<GameObject>(typeof(GameObjects));
-        Get<GameObject>(GameObjects.DeathCauseRow.ToString()).SetActive(false);
         gameObject.SetActive(false);
     }
 
@@ -55,7 +48,6 @@ public class GameEndingPanel : UIBase
         {
             // 패배 시 데이터
             Get<TMP_Text>(TMP_Texts.ResultTitleText.ToString()).text = "플레이어 패배!";
-            Get<GameObject>(GameObjects.DeathCauseRow.ToString()).SetActive(true);
             Get<TMP_Text>(TMP_Texts.DeathCauseText.ToString()).text = "사망 원인";
         }
 

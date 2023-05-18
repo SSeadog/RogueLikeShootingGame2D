@@ -53,7 +53,8 @@ public class PlayerController : MonoBehaviour
         _curWeapon = Managers.Game.SwapWeapon(_stat.CurWeaponType);
 
         _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-        _baseColor = Color.white;
+        _baseColor = _stat.BaseColor;
+        ChangeColor(_baseColor);
 
         Managers.Ui.GetUI<PlayerInfoPanel>().SetHpBar((int)_stat.Hp);
 

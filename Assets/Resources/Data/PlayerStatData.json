@@ -1,44 +1,56 @@
 {
-  "Apple": {
+  "Kim": {
     "id": 1,
-    "name": "Apple",
+    "name": "Kim",
     "maxHp": 6,
     "speed": 5,
-    "weaponId": 1
+    "weaponId": 1,
+    "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/Kim",
+    "baseColor": "white"
   },
-  "Banana": {
+  "Lee": {
     "id": 2,
-    "name": "Banana",
+    "name": "Lee",
     "maxHp": 8,
     "speed": 3,
-    "weaponId": 2
+    "weaponId": 2,
+    "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/Lee",
+    "baseColor": "green"
   },
-  "Chocolate": {
+  "Park": {
     "id": 3,
-    "name": "Chocolate",
+    "name": "Park",
     "maxHp": 10,
     "speed": 3,
-    "weaponId": 1
+    "weaponId": 1,
+    "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/Park",
+    "baseColor": "red"
   },
-  "DarkChocolate": {
+  "Han": {
     "id": 4,
-    "name": "DarkChocolate",
+    "name": "Han",
     "maxHp": 8,
     "speed": 3,
-    "weaponId": 1
+    "weaponId": 1,
+    "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/han",
+    "baseColor": "blue"
   },
-  "EnergyBar": {
+  "Dummy1": {
     "id": 5,
-    "name": "EnergyBar",
+    "name": "Dummy1",
     "maxHp": 10,
     "speed": 3,
-    "weaponId": 1
+    "weaponId": 1,
+    "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/Kim",
+    "baseColor": "white"
   },
-  "Food": {
+  "Dummy2": {
     "id": 6,
-    "name": "Food",
+    "name": "Dummy2",
     "maxHp": 10,
     "speed": 3,
-    "weaponId": 1
+    "weaponId": 1,
+    "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/Kim",
+    "baseColor": "white"
   }
 }

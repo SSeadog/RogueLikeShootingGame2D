@@ -6,34 +6,40 @@ public class CharacterItemUI : UIBase
 {
     enum Texts
     {
-        ItemName
+        CharacterName,
+        WeaponName
     }
-    enum GameObjects
+    enum Images
     {
-        ItemIcon
+        CharacterImage,
+        WeaponImage
     }
 
-    private string _name;
-    private UnityAction<Data.Stat> _action;
+    private Data.PlayerStat _pStat;
+    private UnityAction<Data.PlayerStat> _action;
 
     protected override void Init()
     {
         base.Init();
 
         Bind<Text>(typeof(Texts));
-        Bind<GameObject>(typeof(GameObjects));
+        Bind<Image>(typeof(Images));
 
-        Get<Text>(Texts.ItemName.ToString()).text = _name;
-        Data.Stat pStat = Managers.Data.PlayerStatDict[_name];
-        gameObject.GetComponent<Button>().onClick.AddListener(()=> { _action.Invoke(pStat); });
+        string weaponName = ((Define.WeaponType)_pStat.weaponId).ToString();
+
+        Get<Text>(Texts.CharacterName.ToString()).text = _pStat.name;
+        Get<Text>(Texts.WeaponName.ToString()).text = weaponName;
+        Get<Image>(Images.CharacterImage.ToString()).sprite = Managers.Resource.Load<Sprite>(_pStat.thumbnailPath);
+        Get<Image>(Images.WeaponImage.ToString()).sprite = Managers.Resource.Load<Sprite>(Managers.Data.WeaponDict[weaponName].thumbnailPath);
+        gameObject.GetComponent<Button>().onClick.AddListener(()=> { _action.Invoke(_pStat); });
     }
 
-    public void SetInfo(string name)
+    public void SetInfo(Data.PlayerStat pStat)
     {
-        _name = name;
+        _pStat = pStat;
     }
 
-    public void SetEvent(UnityAction<Data.Stat> action)
+    public void SetEvent(UnityAction<Data.PlayerStat> action)
     {
         _action = action;
     }

@@ -763,7 +763,7 @@ GameObject:
   - component: {fileID: 422024594}
   - component: {fileID: 422024593}
   m_Layer: 4
-  m_Name: Water (1)
+  m_Name: Water
   m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5124,6 +5124,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 534767652, guid: 89de0d750d5be364491093405dbd7e15, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8284722278991279020, guid: 89de0d750d5be364491093405dbd7e15, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -5171,18 +5175,6 @@ PrefabInstance:
     - target: {fileID: 8284722278991279022, guid: 89de0d750d5be364491093405dbd7e15, type: 3}
       propertyPath: m_Name
       value: Map
-      objectReference: {fileID: 0}
-    - target: {fileID: 8284722279941326344, guid: 89de0d750d5be364491093405dbd7e15, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8284722279941326344, guid: 89de0d750d5be364491093405dbd7e15, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 8284722279941326346, guid: 89de0d750d5be364491093405dbd7e15, type: 3}
-      propertyPath: m_TagString
-      value: UnderGround
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89de0d750d5be364491093405dbd7e15, type: 3}

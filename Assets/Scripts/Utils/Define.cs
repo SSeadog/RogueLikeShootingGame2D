@@ -6,12 +6,12 @@ public class Define
     public enum ObjectType
     {
         Character = 0,
-        Apple,
-        Banana,
-        Chocolate,
-        DarkChocolate,
-        EnergyBar,
-        Food,
+        Kim,
+        Lee,
+        Park,
+        Han,
+        Dummy1,
+        Dummy2,
         Monster = 10000,
         Hyena,
         BasicEnemy,

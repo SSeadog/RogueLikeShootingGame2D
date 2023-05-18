@@ -1,17 +1,17 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Data
 {
-    public class Stat
+    public class PlayerStat
     {
         public int id;
         public string name;
         public int maxHp;
         public int speed;
         public int weaponId;
+        public string thumbnailPath;
+        public string baseColor;
     }
 
     public class MonsterStat
