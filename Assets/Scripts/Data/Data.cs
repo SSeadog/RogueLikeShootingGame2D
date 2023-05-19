@@ -8,7 +8,7 @@ namespace Data
         public int id;
         public string name;
         public int maxHp;
-        public int speed;
+        public float speed;
         public int weaponId;
         public string thumbnailPath;
         public string baseColor;
@@ -19,7 +19,7 @@ namespace Data
         public int id;
         public string name;
         public int maxHp;
-        public int speed;
+        public float speed;
         public float attackRange;
         public float attackSpeed;
     }

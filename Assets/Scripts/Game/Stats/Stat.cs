@@ -12,6 +12,7 @@ public class Stat : MonoBehaviour
     protected float _maxHp;
     protected float _hp;
     protected float _speed;
+    private bool _isDead = false;
 
     public float MaxHp { get { return _maxHp; } }
     public float Hp { get { return _hp; } }
@@ -45,6 +46,10 @@ public class Stat : MonoBehaviour
 
     void Die()
     {
+        if (_isDead)
+            return;
+
         onDeadAction?.Invoke();
+        _isDead = false;
     }
 }

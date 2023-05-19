@@ -17,10 +17,11 @@ public class MainInitState : GameState
 {
     public override void OnStart()
     {
+        Managers.Game.RoomManager = new RoomManager();
         Managers.Game.RoomManager.LoadRoomData();
         Managers.Game.RoomManager.InitRooms();
-        Managers.Game.SetState(new MainState());
         Managers.Ui.Init();
+        Managers.Game.SetState(new MainState());
     }
 }
 
@@ -57,7 +58,7 @@ public class RoomEnterState : GameState
 public class MainEndState : GameState
 {
     private bool _isWin = false;
-    private float _stopTime = 2f;
+    private float _stopTime = 1f;
     private float _stopTimer = 0f;
     private bool _isStop = false;
 
@@ -66,7 +67,7 @@ public class MainEndState : GameState
     public override void OnStart()
     {
         GameEndingPanel gameEndingPanel = Managers.Ui.GetUI<GameEndingPanel>();
-        gameEndingPanel.Show(_isWin, _stopTime);
+        gameEndingPanel.Show(_isWin, _stopTime + 1);
     }
 
     public override void Action()

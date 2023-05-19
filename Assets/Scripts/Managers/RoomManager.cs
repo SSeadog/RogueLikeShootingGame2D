@@ -35,6 +35,6 @@ public class RoomManager
 
     public void Clear()
     {
-        _roomData?.rooms.Clear();
+        _roomData = null;
     }
 }

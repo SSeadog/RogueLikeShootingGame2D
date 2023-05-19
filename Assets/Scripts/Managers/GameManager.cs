@@ -10,7 +10,7 @@ public class GameManager
     private int _killCount;
     private float _playTime;
     private GameState _currentState;
-    private RoomManager _roomManager = new RoomManager();
+    private RoomManager _roomManager;
     private Dictionary<Define.WeaponType, WeaponBase> _playerWeaponDict = new Dictionary<Define.WeaponType, WeaponBase>();
     private Define.WeaponType _curPlayerWeaponType;
     private List<EnemyControllerBase> _spawnedEnemies = new List<EnemyControllerBase>();
@@ -21,8 +21,8 @@ public class GameManager
     public int Grenade { get { return _grenade; } set { _grenade = value; } }
     public int KillCount { get { return _killCount; } set { _killCount = value; } }
     public float PlayTime { get { return _playTime; } set { _playTime = value; } }
-    public RoomManager RoomManager { get { return _roomManager; } }
-    public Dictionary<Define.WeaponType, WeaponBase> PlayerWeaponList { get { return _playerWeaponDict; } }
+    public RoomManager RoomManager { get { return _roomManager; } set { _roomManager = value; } }
+    public Dictionary<Define.WeaponType, WeaponBase> PlayerWeaponDict { get { return _playerWeaponDict; } }
     public List<EnemyControllerBase> SpawnedEnemies { get { return _spawnedEnemies; } }
 
     public GameState GetState()
@@ -43,7 +43,7 @@ public class GameManager
     public void LoadWeapon(Define.WeaponType curWeaponType, Transform parent)
     {
         GameObject weapon = Managers.Resource.Instantiate("Prefabs/Weapons/" + curWeaponType.ToString(), parent);
-        Managers.Game.PlayerWeaponList.Add(curWeaponType, weapon.GetComponent<WeaponBase>());
+        Managers.Game.PlayerWeaponDict.Add(curWeaponType, weapon.GetComponent<WeaponBase>());
         weapon.SetActive(false);
     }
 
@@ -85,6 +85,7 @@ public class GameManager
         _playerWeaponDict.Clear();
         _spawnedEnemies.Clear();
         _roomManager.Clear();
+        _curPlayerWeaponType = Define.WeaponType.None;
         _gold = 0;
         _key = 0;
         _grenade = 0;

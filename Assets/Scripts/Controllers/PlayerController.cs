@@ -425,6 +425,6 @@ public class PlayerController : MonoBehaviour
 
     void OnDead()
     {
-        Managers.Scene.LoadScene("StartScene");
+        Managers.Game.SetState(new MainEndState());
     }
 }

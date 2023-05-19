@@ -2,8 +2,8 @@
   "Kim": {
     "id": 1,
     "name": "Kim",
-    "maxHp": 6,
-    "speed": 5,
+    "maxHp": 8,
+    "speed": 3.5,
     "weaponId": 1,
     "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/Kim",
     "baseColor": "white"
@@ -11,8 +11,8 @@
   "Lee": {
     "id": 2,
     "name": "Lee",
-    "maxHp": 8,
-    "speed": 3,
+    "maxHp": 6,
+    "speed": 4,
     "weaponId": 2,
     "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/Lee",
     "baseColor": "green"
@@ -20,8 +20,8 @@
   "Park": {
     "id": 3,
     "name": "Park",
-    "maxHp": 10,
-    "speed": 3,
+    "maxHp": 7,
+    "speed": 4,
     "weaponId": 1,
     "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/Park",
     "baseColor": "red"
@@ -29,9 +29,9 @@
   "Han": {
     "id": 4,
     "name": "Han",
-    "maxHp": 8,
-    "speed": 3,
-    "weaponId": 1,
+    "maxHp": 5,
+    "speed": 4.5,
+    "weaponId": 2,
     "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/han",
     "baseColor": "blue"
   },

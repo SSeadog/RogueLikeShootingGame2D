@@ -76,6 +76,9 @@ public class PlayerInfoPanel : UIBase
 
     void PaintHpBar(int hp)
     {
+        if (hp < 0)
+            return;
+
         for (int i = 0; i < hp; i++)
         {
             _hpIcons[i].enabled = true;

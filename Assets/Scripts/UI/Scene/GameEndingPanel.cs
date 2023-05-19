@@ -19,8 +19,7 @@ public class GameEndingPanel : UIBase
         PlayerNameText,
         PlayTimeText,
         CollectedGoldText,
-        KillCountText,
-        DeathCauseText
+        KillCountText
     }
 
     protected override void Init()
@@ -48,7 +47,6 @@ public class GameEndingPanel : UIBase
         {
             // 패배 시 데이터
             Get<TMP_Text>(TMP_Texts.ResultTitleText.ToString()).text = "플레이어 패배!";
-            Get<TMP_Text>(TMP_Texts.DeathCauseText.ToString()).text = "사망 원인";
         }
 
         string playerName = ((Define.ObjectType)Managers.Game.PlayerId).ToString();

@@ -51,7 +51,7 @@ public class WeaponInfoPanel : UIBase
     void LoadBullets()
     {
         _currentIndex = 0;
-        WeaponBase weapon = Managers.Game.PlayerWeaponList[_curWeaponType];
+        WeaponBase weapon = Managers.Game.PlayerWeaponDict[_curWeaponType];
         Transform ammoUIRoot = Get<Transform>(Transforms.LoadedAmmoUI.ToString());
 
         for (int i = 0; i < _bulletIconList.Count; i++)
@@ -94,10 +94,10 @@ public class WeaponInfoPanel : UIBase
 
     void Update()
     {
-        if (Managers.Game.PlayerWeaponList == null || Managers.Game.PlayerWeaponList.Count == 0)
+        if (Managers.Game.PlayerWeaponDict == null || Managers.Game.PlayerWeaponDict.Count == 0)
             return;
 
-        WeaponBase weapon = Managers.Game.PlayerWeaponList[_curWeaponType];
+        WeaponBase weapon = Managers.Game.PlayerWeaponDict[_curWeaponType];
         Get<TMP_Text>(TMP_Texts.AmmoText.ToString()).text = $"{weapon.CurLoadAmmo}/{weapon.CurAmmo}";
     }
 }

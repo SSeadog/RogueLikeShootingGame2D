@@ -29,13 +29,13 @@ public class PlayerStat : Stat
         switch (colorString)
         {
             case "red":
-                color = new Color(1f, 0.3f, 0.3f);
+                color = new Color(1f, 0.6f, 0.6f);
                 break;
             case "green":
-                color = new Color(0.3f, 1f, 0.3f);
+                color = new Color(0.6f, 1f, 0.6f);
                 break;
             case "blue":
-                color = new Color(0.3f, 0.3f, 1f);
+                color = new Color(0.6f, 0.6f, 1f);
                 break;
             case "white":
                 color = Color.white;
