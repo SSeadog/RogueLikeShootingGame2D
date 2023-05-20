@@ -41,6 +41,26 @@ public static class Util
         return null;
     }
 
+    public static Texture2D textureFromSprite(Sprite sprite)
+    {
+        if (sprite.rect.width != sprite.texture.width)
+        {
+            Texture2D newText = new Texture2D((int)sprite.textureRect.width, (int)sprite.textureRect.height);
+            Color[] newColors = sprite.texture.GetPixels((int)sprite.textureRect.x,
+                                                         (int)sprite.textureRect.y,
+                                                         (int)sprite.textureRect.width,
+                                                         (int)sprite.textureRect.height);
+            newText.SetPixels(newColors);
+            newText.Apply();
+#if UNITY_EDITOR
+            newText.alphaIsTransparency = true;
+#endif
+            return newText;
+        }
+        else
+            return sprite.texture;
+    }
+
     #region ReadJson
     public static T LoadJson<T>(string path)
     {

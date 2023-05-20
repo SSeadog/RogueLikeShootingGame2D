@@ -5,6 +5,7 @@ public abstract class BaseScene : MonoBehaviour
     protected virtual void Init()
     {
         Managers.Scene.CurrentScene = this;
+        Managers.Ui.Init();
     }
 
     void Start()
@@ -12,5 +13,8 @@ public abstract class BaseScene : MonoBehaviour
         Init();
     }
 
-    public abstract void Clear();
+    public virtual void Clear()
+    {
+        Managers.Ui.Clear();
+    }
 }

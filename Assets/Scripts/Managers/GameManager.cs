@@ -40,6 +40,23 @@ public class GameManager
             _currentState.OnStart();
     }
 
+    public GameObject LoadUI(string path, Transform parent = null)
+    {
+        GameObject instance = Managers.Resource.Instantiate(path, parent);
+
+        UIBase uIBase = instance.GetComponent<UIBase>();
+        if (uIBase != null)
+        {
+            Managers.Ui.AddUI(uIBase);
+        }
+        else
+        {
+            Debug.Log($"{path}의 uI에 UIBase가 없습니다!");
+        }
+
+        return instance;
+    }
+
     public void LoadWeapon(Define.WeaponType curWeaponType, Transform parent)
     {
         GameObject weapon = Managers.Resource.Instantiate("Prefabs/Weapons/" + curWeaponType.ToString(), parent);
@@ -80,7 +97,7 @@ public class GameManager
         _currentState?.Action();
     }
 
-    public void Clear()
+    public void ClearStageData()
     {
         _playerWeaponDict.Clear();
         _spawnedEnemies.Clear();

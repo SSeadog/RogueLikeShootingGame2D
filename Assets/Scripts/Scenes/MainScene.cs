@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class MainScene : BaseScene
 {
+    private int _curFrame;
+    private float _frameTimer;
+    private float _frameRate = 0.1f;
+    [SerializeField] private Texture2D[] _textureArray;
+
     protected override void Init()
     {
         base.Init();
@@ -11,7 +16,6 @@ public class MainScene : BaseScene
             Managers.Game.PlayerId = 1;
 
         Managers.Game.SetState(new MainInitState());
-        Managers.Game.RoomManager.FindRoom("StartRoom").Found();
 
         GameObject player = Managers.Resource.Instantiate("Prefabs/Characters/Player");
         GameObject camera = Managers.Resource.Instantiate("Prefabs/Main Camera");
@@ -19,6 +23,24 @@ public class MainScene : BaseScene
 
         SetInitItems();
         LoadMainSceneUI();
+
+#if UNITY_EDITOR
+        for (int i = 0; i < _textureArray.Length; i++)
+        {
+            _textureArray[i].alphaIsTransparency = true;
+        }
+#endif
+    }
+
+    private void Update()
+    {
+        _frameTimer -= Time.deltaTime;
+        if (_frameTimer <= 0f)
+        {
+            _curFrame = (_curFrame + 1) % _textureArray.Length;
+            Cursor.SetCursor(_textureArray[_curFrame], new Vector2(10, 10), CursorMode.Auto);
+            _frameTimer += _frameRate;
+        }
     }
 
     void SetInitItems()
@@ -32,13 +54,14 @@ public class MainScene : BaseScene
     {
         GameObject uIRoot = Managers.Ui.UiRoot;
 
-        Managers.Resource.LoadUI("Prefabs/UI/Scene/PlayerInfoPanel", uIRoot.transform);
-        Managers.Resource.LoadUI("Prefabs/UI/Scene/WeaponInfoPanel", uIRoot.transform);
-        Managers.Resource.LoadUI("Prefabs/UI/Scene/GameEndingPanel", uIRoot.transform);
-        Managers.Resource.LoadUI("Prefabs/UI/Scene/BossInfoPanel", uIRoot.transform);
+        Managers.Game.LoadUI("Prefabs/UI/Scene/PlayerInfoPanel", uIRoot.transform);
+        Managers.Game.LoadUI("Prefabs/UI/Scene/WeaponInfoPanel", uIRoot.transform);
+        Managers.Game.LoadUI("Prefabs/UI/Scene/GameEndingPanel", uIRoot.transform);
+        Managers.Game.LoadUI("Prefabs/UI/Scene/BossInfoPanel", uIRoot.transform);
     }
 
     public override void Clear()
     {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 }

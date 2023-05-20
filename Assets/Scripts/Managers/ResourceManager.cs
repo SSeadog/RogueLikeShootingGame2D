@@ -5,11 +5,6 @@ public class ResourceManager
 {
     Dictionary<string, GameObject> _originals = new Dictionary<string, GameObject>();
 
-    public void Init()
-    {
-
-    }
-
     public GameObject Load(string path)
     {
         if (_originals.ContainsKey(path) == false)
@@ -52,23 +47,6 @@ public class ResourceManager
 
         GameObject instance = GameObject.Instantiate(_originals[path], parent);
         instance.name = _originals[path].name;
-
-        return instance;
-    }
-
-    public GameObject LoadUI(string path, Transform parent = null)
-    {
-        GameObject instance = Instantiate(path, parent);
-
-        UIBase uIBase = instance.GetComponent<UIBase>();
-        if (uIBase != null)
-        {
-            Managers.Ui.AddUI(uIBase);
-        }
-        else
-        {
-            Debug.Log($"{path}의 uI에 UIBase가 없습니다!");
-        }
 
         return instance;
     }

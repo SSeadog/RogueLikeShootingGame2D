@@ -62,7 +62,7 @@ public class WeaponInfoPanel : UIBase
 
         for (int i = 0; i < weapon.FullLoadAmmo; i++)
         {
-            GameObject instance = Managers.Resource.LoadUI("Prefabs/UI/SubItem/AmmoUI", ammoUIRoot);
+            GameObject instance = Managers.Resource.Instantiate("Prefabs/UI/SubItem/AmmoUI", ammoUIRoot);
             _bulletIconList.Add(instance.GetComponent<Image>());
         }
 

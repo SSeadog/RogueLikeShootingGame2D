@@ -13,8 +13,9 @@ public class RoomTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Room room = Managers.Game.RoomManager.FindRoom(_roomName);
-            room.Found();
+            RoomEnterState state = new RoomEnterState();
+            state.SetRoom(Managers.Game.RoomManager.FindRoom(_roomName));
+            Managers.Game.SetState(state);
         }
     }
 }

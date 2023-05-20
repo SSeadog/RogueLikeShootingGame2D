@@ -42,14 +42,10 @@ public class Room
         spawnInfo.Add(info);
     }
 
-    public void Found()
+    public void Generate()
     {
         if (isDiscovered)
             return;
-
-        RoomEnterState state = new RoomEnterState();
-        state.SetRoom(this);
-        Managers.Game.SetState(state);
 
         isDiscovered = true;
         Spawn();

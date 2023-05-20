@@ -2,15 +2,7 @@ using UnityEngine;
 
 public class CharacterSelectState : GameState
 {
-    public override void OnStart()
-    {
-        Managers.Ui.Init();
-    }
-
-    public override void OnEnd()
-    {
-        Managers.Ui.Clear();
-    }
+    // 크게 하는 일은 없지만 현재 상태를 명확하게 하기 위해 만들어둠
 }
 
 public class MainInitState : GameState
@@ -20,7 +12,7 @@ public class MainInitState : GameState
         Managers.Game.RoomManager = new RoomManager();
         Managers.Game.RoomManager.LoadRoomData();
         Managers.Game.RoomManager.InitRooms();
-        Managers.Ui.Init();
+        Managers.Game.RoomManager.FindRoom("StartRoom").Generate();
         Managers.Game.SetState(new MainState());
     }
 }
@@ -43,6 +35,12 @@ public class RoomEnterState : GameState
         _room = room;
     }
 
+    public override void OnStart()
+    {
+
+        _room.Generate();
+    }
+
     public override void Action()
     {
         if (Managers.Game.SpawnedEnemies.Count == 0)
@@ -62,7 +60,7 @@ public class MainEndState : GameState
     private float _stopTimer = 0f;
     private bool _isStop = false;
 
-    public bool IsWin { get { return _isWin; } set { _isWin = value; } }
+    public bool IsWin { set { _isWin = value; } }
 
     public override void OnStart()
     {
@@ -72,7 +70,6 @@ public class MainEndState : GameState
 
     public override void Action()
     {
-        // 타이머 두고 2초 정도 기다리기
         if (_stopTimer < _stopTime)
         {
             _stopTimer += Time.deltaTime;
@@ -89,8 +86,7 @@ public class MainEndState : GameState
 
     public override void OnEnd()
     {
-        Managers.Ui.Clear();
-        Managers.Game.Clear();
+        Managers.Game.ClearStageData();
         Time.timeScale = 1f;
     }
 }
