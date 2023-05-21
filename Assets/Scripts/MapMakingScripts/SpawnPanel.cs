@@ -9,13 +9,12 @@ public class SpawnPanel : UIBase
 
     Button _curSelectButton;
 
-    [SerializeField] Button _testEnemyButton;
-    [SerializeField] Button _testBombButton;
-    [SerializeField] Button _testBossButton;
+    [SerializeField] Button _basicEnemyButton;
+    [SerializeField] Button _bombEnemyButton;
+    [SerializeField] Button _bossEnemyButton;
     [SerializeField] Button _doorHorizontalButton;
     [SerializeField] Button _doorVerticalButton;
     [SerializeField] Button _storeButton;
-    [SerializeField] Button _tableButton;
 
     private void Start()
     {
@@ -25,8 +24,6 @@ public class SpawnPanel : UIBase
         _inputController = GameObject.FindObjectOfType<InputController>();
     }
 
-    // 각 버튼 클릭하면 소환물로 등록해두고
-    // 버튼 클릭됐다는 표시해주기
     Button CurSelectButton
     {
         get
@@ -52,23 +49,23 @@ public class SpawnPanel : UIBase
         }
     }
 
-    public void OnTestEnemyButtonClick()
+    public void OnBasicEnemyButtonClick()
     {
-        CurSelectButton = _testEnemyButton;
+        CurSelectButton = _basicEnemyButton;
         _inputController.SelectSpawnObject(Define.ObjectType.BasicEnemyMaking);
         Managers.Game.SetState(new MapObjectSpawnState());
     }
 
-    public void OnTestBombEnemyButtonClick()
+    public void OnBombEnemyButtonClick()
     {
-        CurSelectButton = _testBombButton;
+        CurSelectButton = _bombEnemyButton;
         _inputController.SelectSpawnObject(Define.ObjectType.BombEnemyMaking);
         Managers.Game.SetState(new MapObjectSpawnState());
     }
 
-    public void OnTestBossEnemyButtonClick()
+    public void OnBossEnemyButtonClick()
     {
-        CurSelectButton = _testBossButton;
+        CurSelectButton = _bossEnemyButton;
         _inputController.SelectSpawnObject(Define.ObjectType.BossEnemyMaking);
         Managers.Game.SetState(new MapObjectSpawnState());
     }
@@ -92,14 +89,6 @@ public class SpawnPanel : UIBase
         CurSelectButton = _storeButton;
         _inputController.SelectSpawnObject(Define.ObjectType.StoreMaking);
         Managers.Game.SetState(new MapObjectSpawnState());
-    }
-
-    public void OnTableButtonClick()
-    {
-        CurSelectButton = _tableButton;
-        Debug.Log("테이블 선택(아직 제작 안함)");
-        //_inputController.SelectSpawnObject(Define.ObjectType.Table);
-        //Managers.Game.SetState(new MapObjectSpawnState());
     }
 
     public void ShowMonsterSpawnPanel()

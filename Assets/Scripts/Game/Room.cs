@@ -3,23 +3,20 @@ using UnityEngine;
 
 public class Room
 {
-
     public string name;
     public float posX = 10f;
     public float posY = 10f;
     public float sizeX = 10f;
     public float sizeY = 10f;
 
-    public bool isDiscovered = false;
-
     public List<Data.TriggerInfo> triggerInfo = new List<Data.TriggerInfo>();
     public List<Data.SpawnInfo> spawnInfo = new List<Data.SpawnInfo>();
     public List<Data.DoorInfo> doorInfo = new List<Data.DoorInfo>();
 
-    public List<GameObject> triggerInstances = new List<GameObject>();
-    public List<GameObject> doorInstances = new List<GameObject>();
-
+    private bool _isDiscovered = false;
     private GameObject _roomInstance;
+    private List<GameObject> _triggerInstances = new List<GameObject>();
+    private List<GameObject> _doorInstances = new List<GameObject>();
 
     public void Init()
     {
@@ -33,7 +30,7 @@ public class Room
             instance.GetComponent<RoomTrigger>().SetRoomName(name);
             instance.transform.localScale = new Vector3(info.sizeX, info.sizeY, 0);
             instance.transform.position = new Vector3(info.posX, info.posY, 0);
-            triggerInstances.Add(instance);
+            _triggerInstances.Add(instance);
         }
     }
 
@@ -44,10 +41,10 @@ public class Room
 
     public void Generate()
     {
-        if (isDiscovered)
+        if (_isDiscovered)
             return;
 
-        isDiscovered = true;
+        _isDiscovered = true;
         Spawn();
         CloseDoors();
     }
@@ -58,7 +55,7 @@ public class Room
         {
             GameObject instance = Managers.Resource.Instantiate("Prefabs/Objects/" + info.type.ToString(), _roomInstance.transform);
             instance.transform.position = new Vector3(info.posX, info.posY, 0f);
-            doorInstances.Add(instance);
+            _doorInstances.Add(instance);
         }
 
         foreach (Data.SpawnInfo info in spawnInfo)
@@ -79,16 +76,15 @@ public class Room
 
     public void CloseDoors()
     {
-        foreach (GameObject door in doorInstances)
+        foreach (GameObject door in _doorInstances)
         {
-            // 문 닫히는 애니메이션 추가할 거면 door에 함수 만들어서 처리하기
             door.SetActive(true);
         }
     }
 
     public void OpenDoors()
     {
-        foreach (GameObject door in doorInstances)
+        foreach (GameObject door in _doorInstances)
         {
             door.SetActive(false);
         }
