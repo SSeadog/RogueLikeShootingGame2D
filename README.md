@@ -18,7 +18,7 @@
   * [게임 씬](#----)
   * [스테이지 요소 배치 씬(맵메이킹 씬)](#--------------------)
 
-# 플레이&nbsp;영상&nbsp;보러가기
+# 플레이 영상 보러가기
 
 [![Video Label](http://img.youtube.com/vi/uxYgtaZIq4c/0.jpg)](https://youtu.be/uxYgtaZIq4c)
 
