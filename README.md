@@ -51,6 +51,8 @@
 </aside>
 
 ## 물 반사 효과 구현
+<img src="https://github.com/SSeadog/RogueLikeShootingGame2D/assets/58541838/22266ed4-f25e-478b-8290-78e6d5ed0d4d" width="600"/>
+<br>
 <img src="https://github.com/SSeadog/RogueLikeShootingGame2D/assets/58541838/8176cf26-5968-4164-af5b-539991ed5db4" width="400"/>
 <img src="https://github.com/SSeadog/RogueLikeShootingGame2D/assets/58541838/47b799c2-c030-4c6b-af44-080132b2e791" width="400"/>
 
@@ -162,26 +164,25 @@ public class UIBase : MonoBehaviour
 
 <img src="https://github.com/SSeadog/RogueLikeShootingGame2D/assets/58541838/3bd975bd-498e-4a86-899a-b4a87032f958" width="500"/>
  
-- 동작 방식
+### 동작 방식
     - 불러오기 기능을 통해 Json파일에 저장해뒀던 스폰 정보를 불러올 수 있도록 했습니다
     - 게임 스테이지를 Room이라는 개념으로 구역을 나누고 제가 만든 스테이지의 요소들은 Room 범위 위에 배치할 수 있도록 했습니다
     - 배치했던 요소를 클릭하여 위치를 옮기거나 크기를 조절할 수 있습니다
     - 저장 기능을 통해 Json파일로 저장할 수 있도록 했습니다
 
 <img src="https://github.com/SSeadog/RogueLikeShootingGame2D/assets/58541838/b3e2ae05-a6a2-40a4-bfd2-8396ddd43c43" width="500"/>
- 
-스테이지 전체 모습
+
+<b>스테이지 전체 모습</b>
 
 <img src="https://github.com/SSeadog/RogueLikeShootingGame2D/assets/58541838/3972c127-9f0f-48e8-948c-42337bd92e92" width="500"/>
  
-Room 하나의 모습
-
+<b>Room 하나의 모습</b>
 - 아래 빨간색으로 마킹한 부분은 플레이어가 접촉할 시 해당 Room의 각 요소(몬스터, 문 등)를 스폰시키는 트리거입니다
 - 아래 보라색으로 마킹한 부분은 통행을 막을 문입니다
 - 초록색으로 마킹한 부분은 몬스터들을 배치해둔 부분입니다
-- 스테이지 요소 파일 구조
 
-<img src="https://github.com/SSeadog/RogueLikeShootingGame2D/assets/58541838/9918191f-3d8c-4d69-980a-ffd9d11a8518" width="500"/>
+### 스테이지 요소 파일 구조
+<img src="https://github.com/SSeadog/RogueLikeShootingGame2D/assets/58541838/9918191f-3d8c-4d69-980a-ffd9d11a8518" width="300"/>
  
 - Json형식
 - Rooms 이름의 배열을 저장
@@ -193,7 +194,7 @@ Room 하나의 모습
 
 <img src="https://github.com/SSeadog/RogueLikeShootingGame2D/assets/58541838/327a25d4-7715-4d73-b7cf-c2b96a8c35f7" width="500"/>
  
-- 플레이할 캐릭터를 선택하는 씬입니다
+<b>플레이할 캐릭터를 선택하는 씬입니다</b>
 
 <img src="https://github.com/SSeadog/RogueLikeShootingGame2D/assets/58541838/3da01837-e88c-4aab-a180-8be889f02e1f" width="500"/>
  
