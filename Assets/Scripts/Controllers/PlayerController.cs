@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     private Transform _characterTransform;
     private Animator _animator;
     private Rigidbody2D _rigidbody;
-    private float _tumbleDist = 5f;
+    private float _tumbleDist = 4f;
 
     public WeaponBase CurWeapon { get { return _curWeapon; } }
 

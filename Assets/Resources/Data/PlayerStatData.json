@@ -22,7 +22,7 @@
     "name": "Park",
     "maxHp": 7,
     "speed": 4,
-    "weaponId": 1,
+    "weaponId": 4,
     "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/Park",
     "baseColor": "red"
   },

@@ -22,6 +22,8 @@ public abstract class WeaponBase : MonoBehaviour
 
     private SpriteRenderer _gunSprite;
     private Vector3 _initFirePos;
+    private Vector3 _initLeftHandPos;
+    private Vector3 _initRightHandPos;
     private float _fireSpeed;
     private bool _canFire;
     private bool _isFlipped;
@@ -104,9 +106,20 @@ public abstract class WeaponBase : MonoBehaviour
         _gunSprite.flipY = _isFlipped;
 
         if (_isFlipped)
-            _firePos.localPosition = _initFirePos + Vector3.down * 0.35f;
+        {
+            Vector3 newFirePos = new Vector3(_initFirePos.x, _initFirePos.y * -1f, _initFirePos.z);
+            _firePos.localPosition = newFirePos;
+            Vector3 newLeftHandPos = new Vector3(_initLeftHandPos.x, _initLeftHandPos.y * -1f, _initLeftHandPos.z);
+            _leftHandPoint.localPosition = newLeftHandPos;
+            Vector3 newRightHandPos = new Vector3(_initRightHandPos.x, _initRightHandPos.y * -1f, _initRightHandPos.z);
+            _rightHandPoint.localPosition = newRightHandPos;
+        }
         else
+        {
             _firePos.localPosition = _initFirePos;
+            _leftHandPoint.localPosition = _initLeftHandPos;
+            _rightHandPoint.localPosition = _initRightHandPos;
+        }
     }
 
     public void SetVisible(bool visible)
@@ -142,6 +155,8 @@ public abstract class WeaponBase : MonoBehaviour
 
         _bulletRoot = GetBulletRoot();
         _initFirePos = _firePos.localPosition;
+        _initLeftHandPos = _leftHandPoint.localPosition;
+        _initRightHandPos = _rightHandPoint.localPosition;
 
         _gunSprite = GetComponentInChildren<SpriteRenderer>();
 

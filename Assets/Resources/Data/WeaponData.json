@@ -31,5 +31,16 @@
     "reloadSpeed": 0.3,
     "bulletResourcePath": "Prefabs/Weapons/PlayerSniperBullet",
     "thumbnailPath": "Art/Textures/Weapons/SniperRifle"
+  },
+  "UziRifle": {
+    "id": 4,
+    "power": 9,
+    "maxAmmo": 1200,
+    "fullLoadAmmo": 25,
+    "bulletSpeed": 0.8,
+    "fireSpeed": 0.05,
+    "reloadSpeed": 0.3,
+    "bulletResourcePath": "Prefabs/Weapons/PlayerBullet",
+    "thumbnailPath": "Art/Textures/Weapons/UziRifle"
   }
 }
