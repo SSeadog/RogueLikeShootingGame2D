@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class ReloadGaugeUI : UIBase
 {
@@ -30,6 +31,16 @@ public class ReloadGaugeUI : UIBase
     public void FillGauge(float endTime = 1f)
     {
         StartCoroutine(CoFillGauge(endTime));
+    }
+
+    public void Stop()
+    {
+        StopAllCoroutines();
+        Get<RectTransform>(RectTransforms.Bar.ToString()).anchoredPosition = new Vector2(0f, 0f);
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 
     IEnumerator CoFillGauge(float endTime = 1f)

@@ -69,6 +69,9 @@ public class GameManager
 
     public WeaponBase SwapWeapon(int index)
     {
+        if (index >= _playerWeaponList.Count)
+            return null;
+
         if (_playerWeaponList[index] == _curPlayerWeaponType)
             return null;
 
@@ -79,6 +82,7 @@ public class GameManager
             _playerWeaponDict[_curPlayerWeaponType].gameObject.SetActive(false);
 
         _playerWeaponDict[_playerWeaponList[index]].gameObject.SetActive(true);
+        _playerWeaponDict[_playerWeaponList[index]].Swap();
         Managers.Ui.GetUI<WeaponInfoPanel>().SetPanel(_playerWeaponList[index]);
         _curPlayerWeaponType = _playerWeaponList[index];
 

@@ -149,6 +149,11 @@ public abstract class WeaponBase : MonoBehaviour
         _canFire = true;
     }
 
+    public void Swap()
+    {
+        _canFire = true;
+    }
+
     GameObject GetBulletRoot()
     {
         GameObject _bulletRoot = GameObject.Find("BulletControll");
