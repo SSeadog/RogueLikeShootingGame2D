@@ -18,6 +18,10 @@
   * [게임 씬](#게임-씬)
   * [스테이지 요소 배치 씬](#스테이지-요소-배치-씬)
 
+# 빌드 파일
+- 빌드 파일은 크기가 커서 노션 문서에 업로드해두었습니다
+- https://better-cherry-6e2.notion.site/RogueLikeShootingGame2D-dc9cf6672d9943c3813ee37f3895de01
+
 # 플레이 영상 보러가기
 
 [![Video Label](http://img.youtube.com/vi/uxYgtaZIq4c/0.jpg)](https://youtu.be/uxYgtaZIq4c)
