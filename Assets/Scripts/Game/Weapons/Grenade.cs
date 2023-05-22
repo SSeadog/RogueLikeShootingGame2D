@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Grenade : MonoBehaviour
 {
-    private float _maxSize = 7f;
+    private float _maxSize = 10f;
     private float _curSize = 3f;
     public void Explode()
     {
