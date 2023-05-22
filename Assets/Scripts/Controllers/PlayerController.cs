@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     private Transform _characterTransform;
     private Animator _animator;
     private Rigidbody2D _rigidbody;
-    private float _tumbleDist = 5f;
+    private float _tumbleDist = 4f;
 
     public WeaponBase CurWeapon { get { return _curWeapon; } }
 
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
         _explodeEffect = Managers.Resource.Load("Prefabs/Weapons/Grenade");
 
-        _curWeapon = Managers.Game.SwapWeapon(_stat.CurWeaponType);
+        _curWeapon = Managers.Game.SwapWeapon(0);
 
         _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         _baseColor = _stat.BaseColor;
@@ -271,13 +271,13 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            WeaponBase weapon = Managers.Game.SwapWeapon(Define.WeaponType.MachineGun);
+            WeaponBase weapon = Managers.Game.SwapWeapon(0);
             if (weapon != null)
                 _curWeapon = weapon;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            WeaponBase weapon = Managers.Game.SwapWeapon(Define.WeaponType.SniperRifle);
+            WeaponBase weapon = Managers.Game.SwapWeapon(1);
             if (weapon != null)
                 _curWeapon = weapon;
         }

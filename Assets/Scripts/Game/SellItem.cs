@@ -30,7 +30,7 @@ public class SellItem : MonoBehaviour
 
         if (_isPlayerInTrigger && Input.GetKeyDown(KeyCode.E))
         {
-            if (Managers.Game.Gold > _price)
+            if (Managers.Game.Gold >= _price)
             {
                 Managers.Game.Gold -= _price;
                 _isSold = true;

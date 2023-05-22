@@ -10,7 +10,7 @@ public class DataManager
     public Dictionary<string, Data.MonsterStat> MonsterStatDict { get { return _monsterStatDict; } }
     public Dictionary<string, Data.PlayerStat> PlayerStatDict { get { return _playerStatDict; } }
     public Dictionary<string, Data.Weapon> WeaponDict { get { return _weaponDict; } }
-    public Data.RoomData RoomData { get { return Util.LoadJson<Data.RoomData>(Application.persistentDataPath + "/TestRoomData.json"); } }
+    public Data.RoomData RoomData { get { return Util.LoadJson<Data.RoomData>(Application.persistentDataPath + "/RoomData.json"); } }
 
     public void Init()
     {

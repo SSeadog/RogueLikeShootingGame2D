@@ -11,10 +11,6 @@ public class MainScene : BaseScene
     {
         base.Init();
 
-        // TestCode
-        if (Managers.Game.PlayerId == 0)
-            Managers.Game.PlayerId = 1;
-
         Managers.Game.SetState(new MainInitState());
 
         GameObject player = Managers.Resource.Instantiate("Prefabs/Characters/Player");

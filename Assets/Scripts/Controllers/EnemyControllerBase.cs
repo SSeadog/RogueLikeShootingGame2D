@@ -88,10 +88,6 @@ public abstract class EnemyControllerBase : MonoBehaviour
 
     void Update()
     {
-        // TestCode
-        if (_target == null)
-            _target = GameObject.FindGameObjectWithTag("Player");
-
         _state?.Action();
     }
 
