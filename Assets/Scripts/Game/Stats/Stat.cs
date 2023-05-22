@@ -49,7 +49,7 @@ public class Stat : MonoBehaviour
         if (_isDead)
             return;
 
-        onDeadAction?.Invoke();
         _isDead = true;
+        onDeadAction?.Invoke();
     }
 }

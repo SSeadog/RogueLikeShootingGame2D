@@ -170,7 +170,5 @@ public class DieState : EnemyState
 
     public override void Clear()
     {
-        _timer = 0f;
-        _dieTime = 1f;
     }
 }

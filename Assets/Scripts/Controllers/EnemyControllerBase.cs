@@ -69,6 +69,9 @@ public abstract class EnemyControllerBase : MonoBehaviour
 
     public void SetState(EStateType stateType)
     {
+        if (_curStateType == EStateType.DieState)
+            return;
+
         _state?.OnEnd();
         _state?.Clear();
         _curStateType = stateType;
