@@ -59,10 +59,6 @@ public class SavePanel : MonoBehaviour
                         makingObject.parentRoom = instance;
                 }
             }
-
-            // Test
-            instance.GetComponent<BoxCollider2D>().isTrigger = false;
-            instance.GetComponent<BoxCollider2D>().isTrigger = true;
         }
     }
 
@@ -74,7 +70,7 @@ public class SavePanel : MonoBehaviour
     void SaveRoom()
     {
         SaveRoomData data = new SaveRoomData();
-        data.Name = "RoomSaveTest";
+        data.Name = "RoomSave";
         data.Rooms = new List<Room>();
 
         List<GameObject> rooms = new List<GameObject>();
@@ -163,7 +159,7 @@ public class SavePanel : MonoBehaviour
 
         string jsonData = Util.ToJson<SaveRoomData>(data);
         Debug.Log(Application.persistentDataPath);
-        using (StreamWriter sw = new StreamWriter(Application.persistentDataPath + "/TestRoomData.json"))
+        using (StreamWriter sw = new StreamWriter(Application.persistentDataPath + "/RoomData.json"))
         {
             sw.Write(jsonData);
         }

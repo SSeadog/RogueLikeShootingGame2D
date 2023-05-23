@@ -5,7 +5,6 @@ public enum PlayerState
 {
     None,
     Normal,
-    Reloading,
     Move,
     Action,
     Fall,
@@ -38,6 +37,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private float _tumbleDist = 4f;
 
+    private Coroutine _reloadCoRoutine;
+
     public WeaponBase CurWeapon { get { return _curWeapon; } }
 
     void Start()
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
         _explodeEffect = Managers.Resource.Load("Prefabs/Weapons/Grenade");
 
-        _curWeapon = Managers.Game.SwapWeapon(_stat.CurWeaponType);
+        _curWeapon = Managers.Game.SwapWeapon(0);
 
         _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         _baseColor = _stat.BaseColor;
@@ -72,13 +73,6 @@ public class PlayerController : MonoBehaviour
             Reload();
             ExplodeGrenade();
             SwapWeapon();
-        }
-        else if (_state == PlayerState.Reloading)
-        {
-            Tumble();
-            Fire();
-            Reload();
-            ExplodeGrenade();
         }
         else if (_state == PlayerState.Action)
         {
@@ -141,7 +135,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_state == PlayerState.Normal || _state == PlayerState.Move || _state == PlayerState.Reloading)
+        if (_state == PlayerState.Normal || _state == PlayerState.Move)
         {
             Move();
             Rotate();
@@ -248,10 +242,20 @@ public class PlayerController : MonoBehaviour
     {
         if (must || (Input.GetKeyDown(KeyCode.R) && _curWeapon.CurLoadAmmo < _curWeapon.FullLoadAmmo))
         {
-            _isReloading = true;
+            _reloadCoRoutine = StartCoroutine(CoReload(_curWeapon.ReloadSpeed));
             transform.GetComponentInChildren<ReloadGaugeUI>().FillGauge(_curWeapon.ReloadSpeed);
-            _state = PlayerState.Reloading;
         }
+    }
+
+    IEnumerator CoReload(float reloadTime)
+    {
+        _isReloading = true;
+        
+        yield return new WaitForSeconds(reloadTime);
+
+        _isReloading = false;
+        _curWeapon.Reload();
+        _reloadCoRoutine = null;
     }
 
     void ExplodeGrenade()
@@ -271,15 +275,29 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            WeaponBase weapon = Managers.Game.SwapWeapon(Define.WeaponType.MachineGun);
+            WeaponBase weapon = Managers.Game.SwapWeapon(0);
             if (weapon != null)
+            {
                 _curWeapon = weapon;
+                if (_reloadCoRoutine != null)
+                {
+                    StopCoroutine(_reloadCoRoutine);
+                    transform.GetComponentInChildren<ReloadGaugeUI>().Stop();
+                }
+            }
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            WeaponBase weapon = Managers.Game.SwapWeapon(Define.WeaponType.SniperRifle);
+            WeaponBase weapon = Managers.Game.SwapWeapon(1);
             if (weapon != null)
+            {
                 _curWeapon = weapon;
+                if (_reloadCoRoutine != null)
+                {
+                    StopCoroutine(_reloadCoRoutine);
+                    transform.GetComponentInChildren<ReloadGaugeUI>().Stop();
+                }
+            }
         }
     }
 

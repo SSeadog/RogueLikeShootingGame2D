@@ -69,6 +69,9 @@ public abstract class EnemyControllerBase : MonoBehaviour
 
     public void SetState(EStateType stateType)
     {
+        if (_curStateType == EStateType.DieState)
+            return;
+
         _state?.OnEnd();
         _state?.Clear();
         _curStateType = stateType;
@@ -88,10 +91,6 @@ public abstract class EnemyControllerBase : MonoBehaviour
 
     void Update()
     {
-        // TestCode
-        if (_target == null)
-            _target = GameObject.FindGameObjectWithTag("Player");
-
         _state?.Action();
     }
 

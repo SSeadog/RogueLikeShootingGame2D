@@ -12,6 +12,7 @@ public class GameManager
     private GameState _currentState;
     private RoomManager _roomManager;
     private Dictionary<Define.WeaponType, WeaponBase> _playerWeaponDict = new Dictionary<Define.WeaponType, WeaponBase>();
+    private List<Define.WeaponType> _playerWeaponList = new List<Define.WeaponType>();
     private Define.WeaponType _curPlayerWeaponType;
     private List<EnemyControllerBase> _spawnedEnemies = new List<EnemyControllerBase>();
 
@@ -22,6 +23,7 @@ public class GameManager
     public int KillCount { get { return _killCount; } set { _killCount = value; } }
     public float PlayTime { get { return _playTime; } set { _playTime = value; } }
     public RoomManager RoomManager { get { return _roomManager; } set { _roomManager = value; } }
+    public List<Define.WeaponType> PlayerWeaponList { get { return _playerWeaponList; } }
     public Dictionary<Define.WeaponType, WeaponBase> PlayerWeaponDict { get { return _playerWeaponDict; } }
     public List<EnemyControllerBase> SpawnedEnemies { get { return _spawnedEnemies; } }
 
@@ -60,26 +62,31 @@ public class GameManager
     public void LoadWeapon(Define.WeaponType curWeaponType, Transform parent)
     {
         GameObject weapon = Managers.Resource.Instantiate("Prefabs/Weapons/" + curWeaponType.ToString(), parent);
-        Managers.Game.PlayerWeaponDict.Add(curWeaponType, weapon.GetComponent<WeaponBase>());
+        _playerWeaponDict.Add(curWeaponType, weapon.GetComponent<WeaponBase>());
+        _playerWeaponList.Add(curWeaponType);
         weapon.SetActive(false);
     }
 
-    public WeaponBase SwapWeapon(Define.WeaponType weaponType)
+    public WeaponBase SwapWeapon(int index)
     {
-        if (weaponType == _curPlayerWeaponType)
+        if (index >= _playerWeaponList.Count)
             return null;
 
-        if (_playerWeaponDict.ContainsKey(weaponType) == false)
+        if (_playerWeaponList[index] == _curPlayerWeaponType)
+            return null;
+
+        if (_playerWeaponDict.ContainsKey(_playerWeaponList[index]) == false)
             return null;
 
         if (_curPlayerWeaponType != Define.WeaponType.None)
             _playerWeaponDict[_curPlayerWeaponType].gameObject.SetActive(false);
 
-        _playerWeaponDict[weaponType].gameObject.SetActive(true);
-        Managers.Ui.GetUI<WeaponInfoPanel>().SetPanel(weaponType);
-        _curPlayerWeaponType = weaponType;
+        _playerWeaponDict[_playerWeaponList[index]].gameObject.SetActive(true);
+        _playerWeaponDict[_playerWeaponList[index]].Swap();
+        Managers.Ui.GetUI<WeaponInfoPanel>().SetPanel(_playerWeaponList[index]);
+        _curPlayerWeaponType = _playerWeaponList[index];
 
-        return _playerWeaponDict[weaponType];
+        return _playerWeaponDict[_playerWeaponList[index]];
     }
 
     public void AddSpawnedEnemy(EnemyControllerBase enemy)
