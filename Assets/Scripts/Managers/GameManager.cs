@@ -107,6 +107,7 @@ public class GameManager
     public void ClearStageData()
     {
         _playerWeaponDict.Clear();
+        _playerWeaponList.Clear();
         _spawnedEnemies.Clear();
         _roomManager.Clear();
         _curPlayerWeaponType = Define.WeaponType.None;

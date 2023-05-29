@@ -5,7 +5,8 @@ using UnityEngine.VFX;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private List<string> _voidTagList = new List<string>();
-    [SerializeField] private GameObject _effect;
+    
+    private string _effectPath = "Prefabs/VFXs/BulletEffect";
     private float _power;
 
     public float Power { get { return _power; } set { _power = value; } }
@@ -24,7 +25,7 @@ public class Bullet : MonoBehaviour
 
         if (isCollisionIgnore == false)
         {
-            GameObject effect = Instantiate(_effect, transform.position, Quaternion.identity);
+            GameObject effect = Managers.Pool.GetPoolObject(_effectPath);
             effect.GetComponent<BulletEffect>().Init(transform.GetComponent<Rigidbody2D>().velocity.normalized);
             Destroy(gameObject);
         }
