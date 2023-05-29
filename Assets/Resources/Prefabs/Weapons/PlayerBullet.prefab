@@ -142,3 +142,4 @@ MonoBehaviour:
   - EnemyBullet
   - Water
   - Reflection
+  _effect: {fileID: 7016808989741507113, guid: afe9756268b47aa4e862348a8c482ba6, type: 3}
