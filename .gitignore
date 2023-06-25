@@ -79,3 +79,5 @@ UserSettings
 Temp
 .vsconfig
 *.sln
+
+/Assets/Resources/Art
