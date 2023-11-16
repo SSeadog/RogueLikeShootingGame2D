@@ -26,6 +26,7 @@ public class Bullet : MonoBehaviour
         if (isCollisionIgnore == false)
         {
             GameObject effect = Managers.Pool.GetPoolObject(_effectPath);
+            effect.transform.position = transform.position;
             effect.GetComponent<BulletEffect>().Init(transform.GetComponent<Rigidbody2D>().velocity.normalized);
             Destroy(gameObject);
         }

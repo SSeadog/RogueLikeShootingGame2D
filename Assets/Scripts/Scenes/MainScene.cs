@@ -59,5 +59,6 @@ public class MainScene : BaseScene
     public override void Clear()
     {
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        Managers.Pool.Clear();
     }
 }

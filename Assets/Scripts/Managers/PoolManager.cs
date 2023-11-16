@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,5 +32,10 @@ public class PoolManager
 
         _pools[poolObjectPrefabPath].Push(poolObject);
         Debug.Log(_pools[poolObjectPrefabPath].Count);
+    }
+
+    public void Clear()
+    {
+        _pools.Clear();
     }
 }
