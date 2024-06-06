@@ -47,7 +47,7 @@ SortingGroup:
   m_SortingOrder: 0
 --- !u!95 &4822398208353430945
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -55,7 +55,7 @@ Animator:
   m_GameObject: {fileID: 1908850870069242641}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cb8116f8739f35a4e89703fb2a176424, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -64,7 +64,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2133635629936236740
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -274,7 +274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3980034859421014295, guid: cb0e23ec9b58ceb42aac93e54e27045e, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.017578006
+      value: -0.0019532442
       objectReference: {fileID: 0}
     - target: {fileID: -3980034859421014295, guid: cb0e23ec9b58ceb42aac93e54e27045e, type: 3}
       propertyPath: m_Bounds.m_Extent.x

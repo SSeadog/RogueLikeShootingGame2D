@@ -1,14 +1,13 @@
 using System;
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameEndingPanel : UIBase
 {
     // Todo
-    // ´Ù¸¥ UI´Â ²ô±â
+    // ï¿½Ù¸ï¿½ UIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private float _fadeTimer = 0f;
     private float _baseAlpha = 0.5f;
     private float _plusDelta = 0.01f;
@@ -40,13 +39,13 @@ public class GameEndingPanel : UIBase
     {
         if (isWin)
         {
-            // ½Â¸® ½Ã µ¥ÀÌÅÍ
-            Get<TMP_Text>(TMP_Texts.ResultTitleText.ToString()).text = "ÇÃ·¹ÀÌ¾î ½Â¸®!";
+            // ï¿½Â¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            Get<TMP_Text>(TMP_Texts.ResultTitleText.ToString()).text = "ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Â¸ï¿½!";
         }
         else
         {
-            // ÆÐ¹è ½Ã µ¥ÀÌÅÍ
-            Get<TMP_Text>(TMP_Texts.ResultTitleText.ToString()).text = "ÇÃ·¹ÀÌ¾î ÆÐ¹è!";
+            // ï¿½Ð¹ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            Get<TMP_Text>(TMP_Texts.ResultTitleText.ToString()).text = "ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ð¹ï¿½!";
         }
 
         string playerName = ((Define.ObjectType)Managers.Game.PlayerId).ToString();
