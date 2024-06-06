@@ -6,6 +6,7 @@
     "speed": 3.5,
     "weaponId": 1,
     "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/Kim",
+    "objectPath": "Prefabs/Characters/Players/Player1",
     "baseColor": "white"
   },
   "Lee": {
@@ -15,6 +16,7 @@
     "speed": 4,
     "weaponId": 2,
     "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/Lee",
+    "objectPath": "Prefabs/Characters/Players/Player2",
     "baseColor": "green"
   },
   "Park": {
@@ -24,6 +26,7 @@
     "speed": 4,
     "weaponId": 4,
     "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/Park",
+    "objectPath": "Prefabs/Characters/Players/Player1",
     "baseColor": "red"
   },
   "Han": {
@@ -33,6 +36,7 @@
     "speed": 4.5,
     "weaponId": 2,
     "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/han",
+    "objectPath": "Prefabs/Characters/Players/Player2",
     "baseColor": "blue"
   },
   "Dummy1": {
@@ -42,6 +46,7 @@
     "speed": 3,
     "weaponId": 1,
     "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/Kim",
+    "objectPath": "Prefabs/Characters/Players/Player1",
     "baseColor": "white"
   },
   "Dummy2": {
@@ -51,6 +56,7 @@
     "speed": 3,
     "weaponId": 1,
     "thumbnailPath": "Art/Textures/Characters/PlayerThumbnails/Kim",
+    "objectPath": "Prefabs/Characters/Players/Player1",
     "baseColor": "white"
   }
 }

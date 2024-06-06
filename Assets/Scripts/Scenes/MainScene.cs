@@ -12,8 +12,8 @@ public class MainScene : BaseScene
         base.Init();
 
         Managers.Game.SetState(new MainInitState());
-
-        GameObject player = Managers.Resource.Instantiate("Prefabs/Characters/Player");
+        string playerName = ((Define.ObjectType)Managers.Game.PlayerId).ToString();
+        GameObject player = Managers.Resource.Instantiate(Managers.Data.PlayerStatDict[playerName].objectPath);
         GameObject camera = Managers.Resource.Instantiate("Prefabs/Main Camera");
         camera.GetComponent<CameraController>().Init(player);
 

@@ -11,6 +11,7 @@ namespace Data
         public float speed;
         public int weaponId;
         public string thumbnailPath;
+        public string objectPath;
         public string baseColor;
     }
 
