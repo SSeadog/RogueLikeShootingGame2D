@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIBase : MonoBehaviour
 {
-    // GameObject, Image, Text µîÀÇ UI¿ä¼ÒµéÀ» ÀúÀåÇÒ Dictionary
+    // GameObject, Image, Text ï¿½ï¿½ï¿½ï¿½ UIï¿½ï¿½Òµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Dictionary
     Dictionary<Type, Dictionary<string, UnityEngine.Object>> _objects = new Dictionary<Type, Dictionary<string, UnityEngine.Object>>();
 
     void Awake()
@@ -28,6 +28,8 @@ public class UIBase : MonoBehaviour
 
     protected void Bind<T>(Type enumType) where T : UnityEngine.Object
     {
+        Debug.Log("enumType: " + enumType.Name + ", Type: " + typeof(T));
+
         if (_objects.ContainsKey(typeof(T)) == false)
         {
             Dictionary<string, UnityEngine.Object> objects = new Dictionary<string, UnityEngine.Object>();
@@ -44,6 +46,8 @@ public class UIBase : MonoBehaviour
                 bindObject = Util.FindChild(gameObject, name) as T;
             else
                 bindObject = Util.FindChild<T>(gameObject, name);
+
+            Debug.Log(enumType.Name + ", bindObject: " + bindObject.name);
 
             if (bindObject != null)
                 _objects[typeof(T)].Add(name, bindObject);

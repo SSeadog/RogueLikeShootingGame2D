@@ -10,7 +10,9 @@ public class StartScene : BaseScene
         Managers.Game.SetState(new CharacterSelectState());
 
         // Load UI
-        Managers.Resource.Instantiate("Prefabs/UI/Scene/CharacterSelectUI", Managers.Ui.UiRoot.transform);
+        GameObject characterSelectUI = Managers.Game.LoadUI("Prefabs/UI/Scene/CharacterSelectUI", Managers.Ui.UiRoot.transform);
+        GameObject stageSelectUI = Managers.Game.LoadUI("Prefabs/UI/Scene/StageSelectUI");
+        stageSelectUI.SetActive(false);
     }
 
     public override void Clear()

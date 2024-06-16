@@ -13,7 +13,7 @@ public class MapMakingScene : BaseScene
     public Define.ObjectType _curSelectObjectType;
     GameObject _curSelectInstance;
     public InputController inputController;
-    string _instanceToolMakingPath = "Prefabs/Objects/InstanceToolMaking";
+    string _instanceToolMakingPath = "Prefabs/MapMaking/InstanceToolMaking";
 
     public GameObject CurSelectInstance
     {
@@ -52,11 +52,11 @@ public class MapMakingScene : BaseScene
         string path = null;
         if (_curSelectObjectType > Define.ObjectType.Object)
         {
-            path = "Prefabs/Objects/" + _curSelectObjectType.ToString();
+            path = "Prefabs/MapMaking/Objects/" + _curSelectObjectType.ToString();
         }
         else if (_curSelectObjectType > Define.ObjectType.Monster)
         {
-            path = "Prefabs/Characters/" + _curSelectObjectType.ToString();
+            path = "Prefabs/MapMaking/Characters/" + _curSelectObjectType.ToString();
         }
 
         return path;

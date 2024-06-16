@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager
 {
+    private int _stageId;
     private int _playerId;
     private int _gold;
     private int _key;
@@ -16,6 +18,7 @@ public class GameManager
     private Define.WeaponType _curPlayerWeaponType;
     private List<EnemyControllerBase> _spawnedEnemies = new List<EnemyControllerBase>();
 
+    public int StageId { get { return _stageId; } set { _stageId = value; } }
     public int PlayerId { get { return _playerId; } set { _playerId = value; } }
     public int Gold { get { return _gold; } set { _gold = value; } }
     public int Key { get { return _key; } set { _key = value; } }
@@ -53,7 +56,7 @@ public class GameManager
         }
         else
         {
-            Debug.Log($"{path}ÀÇ uI¿¡ UIBase°¡ ¾ø½À´Ï´Ù!");
+            Debug.Log($"{path}ï¿½ï¿½ uIï¿½ï¿½ UIBaseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!");
         }
 
         return instance;
@@ -106,6 +109,8 @@ public class GameManager
 
     public void ClearStageData()
     {
+        _stageId = 0;
+        _playerId = 0;
         _playerWeaponDict.Clear();
         _playerWeaponList.Clear();
         _spawnedEnemies.Clear();

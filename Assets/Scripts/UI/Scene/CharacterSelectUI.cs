@@ -24,7 +24,15 @@ public class CharacterSelectUI : UIBase
             
             CharacterItemUI uI_CharacterItem = itemInstance.GetComponent<CharacterItemUI>();
             uI_CharacterItem.SetInfo(pStat);
-            uI_CharacterItem.SetEvent((data) => { Managers.Game.PlayerId = data.id; Managers.Scene.LoadScene("MainScene"); });
+            // uI_CharacterItem.SetEvent((data) => { Managers.Game.PlayerId = data.id; Managers.Scene.LoadScene("MainScene"); });
+            uI_CharacterItem.SetEvent((stat) => OnButtonClicked(stat));
         }
+    }
+
+    private void OnButtonClicked(Data.PlayerStat stat) {
+        Managers.Game.PlayerId = stat.id;
+
+        gameObject.SetActive(false);
+        Managers.Ui.GetUI<StageSelectUI>().gameObject.SetActive(true);
     }
 }

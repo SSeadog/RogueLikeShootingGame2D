@@ -26,7 +26,7 @@ public class Room
         
         foreach (Data.TriggerInfo info in triggerInfo)
         {
-            GameObject instance = Managers.Resource.Instantiate("Prefabs/Objects/RoomTrigger", _roomInstance.transform);
+            GameObject instance = Managers.Resource.Instantiate("Prefabs/MapMaking/Objects/RoomTrigger", _roomInstance.transform);
             instance.GetComponent<RoomTrigger>().SetRoomName(name);
             instance.transform.localScale = new Vector3(info.sizeX, info.sizeY, 0);
             instance.transform.position = new Vector3(info.posX, info.posY, 0);
@@ -53,7 +53,7 @@ public class Room
     {
         foreach (Data.DoorInfo info in doorInfo)
         {
-            GameObject instance = Managers.Resource.Instantiate("Prefabs/Objects/" + info.type.ToString(), _roomInstance.transform);
+            GameObject instance = Managers.Resource.Instantiate("Prefabs/MapMaking/Objects/" + info.type.ToString(), _roomInstance.transform);
             instance.transform.position = new Vector3(info.posX, info.posY, 0f);
             _doorInstances.Add(instance);
         }
@@ -62,7 +62,7 @@ public class Room
         {
             if (info.type > Define.ObjectType.Object)
             {
-                GameObject instance = Managers.Resource.Instantiate("Prefabs/Objects/" + info.type.ToString(), _roomInstance.transform);
+                GameObject instance = Managers.Resource.Instantiate("Prefabs/MapMaking/Objects/" + info.type.ToString(), _roomInstance.transform);
                 instance.transform.position = new Vector3(info.posX, info.posY, 0f);
             }
             else if (info.type > Define.ObjectType.Monster)
