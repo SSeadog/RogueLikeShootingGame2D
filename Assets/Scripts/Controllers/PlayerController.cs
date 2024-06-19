@@ -76,15 +76,15 @@ public class PlayerController : MonoBehaviour
         }
         else if (_state == PlayerState.Action)
         {
-            // ¾×¼Ç ÁßÀÏ¶§´Â ÀÏ¹Ý µ¿ÀÛµé ¸øÇÏ°Ô ¸·±â
+            // ï¿½×¼ï¿½ ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
         else if (_state == PlayerState.Fall)
         {
-            // ¶³¾îÁö´Â ÁßÀÏ ¶§µµ ÀÏ¹Ý µ¿ÀÛµé ¸øÇÏ°Ô ¸·±â
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
         else if (_state == PlayerState.Dead)
         {
-            // Á×Àº »óÅÂ¿¡¼­µµ ÀÏ¹Ý µ¿ÀÛµé ¸øÇÏ°Ô ¸·±â
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
         if (_isInvincibility == true)
@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
         _leftHand.rotation = Quaternion.LookRotation(_curWeapon.LeftHandPoint.position - _leftHand.position) * Quaternion.Euler(0f, -90f, 0f);
         _rightHand.rotation = Quaternion.LookRotation(_curWeapon.RightHandPoint.position - _rightHand.position) * Quaternion.Euler(0f, -90f, 0f);
 
-        // ÆøÅº ¸÷ ¶§¹®¿¡ ¹Ð·Á³¯ ¶§ Ãæµ¹ ¾ø¾Ö´Â ·ÎÁ÷
+        // ï¿½ï¿½Åº ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½æµ¹ ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (_rigidbody.velocity != Vector2.zero)
         {
             if (!_isPushed)
@@ -142,15 +142,15 @@ public class PlayerController : MonoBehaviour
         }
         else if (_state == PlayerState.Action)
         {
-            // ¾×¼Ç ÁßÀÏ¶§´Â ÀÏ¹Ý µ¿ÀÛµé ¸øÇÏ°Ô ¸·±â
+            // ï¿½×¼ï¿½ ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
         else if (_state == PlayerState.Fall)
         {
-            // ¶³¾îÁö´Â ÁßÀÏ ¶§µµ ÀÏ¹Ý µ¿ÀÛµé ¸øÇÏ°Ô ¸·±â
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
         else if (_state == PlayerState.Dead)
         {
-            // Á×Àº »óÅÂ¿¡¼­µµ ÀÏ¹Ý µ¿ÀÛµé ¸øÇÏ°Ô ¸·±â
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
 
@@ -196,7 +196,7 @@ public class PlayerController : MonoBehaviour
         _isTumbling = true;
         SetIgnoreLayerCollisions(new int[2] { LayerMask.NameToLayer("Bullet"), LayerMask.NameToLayer("Enemy") }, true);
 
-        // z°¡ 90º¸´Ù Å©°í 270º¸´Ù ÀÛÀ» ¶§¸¸ ÇÃ¸³
+        // zï¿½ï¿½ 90ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ 270ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½
         float angle = Mathf.Atan2(tumbleVec.y, tumbleVec.x) * Mathf.Rad2Deg;
         angle = angle < 0 ? angle + 360 : angle;
         if (angle > 90 && angle < 270)
@@ -321,7 +321,7 @@ public class PlayerController : MonoBehaviour
 
     void Rotate()
     {
-        // z°¡ 90º¸´Ù Å©°í 270º¸´Ù ÀÛÀ» ¶§¸¸ ÇÃ¸³
+        // zï¿½ï¿½ 90ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ 270ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½
         Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float angle = Mathf.Atan2(mouse.y - _curWeapon.transform.position.y, mouse.x - _curWeapon.transform.position.x) * Mathf.Rad2Deg;
         angle = angle < 0 ? angle + 360 : angle;
@@ -386,7 +386,7 @@ public class PlayerController : MonoBehaviour
             if (_state == PlayerState.Fall)
                 return;
 
-            // ±¸¸£´Â ÁßÀÌ¸é ºüÁ®³ª°¡±â
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (_isTumbling)
                 return;
 

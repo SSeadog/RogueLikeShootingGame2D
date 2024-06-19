@@ -12,7 +12,7 @@ public class UIBase : MonoBehaviour
         InitImediately();
     }
     
-    void Start()
+    void Aw()
     {
         Init();
     }
